@@ -1,2 +1,3 @@
 @echo off
+echo Starting Agent Monitor Framework...
 python main.py

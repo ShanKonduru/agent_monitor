@@ -1,0 +1,3 @@
+@echo off
+echo Starting Example Agent...
+python example_agent.py
