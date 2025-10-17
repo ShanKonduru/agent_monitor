@@ -140,7 +140,7 @@ class AgentRegistry:
     async def get_all_agents(self) -> List[AgentInfo]:
         """Get list of all registered agents from database"""
         try:
-            async with self.db_manager.get_session() as session:
+            async with self.db_manager.get_async_session() as session:
                 result = await session.execute(select(DBAgent))
                 db_agents = result.scalars().all()
                 return [self._convert_db_agent_to_agent_info(db_agent) for db_agent in db_agents]
@@ -151,7 +151,7 @@ class AgentRegistry:
     async def get_agent(self, agent_id: str) -> Optional[AgentInfo]:
         """Get specific agent by ID from database"""
         try:
-            async with self.db_manager.get_session() as session:
+            async with self.db_manager.get_async_session() as session:
                 result = await session.execute(
                     select(DBAgent).where(DBAgent.id == agent_id)
                 )
