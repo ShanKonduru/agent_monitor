@@ -12,17 +12,22 @@ from ..models import (
     AgentInfo, AgentSummary, AgentMetrics, RegisterResponse,
     AgentStatus, AgentType, DeploymentType
 )
-from ..core import agent_registry as registry_module
 from ..core.metrics_collector import metrics_collector
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
+# Global registry instance - will be set by main.py
+agent_registry = None
+
+def set_agent_registry(registry):
+    """Set the agent registry instance"""
+    global agent_registry
+    agent_registry = registry
 
 def get_agent_registry():
     """Get the current agent registry instance"""
-    agent_registry = registry_module.agent_registry
     if agent_registry is None:
         raise HTTPException(status_code=500, detail="Agent registry not initialized")
     return agent_registry
@@ -157,6 +162,41 @@ async def agent_heartbeat(agent_id: str):
         raise HTTPException(status_code=500, detail="Failed to record heartbeat")
 
 
+@router.post("/{agent_id}/metrics")
+async def submit_agent_metrics(agent_id: str, metrics: AgentMetrics):
+    """Submit metrics from an agent"""
+    try:
+        agent_registry = get_agent_registry()
+        agent = await agent_registry.get_agent(agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agent not found")
+        
+        # Ensure the metrics are for the correct agent
+        if metrics.agent_id != agent_id:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Metrics agent_id '{metrics.agent_id}' does not match URL agent_id '{agent_id}'"
+            )
+        
+        # Store metrics via metrics collector
+        await metrics_collector.receive_metrics(metrics)
+        
+        # Update last_seen timestamp for the agent
+        await agent_registry.record_heartbeat(agent_id)
+        
+        return {
+            "status": "success", 
+            "message": "Metrics received and stored",
+            "timestamp": datetime.utcnow(),
+            "agent_id": agent_id
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to submit metrics for agent {agent_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit agent metrics")
+
+
 @router.get("/{agent_id}/metrics", response_model=AgentMetrics)
 async def get_agent_metrics(agent_id: str):
     """Get metrics for a specific agent"""
@@ -166,9 +206,12 @@ async def get_agent_metrics(agent_id: str):
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
         
-        # Get metrics from metrics collector
-        metrics = await metrics_collector.get_agent_metrics(agent_id)
-        return metrics
+        # Get most recent metrics from metrics collector
+        recent_metrics = await metrics_collector.get_recent_metrics(agent_id, limit=1)
+        if not recent_metrics:
+            raise HTTPException(status_code=404, detail="No metrics found for agent")
+        
+        return recent_metrics[0]
     except HTTPException:
         raise
     except Exception as e:

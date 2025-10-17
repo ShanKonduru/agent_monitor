@@ -8,14 +8,16 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.config import settings
-from src.api.agents import router as agents_router
+from src.api.agents import router as agents_router, set_agent_registry
 from src.api.metrics import router as metrics_router
 from src.api.health import router as health_router
-from src.core.agent_registry import agent_registry
+from src.core.agent_registry import AgentRegistry
 from src.core.metrics_collector import metrics_collector
+from src.database.connection import DatabaseManager
 
 # Configure logging
 logging.basicConfig(
@@ -26,17 +28,32 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+# Global instances
+db_manager = None
+agent_registry = None
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan manager"""
+    global db_manager, agent_registry
+    
     # Startup
     logger.info("Starting Agent Monitor Framework...")
     
     # Initialize components
-    # TODO: Initialize database connections
-    # TODO: Initialize Redis connection
-    # TODO: Initialize InfluxDB connection
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        logger.info("Database manager initialized successfully")
+        
+        agent_registry = AgentRegistry(db_manager)
+        set_agent_registry(agent_registry)
+        logger.info("Agent registry initialized successfully")
+        
+    except Exception as e:
+        logger.error(f"Failed to initialize components: {e}")
+        raise
     
     logger.info("Agent Monitor Framework started successfully")
     
@@ -46,8 +63,8 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Agent Monitor Framework...")
     
     # Cleanup resources
-    # TODO: Close database connections
-    # TODO: Cancel background tasks
+    if db_manager:
+        await db_manager.shutdown()
     
     logger.info("Agent Monitor Framework shut down complete")
 
@@ -74,6 +91,9 @@ app.include_router(agents_router, prefix="/api/v1/agents", tags=["agents"])
 app.include_router(metrics_router, prefix="/api/v1/metrics", tags=["metrics"])
 app.include_router(health_router, prefix="/api/v1/health", tags=["health"])
 
+# Mount static files
+app.mount("/static", StaticFiles(directory="web"), name="static")
+
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
@@ -87,6 +107,7 @@ async def root():
             <h1>Agent Monitor Framework</h1>
             <p>A comprehensive monitoring framework for AI/ML agents</p>
             <ul>
+                <li><a href="/dashboard">🖥️ Agent Monitor Dashboard</a></li>
                 <li><a href="/docs">API Documentation</a></li>
                 <li><a href="/redoc">ReDoc Documentation</a></li>
                 <li><a href="/api/v1/agents">Agents API</a></li>
@@ -96,6 +117,16 @@ async def root():
         </body>
     </html>
     """
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard():
+    """Serve the agent monitoring dashboard"""
+    try:
+        return FileResponse("web/dashboard.html")
+    except Exception as e:
+        logger.error(f"Failed to serve dashboard: {e}")
+        return HTMLResponse("<h1>Dashboard temporarily unavailable</h1>", status_code=500)
 
 
 @app.get("/api/v1/system/status")

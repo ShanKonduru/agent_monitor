@@ -12,21 +12,20 @@ from uuid import UUID, uuid4
 class AgentType(str, Enum):
     """Types of agents that can be monitored"""
     LLM_AGENT = "llm_agent"
-    ML_MODEL = "ml_model"
-    CHATBOT = "chatbot"
+    TASK_AGENT = "task_agent"
     API_AGENT = "api_agent"
-    WORKFLOW_AGENT = "workflow_agent"
+    MONITOR_AGENT = "monitor_agent"
+    DATA_AGENT = "data_agent"
     CUSTOM = "custom"
 
 
 class AgentStatus(str, Enum):
     """Current status of an agent"""
-    ONLINE = "online"
-    OFFLINE = "offline"
-    WARNING = "warning"
-    ERROR = "error"
-    MAINTENANCE = "maintenance"
-    UNKNOWN = "unknown"
+    ONLINE = "ONLINE"
+    OFFLINE = "OFFLINE"
+    ERROR = "ERROR"
+    MAINTENANCE = "MAINTENANCE"
+    UNKNOWN = "UNKNOWN"
 
 
 class DeploymentType(str, Enum):

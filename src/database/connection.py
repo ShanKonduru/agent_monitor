@@ -175,6 +175,12 @@ class DatabaseManager:
         return self.session_factory()
     
     @asynccontextmanager
+    async def get_session(self):
+        """Get database session context manager (alias for get_async_session)"""
+        async with self.get_async_session() as session:
+            yield session
+
+    @asynccontextmanager
     async def get_async_session(self):
         """Get asynchronous database session context manager"""
         if not self.async_session_factory:

@@ -1,5 +1,11 @@
 # Agent Monitor Framework - Architecture Overview
 
+## Related Documentation
+
+- **[Database Architecture](./DATABASE_ARCHITECTURE.md)** - Detailed explanation of Redis, InfluxDB, and PostgreSQL usage
+- **[Data Flow Explanation](./DATA_FLOW_EXPLANATION.md)** - Complete data flow diagrams
+- **[System Block Diagram](./SIMPLE_BLOCK_DIAGRAM.md)** - Simplified system overview
+
 ## System Architecture Diagram
 
 ```mermaid

@@ -14,13 +14,20 @@ A comprehensive monitoring framework for AI/ML agents deployed across multiple D
 
 ## 📋 Architecture
 
-The framework consists of several key components:
+The framework uses a **three-tier database architecture** for optimal performance:
 
+### 🔴 Redis (Hot Storage) - Real-time data, session management, caching
+### 🟠 InfluxDB (Warm Storage) - Historical metrics, time-series analysis  
+### 🟢 PostgreSQL (Cold Storage) - Agent configs, users, system settings
+
+**Key Components:**
 - **Monitoring Core Engine**: Collects and processes agent metrics
 - **Agent Registry**: Manages agent registration and discovery
-- **Data Storage Layer**: PostgreSQL + InfluxDB for configuration and time-series data
+- **Data Storage Layer**: Hot/Warm/Cold storage pattern for scalability
 - **Communication Layer**: Redis message queuing and HTTP/WebSocket APIs
 - **Dashboard**: Real-time web interface for monitoring and alerts
+
+📖 **[Complete Database Architecture Guide](./docs/DATABASE_ARCHITECTURE.md)**
 
 ## 🛠 Installation
 
