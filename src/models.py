@@ -11,12 +11,12 @@ from uuid import UUID, uuid4
 
 class AgentType(str, Enum):
     """Types of agents that can be monitored"""
-    LLM_AGENT = "llm_agent"
-    TASK_AGENT = "task_agent"
-    API_AGENT = "api_agent"
-    MONITOR_AGENT = "monitor_agent"
-    DATA_AGENT = "data_agent"
-    CUSTOM = "custom"
+    LLM_AGENT = "LLM_AGENT"
+    TASK_AGENT = "TASK_AGENT"
+    API_AGENT = "API_AGENT"
+    MONITOR_AGENT = "MONITOR_AGENT"
+    DATA_AGENT = "DATA_AGENT"
+    CUSTOM = "CUSTOM"
 
 
 class AgentStatus(str, Enum):

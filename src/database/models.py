@@ -20,29 +20,30 @@ Base = declarative_base()
 
 class AgentStatus(PyEnum):
     """Agent status enumeration"""
-    ONLINE = "online"
-    OFFLINE = "offline"
-    ERROR = "error"
-    MAINTENANCE = "maintenance"
+    ONLINE = "ONLINE"
+    OFFLINE = "OFFLINE"
+    ERROR = "ERROR"
+    MAINTENANCE = "MAINTENANCE"
+    UNKNOWN = "UNKNOWN"
 
 
 class AgentType(PyEnum):
     """Agent type enumeration"""
-    LLM_AGENT = "llm_agent"
-    TASK_AGENT = "task_agent"
-    API_AGENT = "api_agent"
-    MONITOR_AGENT = "monitor_agent"
-    DATA_AGENT = "data_agent"
-    CUSTOM = "custom"
+    LLM_AGENT = "LLM_AGENT"
+    TASK_AGENT = "TASK_AGENT"
+    API_AGENT = "API_AGENT"
+    MONITOR_AGENT = "MONITOR_AGENT"
+    DATA_AGENT = "DATA_AGENT"
+    CUSTOM = "CUSTOM"
 
 
 class DeploymentType(PyEnum):
     """Deployment type enumeration"""
-    LOCAL = "local"
-    DOCKER = "docker"
-    KUBERNETES = "kubernetes"
-    CLOUD = "cloud"
-    EDGE = "edge"
+    LOCAL = "LOCAL"
+    DOCKER = "DOCKER"
+    KUBERNETES = "KUBERNETES"
+    CLOUD = "CLOUD"
+    EDGE = "EDGE"
 
 
 class UserRole(PyEnum):
