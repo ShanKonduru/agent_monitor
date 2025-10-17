@@ -1,5 +1,5 @@
 """
-Agents API Router - Handles agent registration and management with database persistence.
+Agents API Router - Handles agent registration and management.
 """
 
 import logging
@@ -32,6 +32,7 @@ def get_agent_registry():
 async def register_agent(agent_info: AgentInfo):
     """Register a new agent"""
     try:
+        # Get the current agent registry instance
         agent_registry = get_agent_registry()
         response = await agent_registry.register_agent(agent_info)
         
@@ -78,8 +79,6 @@ async def list_agents(
 ):
     """Get list of all registered agents"""
     try:
-        agent_registry = get_agent_registry()
-        
         # Get all agents
         if environment:
             agents = await agent_registry.get_agents_by_environment(environment)
@@ -109,7 +108,6 @@ async def list_agents(
 async def get_agent(agent_id: str):
     """Get detailed information about a specific agent"""
     try:
-        agent_registry = get_agent_registry()
         agent = await agent_registry.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
@@ -122,10 +120,9 @@ async def get_agent(agent_id: str):
 
 
 @router.put("/{agent_id}/status")
-async def update_agent_status(agent_id: str, status: AgentStatus):
+async def update_agent_status(agent_id: str, status: AgentStatus = Body(...)):
     """Update agent status"""
     try:
-        agent_registry = get_agent_registry()
         agent = await agent_registry.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
@@ -141,52 +138,66 @@ async def update_agent_status(agent_id: str, status: AgentStatus):
 
 @router.post("/{agent_id}/heartbeat")
 async def agent_heartbeat(agent_id: str):
-    """Record agent heartbeat"""
+    """Record heartbeat from agent"""
     try:
-        agent_registry = get_agent_registry()
         success = await agent_registry.record_heartbeat(agent_id)
-        
         if success:
-            return {"status": "success", "message": "Heartbeat recorded", "timestamp": datetime.utcnow()}
+            return {"status": "success", "timestamp": datetime.utcnow()}
         else:
             raise HTTPException(status_code=404, detail="Agent not found")
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Failed to record heartbeat for agent {agent_id}: {e}")
+        logger.error(f"Failed to record heartbeat for {agent_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to record heartbeat")
 
 
-@router.get("/{agent_id}/metrics", response_model=AgentMetrics)
-async def get_agent_metrics(agent_id: str):
-    """Get metrics for a specific agent"""
+@router.post("/{agent_id}/metrics")
+async def receive_agent_metrics(agent_id: str, metrics: AgentMetrics):
+    """Receive metrics from agent"""
     try:
-        agent_registry = get_agent_registry()
+        # Verify agent exists
         agent = await agent_registry.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
         
-        # Get metrics from metrics collector
-        metrics = await metrics_collector.get_agent_metrics(agent_id)
-        return metrics
+        # Ensure agent_id matches
+        metrics.agent_id = agent_id
+        
+        # Process metrics
+        await metrics_collector.receive_metrics(metrics)
+        
+        return {"status": "success", "message": "Metrics received"}
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Failed to get metrics for agent {agent_id}: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get agent metrics")
+        logger.error(f"Failed to receive metrics from {agent_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to receive metrics")
 
 
-@router.get("/{agent_id}/summary", response_model=AgentSummary)
+@router.get("/{agent_id}/summary")
 async def get_agent_summary(agent_id: str):
-    """Get agent summary information"""
+    """Get agent summary with recent metrics"""
     try:
-        agent_registry = get_agent_registry()
+        # Get agent info
         agent = await agent_registry.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
         
+        # Get agent summary
         summary = await agent_registry.get_agent_summary(agent_id)
-        return summary
+        
+        # Get recent metrics
+        recent_metrics = await metrics_collector.get_recent_metrics(agent_id, 5)
+        
+        # Get metrics summary
+        metrics_summary = await metrics_collector.get_metrics_summary(agent_id)
+        
+        return {
+            "agent": summary,
+            "recent_metrics": recent_metrics,
+            "metrics_summary": metrics_summary
+        }
     except HTTPException:
         raise
     except Exception as e:

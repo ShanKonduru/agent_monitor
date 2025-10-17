@@ -17,11 +17,11 @@ from src.config import settings
 from src.api.agents import router as agents_router
 from src.api.metrics import router as metrics_router  
 from src.api.health import router as health_router
-from src.core.agent_registry import agent_registry
+from src.core.agent_registry import agent_registry, AgentRegistry
 from src.core.metrics_collector import metrics_collector
 
 # Import new Phase 2 components
-from src.database.connection import init_database, cleanup_database
+from src.database.connection import init_database, cleanup_database, db_manager
 from src.database.influx_client import influx_client
 
 # Configure logging
@@ -43,11 +43,16 @@ async def lifespan(app: FastAPI):
         await init_database()
         logger.info("Database initialized successfully")
         
+        # Initialize agent registry with database manager
+        import src.core.agent_registry as registry_module
+        registry_module.agent_registry = AgentRegistry(db_manager)
+        logger.info("Agent registry initialized with database persistence")
+        
         # Initialize InfluxDB client
         await influx_client.initialize()
         logger.info("InfluxDB client initialized")
         
-        # Core services are already initialized as singletons
+        # Core services are ready
         logger.info("Core services ready")
         
         logger.info("Agent Monitor Framework Phase 2 started successfully")
