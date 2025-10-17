@@ -8,7 +8,7 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 import os
 
@@ -100,6 +100,17 @@ app.include_router(agents_router, prefix="/api/v1")
 app.include_router(metrics_router, prefix="/api/v1")
 app.include_router(health_router, prefix="/api/v1")
 
+# Serve dashboard
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard():
+    """Serve the agent monitoring dashboard"""
+    try:
+        dashboard_path = os.path.join(os.path.dirname(__file__), "web", "dashboard.html")
+        with open(dashboard_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Dashboard not found")
+
 # Add root endpoint
 @app.get("/", response_class=HTMLResponse)
 async def root():
@@ -129,6 +140,7 @@ async def root():
         <div class="card">
             <h3>🔗 Quick Links</h3>
             <ul>
+                <li><a href="/dashboard" class="link">🎯 Agent Dashboard</a></li>
                 <li><a href="/docs" class="link">📚 API Documentation</a></li>
                 <li><a href="/api/v1/system/status" class="link">📊 System Status</a></li>
                 <li><a href="/api/v1/agents" class="link">🤖 List Agents</a></li>
@@ -152,7 +164,7 @@ async def root():
         <div class="card">
             <h3>📈 Coming Soon</h3>
             <ul>
-                <li>🔲 Web Dashboard Interface</li>
+                <li>✅ <strong>Web Dashboard Interface</strong></li>
                 <li>🔲 Advanced Alerting System</li>
                 <li>🔲 Multi-Agent Orchestration</li>
                 <li>🔲 User Authentication & RBAC</li>
