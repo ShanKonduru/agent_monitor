@@ -1,93 +1,178 @@
-# Agent Monitor Framework
+# 🐳 Agent Monitor Framework - Containerized Edition
 
-A comprehensive monitoring framework for AI/ML agents deployed across multiple Docker containers or local instances, providing real-time performance tracking and dashboard visualization.
+A production-ready containerized monitoring framework for AI/ML agents with unified database architecture, real-time dashboard, and Docker deployment capabilities.
+
+## 🎉 **Currently Running**
+
+✅ **5 Containerized Agents** actively processing workloads  
+✅ **Unified Database** with persistent storage  
+✅ **Real-time Dashboard** at http://localhost:8000  
+✅ **Docker Production Deployment** with health monitoring  
+✅ **Agent Registry** with automatic discovery  
 
 ## 🚀 Features
 
-- **Multi-Deployment Support**: Monitor agents across Docker, Kubernetes, local instances, and cloud deployments
-- **Comprehensive Metrics**: 50+ performance parameters including system resources, business logic, and AI-specific metrics
-- **Real-time Dashboard**: Web-based interface with live updates and visualizations
-- **Scalable Architecture**: Built with FastAPI, PostgreSQL, InfluxDB, and Redis
-- **Agent Client Library**: Easy-to-use Python client for agent integration
-- **Health Monitoring**: Automated health checks and alerting system
-- **Historical Analysis**: Time-series data storage and trend analysis
+### 🐳 **Container-First Architecture**
+- **Docker Production Deployment**: Full containerized stack with Docker Compose
+- **Container Health Monitoring**: Real-time container status and resource tracking
+- **Network Isolation**: Secure inter-container communication via Docker networks
+- **Persistent Storage**: Unified database with Docker volume mounting
+- **Auto-Restart Policies**: Resilient container management with automatic recovery
 
-## 📋 Architecture
+### 🗄️ **Unified Database System**
+- **PostgreSQL Production**: Scalable PostgreSQL database with persistent storage
+- **Unified Architecture**: All agent data centralized in production-grade database
+- **Data Persistence**: Agent registrations and metrics survive container restarts
+- **High Availability**: Connection pooling and health checks for reliability
+- **Backup Ready**: Volume-based backup and recovery system
 
-The framework uses a **three-tier database architecture** for optimal performance:
+### � **Real-time Monitoring**
+- **Live Agent Dashboard**: 5 containerized agents with real-time status updates
+- **Workload Processing**: LLM, API, Data, Monitor, and ML agent types
+- **Health Checks**: Container-level and application-level health monitoring
+- **Performance Metrics**: Resource usage, task completion, and response times
+- **Registration Tracking**: Automatic agent discovery and registration status
 
-### 🔴 Redis (Hot Storage) - Real-time data, session management, caching
-### 🟠 InfluxDB (Warm Storage) - Historical metrics, time-series analysis  
-### 🟢 PostgreSQL (Cold Storage) - Agent configs, users, system settings
+### 🤖 **Multi-Agent Support**
+- **LLM Agent**: Language model processing with simulated workloads
+- **API Agent**: RESTful API request handling and response management
+- **Data Agent**: Data processing and analysis task execution
+- **Monitor Agent**: System monitoring and health check operations
+- **ML Agent**: Machine learning model inference and training tasks
 
-**Key Components:**
-- **Monitoring Core Engine**: Collects and processes agent metrics
-- **Agent Registry**: Manages agent registration and discovery
-- **Data Storage Layer**: Hot/Warm/Cold storage pattern for scalability
-- **Communication Layer**: Redis message queuing and HTTP/WebSocket APIs
-- **Dashboard**: Real-time web interface for monitoring and alerts
+## 📋 Current Architecture
 
-📖 **[Complete Database Architecture Guide](./docs/DATABASE_ARCHITECTURE.md)**
+### 🐳 **Containerized Deployment**
+```
+🌐 Docker Desktop
+├── 🖥️  Monitor Dashboard (Port 8000)
+├── 🤖 Container Agent 1 (LLM)
+├── 🔌 Container Agent 2 (API) 
+├── 📊 Container Agent 3 (Data)
+├── 📈 Container Agent 4 (Monitor)
+├── 🧠 Container Agent 5 (ML)
+├── � PostgreSQL Database (Production)
+└── 🌐 agent_monitor_agent-network
+```
 
-## 🛠 Installation
+### 🗄️ **Database Architecture**
+- **Production**: PostgreSQL 15 with persistent Docker volume (`postgres_data`)
+- **Location**: Dedicated PostgreSQL container with health checks
+- **Connection**: `postgresql://monitor_user:secure_monitor_pass@postgres:5432/agent_monitor`
+- **Connection**: `sqlite+aiosqlite:///./data/agent_monitor.db`
 
-### Prerequisites
+📖 **[Unified Database Architecture Guide](./docs/UNIFIED_DATABASE_ARCHITECTURE.md)**
 
-- Python 3.11+
-- Docker & Docker Compose (for containerized deployment)
-- PostgreSQL, Redis, InfluxDB (for local development)
+## � Quick Start
 
-### Quick Start with Docker
+### 🐳 **Docker Production Deployment (Recommended)**
 
-1. **Clone and setup:**
+**Prerequisites:** Docker Desktop installed and running
+
+1. **Clone the repository:**
    ```bash
-   git clone <repository>
+   git clone https://github.com/ShanKonduru/agent_monitor
    cd agent_monitor
    ```
 
-2. **Start with Docker Compose:**
+2. **Deploy containerized system:**
    ```bash
-   # Windows
-   007_run_docker.bat
+   # Start production deployment with 5 containerized agents
+   .\start_docker_production.bat
    
-   # Linux/Mac
-   cd docker && docker-compose up -d
+   # Or manually with Docker Compose
+   docker-compose -f docker-compose.production.yml up -d
    ```
 
-3. **Access the system:**
-   - Monitor API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
-   - Grafana Dashboard: http://localhost:3000 (admin/admin)
+3. **Access your system:**
+   - 📊 **Dashboard**: http://localhost:8000
+   - 📋 **API Docs**: http://localhost:8000/docs  
+   - 🤖 **Agent Status**: http://localhost:8000/api/v1/agents/
+   - 🗄️ **Database**: Persistent Docker volume storage
 
-### Local Development Setup
+### 🗄️ **Database Configuration**
+
+#### **PostgreSQL Production Database** ✅
+```bash
+# Production database with persistent storage
+# Data persists in Docker volume: postgres_data
+docker volume inspect postgres_data
+
+# Database health check
+docker exec agent_monitor_postgres pg_isready -U monitor_user -d agent_monitor
+```
+
+#### **Database Management**
+```bash
+# View database logs
+docker logs agent_monitor_postgres
+
+# Manual database deployment
+docker-compose -f docker-compose.production.yml up postgres -d
+```
+
+### 💻 **Local Development Setup**
 
 1. **Initialize environment:**
    ```bash
-   000_init.bat    # Initialize git
-   001_env.bat     # Create virtual environment
-   002_activate.bat # Activate environment
-   003_setup.bat   # Install dependencies
+   000_init.bat    # Initialize git repository
+   001_env.bat     # Create virtual environment  
+   002_activate.bat # Activate Python environment
+   003_setup.bat   # Install all dependencies
    ```
 
-2. **Configure environment:**
+2. **Start local development:**
    ```bash
-   cp .env.example .env
-   # Edit .env with your database configurations
+   004_run.bat     # Start monitor server + dashboard + agents
    ```
 
-3. **Start the monitoring service:**
+3. **Run individual components:**
    ```bash
-   004_run.bat
-   ```
-
-4. **Run example agent:**
-   ```bash
+   # Monitor server only
+   python main.py
+   
+   # Example agents
    006_run_example_agent.bat
+   
+   # Test suite
+   005_run_test.bat
    ```
 
-## 🎯 Quick Agent Integration
+## 🎯 Container Management
 
-### Basic Agent Setup
+### **Current Deployment Status**
+
+```bash
+# Check running containers
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# View container logs
+docker-compose -f docker-compose.production.yml logs
+
+# Restart specific agent
+docker restart agent_monitor-container-agent-1-1
+
+# Scale agents (add more containers)
+docker-compose -f docker-compose.production.yml up -d --scale container-agent-1=3
+```
+
+### **Database Management**
+
+```bash
+# Check database volume
+docker volume inspect agent_monitor_agent_data
+
+# Backup database
+docker run --rm -v agent_monitor_agent_data:/data -v ./backup:/backup alpine cp /data/agent_monitor.db /backup/
+
+# View database inside container
+docker exec agent_monitor-monitor-dashboard-1 ls -la /app/data/
+
+# Database health check
+curl http://localhost:8000/api/v1/agents/
+```
+
+### **Agent Integration Example**
 
 ```python
 import asyncio
@@ -95,78 +180,61 @@ from src.agents.client import AgentMonitorClient, AgentConfig
 from src.models import AgentType, DeploymentType
 
 async def main():
-    # Configure your agent
+    # Configure containerized agent
     config = AgentConfig(
-        monitor_url="http://localhost:8000",
-        agent_name="My AI Agent",
+        monitor_url="http://monitor-dashboard:8000",  # Docker network URL
+        agent_name="My Containerized Agent",
         agent_type=AgentType.LLM_AGENT,
+        deployment_type=DeploymentType.DOCKER,
         environment="production"
     )
     
     # Create and start monitoring
     async with AgentMonitorClient(config) as client:
-        # Your agent logic here
         while True:
-            # Simulate work
-            await simulate_agent_work()
+            # Simulate containerized workload
+            await process_container_task()
             
-            # Record metrics
+            # Record metrics to unified database
             client.record_task_completed(response_time_ms=250)
-            
             await asyncio.sleep(1)
 
 if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### Advanced Agent with Custom Metrics
+## 📊 Monitored Agent Types & Metrics
 
-```python
-from src.agents.client import AgentMonitorClient, AgentConfig
+### 🤖 **Currently Running Agents**
 
-# Create client
-client = AgentMonitorClient(config)
-await client.register()
-await client.start_monitoring()
+| Agent Type | Container | Workload | Status |
+|------------|-----------|----------|---------|
+| 🧠 **LLM Agent** | `container-agent-1` | Language model processing | ✅ Active |
+| 🔌 **API Agent** | `container-agent-2` | REST API request handling | ✅ Active |
+| 📊 **Data Agent** | `container-agent-3` | Data analysis & processing | ✅ Active |
+| 📈 **Monitor Agent** | `container-agent-4` | System health monitoring | ✅ Active |
+| 🧠 **ML Agent** | `container-agent-5` | Machine learning inference | ✅ Active |
 
-# Register custom metrics
-def get_model_accuracy():
-    return 0.95  # Your accuracy calculation
+### � **Container Metrics**
+- **Container Health**: CPU, memory, network usage per container
+- **Registration Status**: Agent discovery and connection tracking
+- **Workload Processing**: Task completion rates by agent type
+- **Network Communication**: Inter-container API call latency
+- **Database Operations**: Unified database read/write performance
 
-def get_token_count():
-    return 1500  # Current token count
+### 🔧 **Performance Monitoring**
+- **Response Times**: Real-time API response measurements
+- **Task Throughput**: Completed tasks per second by agent
+- **Error Tracking**: Failed registrations and processing errors
+- **Resource Usage**: Container resource consumption patterns
+- **Health Checks**: Automated container and application health verification
 
-client.register_custom_metric("model_accuracy", get_model_accuracy)
-client.register_custom_metric("token_count", get_token_count)
-
-# Record business events
-client.record_task_completed(response_time_ms=150)
-client.record_task_failed()
-client.set_pending_tasks(5)
-```
-
-## 📊 Monitored Parameters
-
-### System Resources
-- CPU usage percentage
-- Memory usage (bytes & percentage)
-- Disk I/O (read/write operations)
-- Network I/O (inbound/outbound traffic)
-- GPU usage (if applicable)
-
-### Performance Metrics
-- Task completion rate
-- Average response time
-- Throughput (tasks per second)
-- Error rate and success rate
-- Queue length and pending tasks
-
-### AI/ML Specific Metrics
-- Model inference time
-- Model accuracy/confidence scores
-- Token processing rate (for LLMs)
-- Context window utilization
-- API call latency
+### 🗄️ **Database Metrics**
+- **Connection Pool**: Database connection utilization
+- **Query Performance**: SQL query execution times
+- **Storage Usage**: Database file size and growth tracking
+- **Data Persistence**: Volume mount and backup status
+- **Migration Readiness**: PostgreSQL transition monitoring
 
 ### Health & Status
 - Agent availability and uptime
@@ -215,75 +283,133 @@ pytest -m performance # Performance tests
 - **Performance Tests**: High-volume and scalability testing
 - **Edge Case Tests**: Boundary condition testing
 
-## 🔒 Security Features
+## 🔒 Container Security
 
-- JWT-based authentication for agent registration
-- API rate limiting and request validation
-- Secure communication protocols
-- Environment-based configuration management
-- Input validation and sanitization
+### **Network Isolation**
+- **Docker Networks**: Isolated `agent_monitor_agent-network` for secure communication
+- **Port Exposure**: Only dashboard port (8000) exposed to host
+- **Internal Communication**: Container-to-container via Docker DNS
+- **No External Access**: Database and agent containers isolated from external network
 
-## 📈 Scalability
+### **Data Security**
+- **Volume Encryption**: Docker volumes with optional encryption
+- **Environment Variables**: Secure configuration management via Docker secrets
+- **Non-Root Users**: Containers run with dedicated `agent` user (non-root)
+- **Read-Only Filesystems**: Application files mounted read-only where possible
 
-The framework is designed for horizontal scaling:
+## 📈 Container Scalability
 
-- **Load Balancing**: Multiple monitor instances
-- **Database Clustering**: PostgreSQL and Redis clustering
-- **Data Partitioning**: Time-based and agent-based sharding
-- **Caching Strategy**: Multi-level caching with Redis
-- **Message Queuing**: Async processing with Celery
+### **Horizontal Scaling**
+```bash
+# Scale specific agent types
+docker-compose -f docker-compose.production.yml up -d --scale container-agent-1=3
+
+# Add new agent types
+docker-compose -f docker-compose.production.yml up -d new-agent-type
+
+# Load balancing with nginx (future enhancement)
+docker-compose -f docker-compose.production.yml -f docker-compose.loadbalancer.yml up -d
+```
+
+### **Resource Management**
+- **Container Limits**: CPU and memory limits per container
+- **Health Checks**: Automatic container restart on failure
+- **Volume Management**: Persistent storage with backup capabilities
+- **Database Scaling**: Ready for PostgreSQL clustering when needed
 
 ## 🛠 Development Tools
 
-### Batch File Commands (Windows)
+## 🛠 Management Commands
+
+### **Container Operations**
+```bash
+# View all running containers
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# Stop all containers
+docker-compose -f docker-compose.production.yml down
+
+# Restart with latest changes
+docker-compose -f docker-compose.production.yml up -d --build
+
+# View real-time logs
+docker-compose -f docker-compose.production.yml logs -f
+```
+
+### **Development Scripts (Windows)**
+- `start_docker_production.bat` - Deploy production containers
+- `deploy_postgresql.bat` - Deploy with PostgreSQL database  
 - `000_init.bat` - Initialize git repository
 - `001_env.bat` - Create virtual environment
 - `002_activate.bat` - Activate environment
 - `003_setup.bat` - Install dependencies
-- `004_run.bat` - Start monitoring service
+- `004_run.bat` - Start local development
 - `005_run_test.bat` - Run test suite
-- `005_run_code_cov.bat` - Run with coverage
 - `006_run_example_agent.bat` - Start example agent
-- `007_run_docker.bat` - Start with Docker
-- `008_deactivate.bat` - Deactivate environment
 
-### Project Structure
-```
-agent_monitor/
-├── src/                    # Source code
-│   ├── core/              # Core monitoring engine
-│   ├── api/               # REST API endpoints
-│   ├── agents/            # Agent client library
-│   ├── storage/           # Data storage abstractions
-│   └── utils/             # Utility functions
-├── tests/                 # Test suite
-├── docker/                # Docker configurations
-├── web/                   # Frontend dashboard (future)
-├── docs/                  # Documentation
-└── scripts/               # Deployment scripts
+## 📁 Container Architecture
+
+```text
+🐳 Docker Desktop
+├── 📊 agent_monitor-monitor-dashboard-1    (Port 8000)
+├── 🤖 agent_monitor-container-agent-1-1    (LLM Agent)
+├── 🔌 agent_monitor-container-agent-2-1    (API Agent)
+├── 📊 agent_monitor-container-agent-3-1    (Data Agent)
+├── 📈 agent_monitor-container-agent-4-1    (Monitor Agent)
+├── 🧠 agent_monitor-container-agent-5-1    (ML Agent)
+├── 🗄️ agent_monitor_agent_data            (Database Volume)
+└── 🌐 agent_monitor_agent-network         (Docker Network)
 ```
 
 ## 📚 Documentation
 
-- [Architecture Design](ARCHITECTURE.md) - System architecture and design decisions
-- [Implementation Plan](IMPLEMENTATION_PLAN.md) - Development roadmap and phases
-- [Data Models](DATA_MODELS.md) - Complete data schema documentation
-- [API Documentation](http://localhost:8000/docs) - Interactive API docs (when running)
+### **Container & Database Guides**
+- 📖 [Unified Database Architecture](./docs/UNIFIED_DATABASE_ARCHITECTURE.md) - Complete database setup and management
+- 🐳 [Docker Deployment Guide](./docs/DOCKER_BUILD_STATUS.md) - Container deployment status and troubleshooting
+- 🏗️ [System Architecture](./docs/SYSTEM_ARCHITECTURE.md) - Overall system design and components
+
+### **Development Resources**
+- 📋 [Implementation Plan](./docs/IMPLEMENTATION_PLAN.md) - Development roadmap and phases
+- 📊 [Data Models](./docs/DATA_MODELS.md) - Database schema and models
+- 🔧 [API Documentation](http://localhost:8000/docs) - Interactive API documentation (when running)
+- 📈 [Metrics Guide](./docs/METRICS_IMPLEMENTATION_GUIDE.md) - Monitoring and metrics implementation
+
+## 🎯 **Current Status**
+
+✅ **Production Ready**: 5 containerized agents running in Docker Desktop  
+✅ **PostgreSQL Database**: Production-grade database with persistent storage  
+✅ **Real-time Dashboard**: Live monitoring at http://localhost:8000  
+✅ **Agent Registry**: Automatic agent discovery and registration  
+✅ **Health Monitoring**: Container and application health checks  
+✅ **Scalable Architecture**: Enterprise-ready database and container orchestration  
+
+## 🚀 **Quick Access**
+
+- **🖥️ Dashboard**: http://localhost:8000
+- **📋 API Docs**: http://localhost:8000/docs  
+- **🤖 Agent Status**: http://localhost:8000/api/v1/agents/
+- **📊 Metrics**: Real-time performance data
+- **🗄️ Database**: Persistent Docker volume storage
 
 ## 🤝 Contributing
 
-1. Fork the repository
+1. Fork the repository  
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Run the test suite (`005_run_test.bat`)
-6. Commit your changes (`git commit -m 'Add amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request
+3. Test with containers: `docker-compose -f docker-compose.production.yml up -d`
+4. Run the test suite: `005_run_test.bat`
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🎉 **Ready to Monitor Your Agents!**
+
+Your containerized Agent Monitor Framework is deployed and ready for production use. Access the dashboard at **http://localhost:8000** to see your 5 active agents in real-time!
 
 ## 🆘 Support
 

@@ -47,6 +47,10 @@ async def lifespan(app: FastAPI):
         await db_manager.initialize()
         logger.info("Database manager initialized successfully")
         
+        # Create database tables
+        await db_manager.create_tables()
+        logger.info("Database tables created successfully")
+        
         agent_registry = AgentRegistry(db_manager)
         set_agent_registry(agent_registry)
         logger.info("Agent registry initialized successfully")

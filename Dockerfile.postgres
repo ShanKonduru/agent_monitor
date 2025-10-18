@@ -1,0 +1,36 @@
+# PostgreSQL container based on local Alpine image
+FROM alpine:latest
+
+# Install PostgreSQL
+RUN apk add --no-cache postgresql postgresql-contrib postgresql-client
+
+# Set environment variables
+ENV POSTGRES_DB=agent_monitor
+ENV POSTGRES_USER=agent_monitor
+ENV POSTGRES_PASSWORD=agent_monitor_password
+ENV PGDATA=/var/lib/postgresql/data
+
+# Create data directory and set permissions (postgres user already exists from package)
+RUN mkdir -p /var/lib/postgresql/data && \
+    mkdir -p /run/postgresql && \
+    chown -R postgres:postgres /var/lib/postgresql && \
+    chown -R postgres:postgres /run/postgresql
+
+# Initialize PostgreSQL database
+USER postgres
+RUN initdb -D /var/lib/postgresql/data --auth-host=md5 --auth-local=trust && \
+    echo "host all all 0.0.0.0/0 md5" >> /var/lib/postgresql/data/pg_hba.conf && \
+    echo "listen_addresses='*'" >> /var/lib/postgresql/data/postgresql.conf
+
+# Start PostgreSQL temporarily to create user and database
+RUN pg_ctl -D /var/lib/postgresql/data start && \
+    sleep 5 && \
+    psql --command "CREATE USER agent_monitor WITH SUPERUSER PASSWORD 'agent_monitor_password';" && \
+    createdb -O agent_monitor agent_monitor && \
+    pg_ctl -D /var/lib/postgresql/data stop
+
+# Expose PostgreSQL port
+EXPOSE 5432
+
+# Start PostgreSQL
+CMD ["postgres", "-D", "/var/lib/postgresql/data"]

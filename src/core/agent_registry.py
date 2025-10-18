@@ -56,7 +56,16 @@ class AgentRegistry:
                 # Add tags if provided
                 if hasattr(agent_info, 'tags') and agent_info.tags:
                     for tag in agent_info.tags:
-                        db_tag = AgentTag(agent_id=agent_info.id, tag=tag)
+                        # Handle both string tags and key-value pairs
+                        if isinstance(tag, str):
+                            db_tag = AgentTag(agent_id=agent_info.id, tag_name=tag, tag_value=None)
+                        elif isinstance(tag, dict):
+                            for key, value in tag.items():
+                                db_tag = AgentTag(agent_id=agent_info.id, tag_name=key, tag_value=str(value))
+                                session.add(db_tag)
+                            continue
+                        else:
+                            db_tag = AgentTag(agent_id=agent_info.id, tag_name=str(tag), tag_value=None)
                         session.add(db_tag)
                 
                 await session.commit()

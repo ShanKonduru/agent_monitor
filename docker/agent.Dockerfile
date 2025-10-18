@@ -20,8 +20,9 @@ COPY src/ ./src/
 COPY web/ ./web/
 COPY *.py ./
 
-# Create non-root user
+# Create non-root user and data directory
 RUN useradd --create-home --shell /bin/bash agent && \
+    mkdir -p /app/data && \
     chown -R agent:agent /app
 USER agent
 

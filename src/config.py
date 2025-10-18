@@ -16,7 +16,7 @@ class DatabaseConfig(BaseModel):
     postgres_url: str = Field(
         default_factory=lambda: os.getenv(
             "DATABASE_URL", 
-            "sqlite+aiosqlite:///./agent_monitor.db"  # Default to SQLite for development
+            "postgresql://monitor_user:secure_monitor_pass@postgres:5432/agent_monitor"
         )
     )
     influxdb_url: str = Field(
