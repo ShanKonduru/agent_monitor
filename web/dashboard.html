@@ -80,10 +80,765 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+                const { useState, useEffect, useRef } = React;
+
+        // Chart component for CPU usage
+        const CPUChart = ({ agentId, cpuUsage }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate mock historical data
+                    const hours = [];
+                    const cpuData = [];
+                    const now = new Date();
+                    
+                    for (let i = 23; i >= 0; i--) {
+                        const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                        hours.push(time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+                        // Generate realistic CPU data around current usage
+                        const variation = (Math.random() - 0.5) * 20;
+                        cpuData.push(Math.max(0, Math.min(100, cpuUsage + variation)));
+                    }
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: hours,
+                            datasets: [{
+                                label: 'CPU Usage (%)',
+                                data: cpuData,
+                                borderColor: 'rgb(59, 130, 246)',
+                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    display: true,
+                                    ticks: {
+                                        maxTicksLimit: 6
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agentId, cpuUsage]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '128px' } });
+        };
+
+        // Chart component for Response Time
+        const ResponseTimeChart = ({ agentId, responseTime }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate mock historical data
+                    const hours = [];
+                    const responseData = [];
+                    const now = new Date();
+                    
+                    for (let i = 23; i >= 0; i--) {
+                        const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                        hours.push(time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+                        // Generate realistic response time data around current value
+                        const variation = (Math.random() - 0.5) * 50;
+                        responseData.push(Math.max(10, responseTime + variation));
+                    }
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: hours,
+                            datasets: [{
+                                label: 'Response Time (ms)',
+                                data: responseData,
+                                backgroundColor: 'rgba(147, 51, 234, 0.6)',
+                                borderColor: 'rgb(147, 51, 234)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + 'ms';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    display: true,
+                                    ticks: {
+                                        maxTicksLimit: 6
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agentId, responseTime]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '128px' } });
+        };
+
+        // Chart component for Memory Usage
+        const MemoryChart = ({ agentId, memoryUsage }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate mock historical data
+                    const hours = [];
+                    const memoryData = [];
+                    const now = new Date();
+                    
+                    for (let i = 23; i >= 0; i--) {
+                        const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                        hours.push(time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+                        // Generate realistic memory data around current usage
+                        const variation = (Math.random() - 0.5) * 15;
+                        memoryData.push(Math.max(0, Math.min(100, memoryUsage + variation)));
+                    }
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: hours,
+                            datasets: [{
+                                label: 'Memory Usage (%)',
+                                data: memoryData,
+                                borderColor: 'rgb(34, 197, 94)',
+                                backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    display: true,
+                                    ticks: {
+                                        maxTicksLimit: 6
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agentId, memoryUsage]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '128px' } });
+        };
+
+        // Overview Chart Component - Shows system-wide performance
+        const OverviewChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Prepare data for all agents
+                    const agentNames = agents.map(agent => agent.name.length > 12 ? agent.name.substring(0, 12) + '...' : agent.name);
+                    const cpuData = agents.map(agent => agent.cpu_usage);
+                    const memoryData = agents.map(agent => agent.memory_usage);
+                    const responseTimeData = agents.map(agent => agent.response_time);
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: agentNames,
+                            datasets: [
+                                {
+                                    label: 'CPU Usage (%)',
+                                    data: cpuData,
+                                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                                    borderColor: 'rgb(59, 130, 246)',
+                                    borderWidth: 1,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Memory Usage (%)',
+                                    data: memoryData,
+                                    backgroundColor: 'rgba(34, 197, 94, 0.6)',
+                                    borderColor: 'rgb(34, 197, 94)',
+                                    borderWidth: 1,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Response Time (ms)',
+                                    data: responseTimeData,
+                                    type: 'line',
+                                    backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                                    borderColor: 'rgb(147, 51, 234)',
+                                    borderWidth: 2,
+                                    fill: false,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Agent Performance Comparison',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'top',
+                                    labels: {
+                                        usePointStyle: true,
+                                        padding: 15
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    display: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Agents'
+                                    }
+                                },
+                                y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    title: {
+                                        display: true,
+                                        text: 'CPU/Memory (%)'
+                                    },
+                                    min: 0,
+                                    max: 100
+                                },
+                                y1: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    title: {
+                                        display: true,
+                                        text: 'Response Time (ms)'
+                                    },
+                                    grid: {
+                                        drawOnChartArea: false,
+                                    },
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '280px', width: '100%' } });
+        };
+
+        // Mini Sparkline Chart Component for Overview Cards  
+        const SparklineChart = ({ data, color, type = 'line' }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && data && data.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: type,
+                        data: {
+                            labels: data.map((_, i) => i + 1),
+                            datasets: [{
+                                data: data,
+                                borderColor: color,
+                                backgroundColor: type === 'line' ? 'transparent' : color + '40',
+                                borderWidth: 2,
+                                fill: false,
+                                pointRadius: 0,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    display: false
+                                },
+                                y: {
+                                    display: false
+                                }
+                            },
+                            elements: {
+                                point: {
+                                    radius: 0
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [data, color, type]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '40px', width: '80px' } });
+        };
+
+        // System-wide CPU Usage Chart
+        const SystemCPUChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate 24-hour system-wide CPU data
+                    const hours = [];
+                    const avgCpuData = [];
+                    const maxCpuData = [];
+                    const minCpuData = [];
+                    const now = new Date();
+                    
+                    for (let i = 23; i >= 0; i--) {
+                        const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                        hours.push(time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+                        
+                        const avgCpu = agents.reduce((sum, agent) => sum + agent.cpu_usage, 0) / agents.length;
+                        const variation = (Math.random() - 0.5) * 15;
+                        
+                        avgCpuData.push(Math.max(0, Math.min(100, avgCpu + variation)));
+                        maxCpuData.push(Math.min(100, avgCpu + variation + 10 + Math.random() * 10));
+                        minCpuData.push(Math.max(0, avgCpu + variation - 10 - Math.random() * 10));
+                    }
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: hours,
+                            datasets: [
+                                {
+                                    label: 'Average CPU',
+                                    data: avgCpuData,
+                                    borderColor: 'rgb(59, 130, 246)',
+                                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                    borderWidth: 3,
+                                    fill: true,
+                                    tension: 0.4
+                                },
+                                {
+                                    label: 'Max CPU',
+                                    data: maxCpuData,
+                                    borderColor: 'rgb(239, 68, 68)',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                    borderWidth: 2,
+                                    fill: false,
+                                    tension: 0.4
+                                },
+                                {
+                                    label: 'Min CPU',
+                                    data: minCpuData,
+                                    borderColor: 'rgb(34, 197, 94)',
+                                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                    borderWidth: 2,
+                                    fill: false,
+                                    tension: 0.4
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'System CPU Usage Trends',
+                                    font: { size: 16, weight: 'bold' }
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'top'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'CPU Usage (%)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Time'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
+
+        // System-wide Memory Usage Chart
+        const SystemMemoryChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate memory usage by agent
+                    const agentNames = agents.map(agent => agent.name);
+                    const memoryUsage = agents.map(agent => agent.memory_usage);
+                    const colors = [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(34, 197, 94, 0.8)',
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(147, 51, 234, 0.8)'
+                    ];
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: agentNames,
+                            datasets: [{
+                                data: memoryUsage,
+                                backgroundColor: colors.slice(0, agents.length),
+                                borderColor: colors.slice(0, agents.length).map(color => color.replace('0.8', '1')),
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Memory Usage Distribution',
+                                    font: { size: 16, weight: 'bold' }
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'right'
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
+
+        // System Response Time Chart
+        const SystemResponseTimeChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate response time data over time
+                    const hours = [];
+                    const responseTimeData = [];
+                    const now = new Date();
+                    
+                    for (let i = 11; i >= 0; i--) {
+                        const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                        hours.push(time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+                        
+                        const avgResponseTime = agents.reduce((sum, agent) => sum + agent.response_time, 0) / agents.length;
+                        const variation = (Math.random() - 0.5) * 50;
+                        responseTimeData.push(Math.max(10, avgResponseTime + variation));
+                    }
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: hours,
+                            datasets: [{
+                                label: 'Avg Response Time (ms)',
+                                data: responseTimeData,
+                                backgroundColor: 'rgba(147, 51, 234, 0.6)',
+                                borderColor: 'rgb(147, 51, 234)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'System Response Time Trends',
+                                    font: { size: 16, weight: 'bold' }
+                                },
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + 'ms';
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Response Time (ms)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Time (Last 12 Hours)'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
+
+        // System Error Rate Chart
+        const SystemErrorRateChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Generate error rate data by agent
+                    const agentNames = agents.map(agent => agent.name);
+                    const errorRates = agents.map(agent => (agent.error_rate * 100).toFixed(2));
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: agentNames,
+                            datasets: [{
+                                label: 'Error Rate (%)',
+                                data: errorRates,
+                                borderColor: 'rgb(239, 68, 68)',
+                                backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                                borderWidth: 2,
+                                pointBackgroundColor: 'rgb(239, 68, 68)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(239, 68, 68)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Agent Error Rate Comparison',
+                                    font: { size: 16, weight: 'bold' }
+                                },
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: Math.max(5, Math.max(...errorRates)),
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
 
         // API Configuration
-        const API_BASE_URL = 'http://localhost:8000/api/v1';
+        const API_BASE_URL = 'http://localhost:8001/api/v1';
 
         // Main Dashboard Component
         const Dashboard = () => {
@@ -91,6 +846,15 @@
             const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
             const [agents, setAgents] = useState([]);
             const [selectedAgent, setSelectedAgent] = useState(null);
+            const [showAddAgentModal, setShowAddAgentModal] = useState(false);
+            const [newAgent, setNewAgent] = useState({
+                name: '',
+                type: 'monitoring',
+                environment: 'development',
+                host: '',
+                port: '',
+                description: ''
+            });
             const [systemStats, setSystemStats] = useState({
                 totalAgents: 0,
                 onlineAgents: 0,
@@ -102,6 +866,19 @@
                 totalRequests: 0
             });
             const [alerts, setAlerts] = useState([]);
+            const [showAddAlertModal, setShowAddAlertModal] = useState(false);
+            const [alertRules, setAlertRules] = useState([]);
+            const [newAlertRule, setNewAlertRule] = useState({
+                name: '',
+                metric: 'cpu_usage',
+                condition: 'greater_than',
+                threshold: '',
+                target: 'all_agents',
+                targetAgent: '',
+                severity: 'warning',
+                description: '',
+                enabled: true
+            });
             const [metrics, setMetrics] = useState({
                 cpuUsage: [],
                 memoryUsage: [],
@@ -113,7 +890,7 @@
             const [lastUpdate, setLastUpdate] = useState(new Date());
 
             // API Configuration
-            const API_BASE_URL = 'http://localhost:8000/api/v1';
+            const API_BASE_URL = 'http://localhost:8001/api/v1';
 
             // Fetch agents from API
             const fetchAgents = async () => {
@@ -166,19 +943,260 @@
                 }
             };
 
+            // Handle adding new agent
+            const handleAddAgent = async () => {
+                try {
+                    // Generate a unique ID for the new agent
+                    const newId = `agent-${Date.now()}`;
+                    
+                    // Create the new agent object with default values
+                    const agentData = {
+                        id: newId,
+                        name: newAgent.name || `New Agent ${agents.length + 1}`,
+                        type: newAgent.type,
+                        environment: newAgent.environment,
+                        host: newAgent.host || 'localhost',
+                        port: newAgent.port || '8080',
+                        description: newAgent.description || 'Newly created agent',
+                        status: 'OFFLINE',
+                        last_heartbeat: new Date().toISOString(),
+                        version: '1.0.0',
+                        // Add mock performance metrics
+                        cpu_usage: Math.floor(Math.random() * 30) + 10,
+                        memory_usage: Math.floor(Math.random() * 40) + 20,
+                        response_time: Math.floor(Math.random() * 100) + 50,
+                        requests_per_minute: Math.floor(Math.random() * 500) + 100,
+                        error_rate: Math.random() * 0.05,
+                        health_score: Math.random() * 0.3 + 0.7
+                    };
+
+                    // In a real application, this would be a POST request to create the agent
+                    // For now, we'll just add it to the local state
+                    console.log('Creating new agent:', agentData);
+                    
+                    // Add the new agent to the current agents list
+                    const updatedAgents = [...agents, agentData];
+                    setAgents(updatedAgents);
+                    
+                    // Close the modal and reset the form
+                    setShowAddAgentModal(false);
+                    setNewAgent({
+                        name: '',
+                        type: 'monitoring',
+                        environment: 'development',
+                        host: '',
+                        port: '',
+                        description: ''
+                    });
+                    
+                    // Show success message (you could add a toast notification here)
+                    console.log(`Agent "${agentData.name}" created successfully!`);
+                    
+                } catch (error) {
+                    console.error('Failed to create agent:', error);
+                    // Show error message (you could add error handling UI here)
+                }
+            };
+
+            // Handle form input changes
+            const handleInputChange = (field, value) => {
+                setNewAgent(prev => ({
+                    ...prev,
+                    [field]: value
+                }));
+            };
+
+            // Handle alert rule creation
+            const handleAddAlertRule = async () => {
+                try {
+                    // Generate a unique ID for the new alert rule
+                    const ruleId = `rule-${Date.now()}`;
+                    
+                    // Create the new alert rule object
+                    const alertRuleData = {
+                        id: ruleId,
+                        name: newAlertRule.name || `Alert Rule ${alertRules.length + 1}`,
+                        metric: newAlertRule.metric,
+                        condition: newAlertRule.condition,
+                        threshold: parseFloat(newAlertRule.threshold) || 0,
+                        target: newAlertRule.target,
+                        targetAgent: newAlertRule.targetAgent,
+                        severity: newAlertRule.severity,
+                        description: newAlertRule.description || 'Auto-generated alert rule',
+                        enabled: newAlertRule.enabled,
+                        created: new Date().toISOString(),
+                        lastTriggered: null,
+                        triggerCount: 0
+                    };
+
+                    console.log('Creating new alert rule:', alertRuleData);
+                    
+                    // Add the new alert rule to the current rules list
+                    const updatedRules = [...alertRules, alertRuleData];
+                    setAlertRules(updatedRules);
+                    
+                    // Close the modal and reset the form
+                    setShowAddAlertModal(false);
+                    setNewAlertRule({
+                        name: '',
+                        metric: 'cpu_usage',
+                        condition: 'greater_than',
+                        threshold: '',
+                        target: 'all_agents',
+                        targetAgent: '',
+                        severity: 'warning',
+                        description: '',
+                        enabled: true
+                    });
+                    
+                    console.log(`Alert rule "${alertRuleData.name}" created successfully!`);
+                    
+                } catch (error) {
+                    console.error('Failed to create alert rule:', error);
+                }
+            };
+
+            // Handle alert rule form input changes
+            const handleAlertInputChange = (field, value) => {
+                setNewAlertRule(prev => ({
+                    ...prev,
+                    [field]: value
+                }));
+            };
+
+            // Toggle alert rule enabled/disabled
+            const toggleAlertRule = (ruleId) => {
+                setAlertRules(prev => 
+                    prev.map(rule => 
+                        rule.id === ruleId 
+                            ? { ...rule, enabled: !rule.enabled }
+                            : rule
+                    )
+                );
+            };
+
+            // Delete alert rule
+            const deleteAlertRule = (ruleId) => {
+                setAlertRules(prev => prev.filter(rule => rule.id !== ruleId));
+            };
+
             // Fetch alerts (mock for now, until alerts API is implemented)
             const fetchAlerts = async () => {
                 try {
-                    // Mock alerts for demonstration - replace with real API call when available
+                    // Comprehensive mock alerts for demonstration
+                    const now = new Date();
                     const mockAlerts = [
                         {
                             id: "alert-001",
+                            severity: "critical",
+                            title: "High CPU Usage Detected",
+                            description: "Production Agent 1 CPU usage exceeded 85% threshold for 5 minutes",
+                            agent_id: "agent-001",
+                            agent_name: "Production Agent 1",
+                            timestamp: new Date(now.getTime() - 2 * 60 * 1000).toISOString(), // 2 minutes ago
+                            status: "active",
+                            metric: "cpu_usage",
+                            value: 87.5,
+                            threshold: 85,
+                            rule_name: "High CPU Alert"
+                        },
+                        {
+                            id: "alert-002",
                             severity: "warning",
-                            title: "Dashboard Connected",
-                            description: "Dashboard successfully connected to PostgreSQL database",
+                            title: "Memory Usage Warning",
+                            description: "Local Dev Agent 1 memory usage is approaching threshold (78%)",
+                            agent_id: "agent-002",
+                            agent_name: "Local Dev Agent 1",
+                            timestamp: new Date(now.getTime() - 8 * 60 * 1000).toISOString(), // 8 minutes ago
+                            status: "active",
+                            metric: "memory_usage",
+                            value: 78.2,
+                            threshold: 80,
+                            rule_name: "Memory Usage Monitor"
+                        },
+                        {
+                            id: "alert-003",
+                            severity: "error",
+                            title: "Response Time Degradation",
+                            description: "API Agent response time exceeded 1000ms for multiple requests",
+                            agent_id: "agent-003",
+                            agent_name: "API Agent",
+                            timestamp: new Date(now.getTime() - 15 * 60 * 1000).toISOString(), // 15 minutes ago
+                            status: "acknowledged",
+                            metric: "response_time",
+                            value: 1250,
+                            threshold: 1000,
+                            rule_name: "API Response Time Alert"
+                        },
+                        {
+                            id: "alert-004",
+                            severity: "warning",
+                            title: "Error Rate Increased",
+                            description: "Security Agent showing elevated error rate (3.2%)",
+                            agent_id: "agent-004",
+                            agent_name: "Security Agent",
+                            timestamp: new Date(now.getTime() - 22 * 60 * 1000).toISOString(), // 22 minutes ago
+                            status: "active",
+                            metric: "error_rate",
+                            value: 3.2,
+                            threshold: 3.0,
+                            rule_name: "Error Rate Monitor"
+                        },
+                        {
+                            id: "alert-005",
+                            severity: "info",
+                            title: "Agent Reconnected",
+                            description: "Monitoring Agent successfully reconnected after brief disconnection",
+                            agent_id: "agent-005",
+                            agent_name: "Monitoring Agent",
+                            timestamp: new Date(now.getTime() - 35 * 60 * 1000).toISOString(), // 35 minutes ago
+                            status: "resolved",
+                            metric: "connection_status",
+                            value: "online",
+                            threshold: "offline",
+                            rule_name: "Connection Monitor"
+                        },
+                        {
+                            id: "alert-006",
+                            severity: "critical",
+                            title: "Health Score Critical",
+                            description: "Production Agent 1 health score dropped below critical threshold",
+                            agent_id: "agent-001",
+                            agent_name: "Production Agent 1",
+                            timestamp: new Date(now.getTime() - 45 * 60 * 1000).toISOString(), // 45 minutes ago
+                            status: "resolved",
+                            metric: "health_score",
+                            value: 0.45,
+                            threshold: 0.5,
+                            rule_name: "Health Score Monitor"
+                        },
+                        {
+                            id: "alert-007",
+                            severity: "warning",
+                            title: "Low Request Volume",
+                            description: "API Agent requests per minute below expected threshold",
+                            agent_id: "agent-003",
+                            agent_name: "API Agent",
+                            timestamp: new Date(now.getTime() - 60 * 60 * 1000).toISOString(), // 1 hour ago
+                            status: "acknowledged",
+                            metric: "requests_per_minute",
+                            value: 45,
+                            threshold: 50,
+                            rule_name: "Traffic Volume Monitor"
+                        },
+                        {
+                            id: "alert-008",
+                            severity: "info",
+                            title: "System Maintenance Complete",
+                            description: "Scheduled maintenance completed successfully on all monitoring agents",
                             agent_id: "system",
-                            timestamp: new Date().toISOString(),
-                            status: "active"
+                            agent_name: "System",
+                            timestamp: new Date(now.getTime() - 90 * 60 * 1000).toISOString(), // 1.5 hours ago
+                            status: "resolved",
+                            metric: "maintenance_status",
+                            value: "completed",
+                            threshold: "pending",
+                            rule_name: "Maintenance Monitor"
                         }
                     ];
                     setAlerts(mockAlerts);
@@ -211,6 +1229,119 @@
                 fetchData();
                 const interval = setInterval(fetchData, 30000); // Refresh every 30 seconds
                 return () => clearInterval(interval);
+            }, []);
+
+            // Initialize sample alert rules for demonstration
+            useEffect(() => {
+                const sampleAlertRules = [
+                    {
+                        id: "rule-001",
+                        name: "High CPU Alert",
+                        metric: "cpu_usage",
+                        condition: "greater_than",
+                        threshold: 85,
+                        target: "all_agents",
+                        targetAgent: "",
+                        severity: "critical",
+                        description: "Triggers when any agent CPU usage exceeds 85%",
+                        enabled: true,
+                        created: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days ago
+                        lastTriggered: new Date(Date.now() - 2 * 60 * 1000).toISOString(), // 2 minutes ago
+                        triggerCount: 15
+                    },
+                    {
+                        id: "rule-002",
+                        name: "Memory Usage Monitor",
+                        metric: "memory_usage",
+                        condition: "greater_than",
+                        threshold: 80,
+                        target: "all_agents",
+                        targetAgent: "",
+                        severity: "warning",
+                        description: "Warning when memory usage approaches 80% threshold",
+                        enabled: true,
+                        created: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+                        lastTriggered: new Date(Date.now() - 8 * 60 * 1000).toISOString(), // 8 minutes ago
+                        triggerCount: 8
+                    },
+                    {
+                        id: "rule-003",
+                        name: "API Response Time Alert",
+                        metric: "response_time",
+                        condition: "greater_than",
+                        threshold: 1000,
+                        target: "specific_agent",
+                        targetAgent: "agent-003",
+                        severity: "error",
+                        description: "Alert when API response time exceeds 1 second",
+                        enabled: true,
+                        created: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
+                        lastTriggered: new Date(Date.now() - 15 * 60 * 1000).toISOString(), // 15 minutes ago
+                        triggerCount: 23
+                    },
+                    {
+                        id: "rule-004",
+                        name: "Error Rate Monitor",
+                        metric: "error_rate",
+                        condition: "greater_than",
+                        threshold: 3.0,
+                        target: "all_agents",
+                        targetAgent: "",
+                        severity: "warning",
+                        description: "Monitor for elevated error rates across all agents",
+                        enabled: true,
+                        created: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
+                        lastTriggered: new Date(Date.now() - 22 * 60 * 1000).toISOString(), // 22 minutes ago
+                        triggerCount: 12
+                    },
+                    {
+                        id: "rule-005",
+                        name: "Health Score Monitor",
+                        metric: "health_score",
+                        condition: "less_than",
+                        threshold: 0.5,
+                        target: "all_agents",
+                        targetAgent: "",
+                        severity: "critical",
+                        description: "Critical alert when agent health drops below 50%",
+                        enabled: true,
+                        created: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days ago
+                        lastTriggered: new Date(Date.now() - 45 * 60 * 1000).toISOString(), // 45 minutes ago
+                        triggerCount: 3
+                    },
+                    {
+                        id: "rule-006",
+                        name: "Traffic Volume Monitor",
+                        metric: "requests_per_minute",
+                        condition: "less_than",
+                        threshold: 50,
+                        target: "specific_agent",
+                        targetAgent: "agent-003",
+                        severity: "warning",
+                        description: "Alert when API traffic drops unexpectedly",
+                        enabled: true,
+                        created: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+                        lastTriggered: new Date(Date.now() - 60 * 60 * 1000).toISOString(), // 1 hour ago
+                        triggerCount: 6
+                    },
+                    {
+                        id: "rule-007",
+                        name: "Development Environment Check",
+                        metric: "cpu_usage",
+                        condition: "greater_than",
+                        threshold: 70,
+                        target: "specific_agent",
+                        targetAgent: "agent-002",
+                        severity: "info",
+                        description: "Monitor development environment resource usage",
+                        enabled: false,
+                        created: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+                        lastTriggered: null,
+                        triggerCount: 0
+                    }
+                ];
+                
+                setAlertRules(sampleAlertRules);
             }, []);
 
             // Sidebar Component
@@ -302,19 +1433,29 @@
                 return <span className={statusClass}></span>;
             };
 
-            // Stats card component
-            const StatsCard = ({ title, value, icon, color, description, trend }) => (
+            // Stats card component with enhanced sparklines
+            const StatsCard = ({ title, value, icon, color, description, trend, sparklineData, sparklineColor }) => (
                 <div className="bg-white rounded-xl shadow-sm p-6 card-hover border border-gray-100">
                     <div className="flex items-center justify-between mb-4">
                         <div className={`text-3xl ${color}`}>
                             <i className={icon}></i>
                         </div>
-                        {trend && (
-                            <div className={`flex items-center text-sm ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                <i className={`fas fa-arrow-${trend > 0 ? 'up' : 'down'} mr-1`}></i>
-                                {Math.abs(trend)}%
-                            </div>
-                        )}
+                        <div className="flex items-center space-x-2">
+                            {sparklineData && sparklineColor && (
+                                <div className="flex items-center">
+                                    {React.createElement(SparklineChart, { 
+                                        data: sparklineData, 
+                                        color: sparklineColor 
+                                    })}
+                                </div>
+                            )}
+                            {trend && (
+                                <div className={`flex items-center text-sm ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    <i className={`fas fa-arrow-${trend > 0 ? 'up' : 'down'} mr-1`}></i>
+                                    {Math.abs(trend)}%
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <div>
                         <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
@@ -323,6 +1464,433 @@
                     </div>
                 </div>
             );
+
+            // Add Agent Modal Component
+            const AddAgentModal = ({ show, onClose, onSubmit, agentData, onInputChange }) => {
+                if (!show) return null;
+
+                return (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                        <div className="bg-white rounded-xl p-6 w-full max-w-md">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-xl font-bold text-gray-800">
+                                    <i className="fas fa-plus mr-2 text-blue-600"></i>
+                                    Add New Agent
+                                </h3>
+                                <button 
+                                    onClick={onClose}
+                                    className="text-gray-500 hover:text-gray-700"
+                                >
+                                    <i className="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="space-y-4">
+                                {/* Agent Name */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Agent Name *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={agentData.name}
+                                        onChange={(e) => onInputChange('name', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="e.g., Production API Agent"
+                                        required
+                                    />
+                                </div>
+
+                                {/* Agent Type */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Agent Type
+                                    </label>
+                                    <select
+                                        value={agentData.type}
+                                        onChange={(e) => onInputChange('type', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        <option value="monitoring">Monitoring Agent</option>
+                                        <option value="data_collection">Data Collection Agent</option>
+                                        <option value="processing">Processing Agent</option>
+                                        <option value="api">API Agent</option>
+                                        <option value="security">Security Agent</option>
+                                    </select>
+                                </div>
+
+                                {/* Environment */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Environment
+                                    </label>
+                                    <select
+                                        value={agentData.environment}
+                                        onChange={(e) => onInputChange('environment', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        <option value="development">Development</option>
+                                        <option value="staging">Staging</option>
+                                        <option value="production">Production</option>
+                                        <option value="testing">Testing</option>
+                                    </select>
+                                </div>
+
+                                {/* Host and Port */}
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Host
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={agentData.host}
+                                            onChange={(e) => onInputChange('host', e.target.value)}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="localhost"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Port
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={agentData.port}
+                                            onChange={(e) => onInputChange('port', e.target.value)}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="8080"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Description */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Description
+                                    </label>
+                                    <textarea
+                                        value={agentData.description}
+                                        onChange={(e) => onInputChange('description', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        rows="3"
+                                        placeholder="Brief description of the agent's purpose..."
+                                    ></textarea>
+                                </div>
+
+                                {/* Form Actions */}
+                                <div className="flex space-x-3 pt-4">
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                    >
+                                        <i className="fas fa-plus mr-2"></i>
+                                        Create Agent
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                );
+            };
+
+            // Add Alert Rule Modal Component
+            const AddAlertRuleModal = ({ show, onClose, onSubmit, alertData, onInputChange, agents }) => {
+                if (!show) return null;
+
+                return (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                        <div className="bg-white rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-xl font-bold text-gray-800">
+                                    <i className="fas fa-exclamation-triangle mr-2 text-red-600"></i>
+                                    Create Alert Rule
+                                </h3>
+                                <button 
+                                    onClick={onClose}
+                                    className="text-gray-500 hover:text-gray-700"
+                                >
+                                    <i className="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="space-y-4">
+                                {/* Rule Name */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Rule Name *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={alertData.name}
+                                        onChange={(e) => onInputChange('name', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        placeholder="e.g., High CPU Usage Alert"
+                                        required
+                                    />
+                                </div>
+
+                                {/* Metric to Monitor */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Metric to Monitor
+                                    </label>
+                                    <select
+                                        value={alertData.metric}
+                                        onChange={(e) => onInputChange('metric', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    >
+                                        <option value="cpu_usage">CPU Usage (%)</option>
+                                        <option value="memory_usage">Memory Usage (%)</option>
+                                        <option value="response_time">Response Time (ms)</option>
+                                        <option value="error_rate">Error Rate (%)</option>
+                                        <option value="requests_per_minute">Requests per Minute</option>
+                                        <option value="health_score">Health Score</option>
+                                    </select>
+                                </div>
+
+                                {/* Condition and Threshold */}
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Condition
+                                        </label>
+                                        <select
+                                            value={alertData.condition}
+                                            onChange={(e) => onInputChange('condition', e.target.value)}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        >
+                                            <option value="greater_than">Greater than</option>
+                                            <option value="less_than">Less than</option>
+                                            <option value="equals">Equals</option>
+                                            <option value="not_equals">Not equals</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Threshold Value *
+                                        </label>
+                                        <input
+                                            type="number"
+                                            value={alertData.threshold}
+                                            onChange={(e) => onInputChange('threshold', e.target.value)}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                            placeholder="80"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Target Selection */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Target
+                                    </label>
+                                    <select
+                                        value={alertData.target}
+                                        onChange={(e) => onInputChange('target', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    >
+                                        <option value="all_agents">All Agents</option>
+                                        <option value="specific_agent">Specific Agent</option>
+                                    </select>
+                                </div>
+
+                                {/* Specific Agent Selection (if target is specific_agent) */}
+                                {alertData.target === 'specific_agent' && (
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Select Agent
+                                        </label>
+                                        <select
+                                            value={alertData.targetAgent}
+                                            onChange={(e) => onInputChange('targetAgent', e.target.value)}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        >
+                                            <option value="">Choose an agent...</option>
+                                            {agents.map(agent => (
+                                                <option key={agent.id} value={agent.id}>
+                                                    {agent.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+
+                                {/* Severity Level */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Severity Level
+                                    </label>
+                                    <select
+                                        value={alertData.severity}
+                                        onChange={(e) => onInputChange('severity', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    >
+                                        <option value="info">Info</option>
+                                        <option value="warning">Warning</option>
+                                        <option value="error">Error</option>
+                                        <option value="critical">Critical</option>
+                                    </select>
+                                </div>
+
+                                {/* Description */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Description
+                                    </label>
+                                    <textarea
+                                        value={alertData.description}
+                                        onChange={(e) => onInputChange('description', e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        rows="3"
+                                        placeholder="Brief description of when this alert should trigger..."
+                                    ></textarea>
+                                </div>
+
+                                {/* Enabled Toggle */}
+                                <div className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        id="enabled"
+                                        checked={alertData.enabled}
+                                        onChange={(e) => onInputChange('enabled', e.target.checked)}
+                                        className="mr-2"
+                                    />
+                                    <label htmlFor="enabled" className="text-sm font-medium text-gray-700">
+                                        Enable this alert rule immediately
+                                    </label>
+                                </div>
+
+                                {/* Form Actions */}
+                                <div className="flex space-x-3 pt-4">
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                                    >
+                                        <i className="fas fa-plus mr-2"></i>
+                                        Create Rule
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                );
+            };
+
+            // Alert Rule Card Component
+            const AlertRuleCard = ({ rule, onToggle, onDelete }) => {
+                const getSeverityColor = (severity) => {
+                    switch (severity) {
+                        case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+                        case 'error': return 'bg-red-100 text-red-700 border-red-200';
+                        case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+                        case 'info': return 'bg-blue-100 text-blue-800 border-blue-200';
+                        default: return 'bg-gray-100 text-gray-800 border-gray-200';
+                    }
+                };
+
+                const getMetricDisplayName = (metric) => {
+                    const names = {
+                        'cpu_usage': 'CPU Usage',
+                        'memory_usage': 'Memory Usage',
+                        'response_time': 'Response Time',
+                        'error_rate': 'Error Rate',
+                        'requests_per_minute': 'Requests/Min',
+                        'health_score': 'Health Score'
+                    };
+                    return names[metric] || metric;
+                };
+
+                const getConditionSymbol = (condition) => {
+                    const symbols = {
+                        'greater_than': '>',
+                        'less_than': '<',
+                        'equals': '=',
+                        'not_equals': '≠'
+                    };
+                    return symbols[condition] || condition;
+                };
+
+                return (
+                    <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                                <div className="flex items-center space-x-3 mb-2">
+                                    <h4 className="font-semibold text-gray-800">{rule.name}</h4>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getSeverityColor(rule.severity)}`}>
+                                        {rule.severity.toUpperCase()}
+                                    </span>
+                                    <div className="flex items-center">
+                                        <div className={`w-2 h-2 rounded-full mr-2 ${rule.enabled ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                                        <span className="text-xs text-gray-600">
+                                            {rule.enabled ? 'Active' : 'Disabled'}
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div className="text-sm text-gray-600 mb-2">
+                                    <span className="font-medium">{getMetricDisplayName(rule.metric)}</span>
+                                    <span className="mx-2">{getConditionSymbol(rule.condition)}</span>
+                                    <span className="font-medium">{rule.threshold}</span>
+                                    <span className="ml-2 text-gray-500">
+                                        ({rule.target === 'all_agents' ? 'All Agents' : `Agent: ${rule.targetAgent}`})
+                                    </span>
+                                </div>
+                                
+                                {rule.description && (
+                                    <p className="text-sm text-gray-500 mb-2">{rule.description}</p>
+                                )}
+                                
+                                <div className="flex items-center space-x-4 text-xs text-gray-500">
+                                    <span>Created: {new Date(rule.created).toLocaleDateString()}</span>
+                                    <span>Triggered: {rule.triggerCount} times</span>
+                                    {rule.lastTriggered && (
+                                        <span>Last: {new Date(rule.lastTriggered).toLocaleString()}</span>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2 ml-4">
+                                <button
+                                    onClick={() => onToggle(rule.id)}
+                                    className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                                        rule.enabled 
+                                            ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200' 
+                                            : 'bg-green-100 text-green-700 hover:bg-green-200'
+                                    }`}
+                                    title={rule.enabled ? 'Disable Rule' : 'Enable Rule'}
+                                >
+                                    <i className={`fas ${rule.enabled ? 'fa-pause' : 'fa-play'} mr-1`}></i>
+                                    {rule.enabled ? 'Disable' : 'Enable'}
+                                </button>
+                                <button
+                                    onClick={() => onDelete(rule.id)}
+                                    className="px-3 py-1 bg-red-100 text-red-700 rounded text-xs font-medium hover:bg-red-200 transition-colors"
+                                    title="Delete Rule"
+                                >
+                                    <i className="fas fa-trash mr-1"></i>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
 
             // Agent card component with enhanced details
             const AgentCard = ({ agent, onClick }) => {
@@ -344,7 +1912,7 @@
                 };
 
                 return (
-                    <div className="bg-white rounded-xl shadow-sm p-6 card-hover border border-gray-100 cursor-pointer" onClick={() => onClick(agent)}>
+                    <div className="bg-white rounded-xl shadow-sm p-6 card-hover border border-gray-100 cursor-pointer" onClick={() => onClick({...agent, viewMode: 'overview'})}>
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-800">{agent.name}</h3>
                             <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(agent.status)}`}>
@@ -388,11 +1956,23 @@
                         </div>
                         
                         <div className="mt-4 flex space-x-2">
-                            <button className="flex-1 bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600 transition-colors">
+                            <button 
+                                className="flex-1 bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600 transition-colors"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedAgent({...agent, viewMode: 'metrics'});
+                                }}
+                            >
                                 <i className="fas fa-chart-line mr-1"></i>
                                 Metrics
                             </button>
-                            <button className="flex-1 bg-gray-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-600 transition-colors">
+                            <button 
+                                className="flex-1 bg-gray-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-600 transition-colors"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedAgent({...agent, viewMode: 'logs'});
+                                }}
+                            >
                                 <i className="fas fa-file-alt mr-1"></i>
                                 Logs
                             </button>
@@ -405,10 +1985,20 @@
             const AlertCard = ({ alert }) => {
                 const getSeverityStyle = (severity) => {
                     switch (severity) {
-                        case 'critical': return 'alert-critical bg-red-50';
-                        case 'warning': return 'alert-warning bg-yellow-50';
-                        case 'info': return 'alert-info bg-blue-50';
-                        default: return 'bg-gray-50';
+                        case 'critical': return 'alert-critical bg-red-50 border-l-4 border-red-500';
+                        case 'warning': return 'alert-warning bg-yellow-50 border-l-4 border-yellow-500';
+                        case 'error': return 'bg-red-50 border-l-4 border-red-400';
+                        case 'info': return 'alert-info bg-blue-50 border-l-4 border-blue-500';
+                        default: return 'bg-gray-50 border-l-4 border-gray-400';
+                    }
+                };
+
+                const getStatusStyle = (status) => {
+                    switch (status) {
+                        case 'active': return 'bg-red-100 text-red-800';
+                        case 'acknowledged': return 'bg-yellow-100 text-yellow-800';
+                        case 'resolved': return 'bg-green-100 text-green-800';
+                        default: return 'bg-gray-100 text-gray-800';
                     }
                 };
 
@@ -416,59 +2006,112 @@
                     <div className={`p-4 rounded-lg mb-3 ${getSeverityStyle(alert.severity)}`}>
                         <div className="flex items-center justify-between mb-2">
                             <h4 className="font-semibold text-gray-800">{alert.title}</h4>
-                            <span className={`px-2 py-1 rounded text-xs font-medium ${
-                                alert.status === 'active' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                            }`}>
-                                {alert.status}
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusStyle(alert.status)}`}>
+                                {alert.status.toUpperCase()}
                             </span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">{alert.description}</p>
+                        <p className="text-sm text-gray-600 mb-3">{alert.description}</p>
+                        
+                        {/* Enhanced metadata display */}
+                        {alert.metadata && (
+                            <div className="bg-white bg-opacity-60 rounded p-2 mb-3 text-xs">
+                                <div className="grid grid-cols-2 gap-2">
+                                    {alert.metadata.current_value !== undefined && (
+                                        <div>
+                                            <span className="font-medium">Current:</span> {alert.metadata.current_value}{alert.metadata.unit || ''}
+                                        </div>
+                                    )}
+                                    {alert.metadata.threshold !== undefined && (
+                                        <div>
+                                            <span className="font-medium">Threshold:</span> {alert.metadata.threshold}{alert.metadata.unit || ''}
+                                        </div>
+                                    )}
+                                    {alert.metadata.rule_name && (
+                                        <div className="col-span-2">
+                                            <span className="font-medium">Rule:</span> {alert.metadata.rule_name}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                        
                         <div className="flex items-center justify-between text-xs text-gray-500">
-                            <span>Agent: {alert.agent_id}</span>
-                            <span>{new Date(alert.timestamp).toLocaleString()}</span>
+                            <div className="flex items-center space-x-3">
+                                <span>
+                                    <i className="fas fa-server mr-1"></i>
+                                    {alert.metadata?.agent_name || alert.agent_id}
+                                </span>
+                                {alert.severity === 'critical' && (
+                                    <span className="text-red-600">
+                                        <i className="fas fa-exclamation-triangle mr-1"></i>
+                                        Critical
+                                    </span>
+                                )}
+                            </div>
+                            <span>
+                                <i className="fas fa-clock mr-1"></i>
+                                {new Date(alert.timestamp).toLocaleString()}
+                            </span>
                         </div>
                     </div>
                 );
             };
 
             // Overview View
-            const OverviewView = () => (
-                <div className="space-y-6">
-                    {/* System Stats */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <StatsCard
-                            title="Total Agents"
-                            value={systemStats.totalAgents}
-                            icon="fas fa-robot"
-                            color="text-blue-600"
-                            description="Registered agents"
-                            trend={5}
-                        />
-                        <StatsCard
-                            title="Online Agents"
-                            value={systemStats.onlineAgents}
-                            icon="fas fa-check-circle"
-                            color="text-green-600"
-                            description="Active and responding"
-                            trend={2}
-                        />
-                        <StatsCard
-                            title="Avg Response Time"
-                            value={`${systemStats.avgResponseTime}ms`}
-                            icon="fas fa-clock"
-                            color="text-purple-600"
-                            description="System-wide average"
-                            trend={-3}
-                        />
-                        <StatsCard
-                            title="System Health"
-                            value={`${systemStats.systemHealth}%`}
-                            icon="fas fa-heartbeat"
-                            color="text-pink-600"
-                            description="Overall health score"
-                            trend={1}
-                        />
-                    </div>
+            const OverviewView = () => {
+                // Generate sample sparkline data for demonstration
+                const generateSparklineData = (baseValue, volatility = 10) => {
+                    return Array.from({ length: 12 }, (_, i) => {
+                        const variation = (Math.random() - 0.5) * volatility;
+                        return Math.max(0, baseValue + variation);
+                    });
+                };
+
+                return (
+                    <div className="space-y-6">
+                        {/* System Stats */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <StatsCard
+                                title="Total Agents"
+                                value={systemStats.totalAgents}
+                                icon="fas fa-robot"
+                                color="text-blue-600"
+                                description="Registered agents"
+                                trend={5}
+                                sparklineData={generateSparklineData(systemStats.totalAgents, 2)}
+                                sparklineColor="#2563eb"
+                            />
+                            <StatsCard
+                                title="Online Agents"
+                                value={systemStats.onlineAgents}
+                                icon="fas fa-check-circle"
+                                color="text-green-600"
+                                description="Active and responding"
+                                trend={2}
+                                sparklineData={generateSparklineData(systemStats.onlineAgents, 1)}
+                                sparklineColor="#16a34a"
+                            />
+                            <StatsCard
+                                title="Avg Response Time"
+                                value={`${systemStats.avgResponseTime}ms`}
+                                icon="fas fa-clock"
+                                color="text-purple-600"
+                                description="System-wide average"
+                                trend={-3}
+                                sparklineData={generateSparklineData(systemStats.avgResponseTime, 30)}
+                                sparklineColor="#9333ea"
+                            />
+                            <StatsCard
+                                title="System Health"
+                                value={`${systemStats.systemHealth}%`}
+                                icon="fas fa-heartbeat"
+                                color="text-pink-600"
+                                description="Overall health score"
+                                trend={1}
+                                sparklineData={generateSparklineData(systemStats.systemHealth, 5)}
+                                sparklineColor="#ec4899"
+                            />
+                        </div>
 
                     {/* Charts and Alerts Row */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -478,8 +2121,8 @@
                                 <i className="fas fa-chart-area mr-2 text-blue-600"></i>
                                 Performance Overview
                             </h3>
-                            <div className="metric-chart bg-gray-50 rounded-lg flex items-center justify-center">
-                                <p className="text-gray-500">Performance charts will be rendered here</p>
+                            <div className="h-72">
+                                {React.createElement(OverviewChart, { agents: agents })}
                             </div>
                         </div>
 
@@ -511,13 +2154,17 @@
                     </div>
                 </div>
             );
+            };
 
             // Agents View
             const AgentsView = () => (
                 <div className="space-y-6">
                     <div className="flex items-center justify-between">
                         <h2 className="text-2xl font-bold text-gray-800">Agent Management</h2>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <button 
+                            onClick={() => setShowAddAgentModal(true)}
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                        >
                             <i className="fas fa-plus mr-2"></i>
                             Add Agent
                         </button>
@@ -528,25 +2175,109 @@
                             <AgentCard key={agent.id} agent={agent} onClick={setSelectedAgent} />
                         ))}
                     </div>
+
+                    {/* Add Agent Modal */}
+                    <AddAgentModal
+                        show={showAddAgentModal}
+                        onClose={() => setShowAddAgentModal(false)}
+                        onSubmit={handleAddAgent}
+                        agentData={newAgent}
+                        onInputChange={handleInputChange}
+                    />
                 </div>
             );
 
-            // Placeholder views for other sections
+            // Enhanced Metrics View with Real Charts
             const MetricsView = () => (
-                <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">System Metrics</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="metric-chart bg-gray-50 rounded-lg flex items-center justify-center">
-                            <p className="text-gray-500">CPU Usage Chart</p>
+                <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-2xl font-bold text-gray-800">System Metrics</h2>
+                        <div className="flex items-center space-x-2 text-sm text-gray-600">
+                            <div className="flex items-center">
+                                <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                                <span>Live</span>
+                            </div>
+                            <span>Last updated: {new Date().toLocaleTimeString()}</span>
                         </div>
-                        <div className="metric-chart bg-gray-50 rounded-lg flex items-center justify-center">
-                            <p className="text-gray-500">Memory Usage Chart</p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* CPU Usage Chart */}
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                <i className="fas fa-microchip mr-2 text-blue-600"></i>
+                                CPU Usage Trends
+                            </h3>
+                            <div className="h-80">
+                                {React.createElement(SystemCPUChart, { agents: agents })}
+                            </div>
                         </div>
-                        <div className="metric-chart bg-gray-50 rounded-lg flex items-center justify-center">
-                            <p className="text-gray-500">Response Time Chart</p>
+
+                        {/* Memory Usage Chart */}
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                <i className="fas fa-memory mr-2 text-green-600"></i>
+                                Memory Distribution
+                            </h3>
+                            <div className="h-80">
+                                {React.createElement(SystemMemoryChart, { agents: agents })}
+                            </div>
                         </div>
-                        <div className="metric-chart bg-gray-50 rounded-lg flex items-center justify-center">
-                            <p className="text-gray-500">Error Rate Chart</p>
+
+                        {/* Response Time Chart */}
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                <i className="fas fa-tachometer-alt mr-2 text-purple-600"></i>
+                                Response Time Analysis
+                            </h3>
+                            <div className="h-80">
+                                {React.createElement(SystemResponseTimeChart, { agents: agents })}
+                            </div>
+                        </div>
+
+                        {/* Error Rate Chart */}
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                <i className="fas fa-exclamation-triangle mr-2 text-red-600"></i>
+                                Error Rate Monitor
+                            </h3>
+                            <div className="h-80">
+                                {React.createElement(SystemErrorRateChart, { agents: agents })}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* System Summary Stats */}
+                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                            <i className="fas fa-chart-bar mr-2 text-indigo-600"></i>
+                            Real-time System Summary
+                        </h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="text-center p-4 bg-blue-50 rounded-lg">
+                                <div className="text-2xl font-bold text-blue-600">
+                                    {(agents.reduce((sum, agent) => sum + agent.cpu_usage, 0) / agents.length).toFixed(1)}%
+                                </div>
+                                <div className="text-sm text-gray-600">Avg CPU Usage</div>
+                            </div>
+                            <div className="text-center p-4 bg-green-50 rounded-lg">
+                                <div className="text-2xl font-bold text-green-600">
+                                    {(agents.reduce((sum, agent) => sum + agent.memory_usage, 0) / agents.length).toFixed(1)}%
+                                </div>
+                                <div className="text-sm text-gray-600">Avg Memory Usage</div>
+                            </div>
+                            <div className="text-center p-4 bg-purple-50 rounded-lg">
+                                <div className="text-2xl font-bold text-purple-600">
+                                    {Math.round(agents.reduce((sum, agent) => sum + agent.response_time, 0) / agents.length)}ms
+                                </div>
+                                <div className="text-sm text-gray-600">Avg Response Time</div>
+                            </div>
+                            <div className="text-center p-4 bg-red-50 rounded-lg">
+                                <div className="text-2xl font-bold text-red-600">
+                                    {((agents.reduce((sum, agent) => sum + agent.error_rate, 0) / agents.length) * 100).toFixed(2)}%
+                                </div>
+                                <div className="text-sm text-gray-600">Avg Error Rate</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -556,17 +2287,79 @@
                 <div className="space-y-6">
                     <div className="flex items-center justify-between">
                         <h2 className="text-2xl font-bold text-gray-800">Alert Management</h2>
-                        <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        <button 
+                            onClick={() => setShowAddAlertModal(true)}
+                            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                        >
                             <i className="fas fa-plus mr-2"></i>
                             Create Alert Rule
                         </button>
                     </div>
                     
+                    {/* Alert Rules Section */}
                     <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                        {alerts.map(alert => (
-                            <AlertCard key={alert.id} alert={alert} />
-                        ))}
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold text-gray-800">
+                                <i className="fas fa-cog mr-2 text-gray-600"></i>
+                                Alert Rules ({alertRules.length})
+                            </h3>
+                            <div className="text-sm text-gray-600">
+                                Active: {alertRules.filter(rule => rule.enabled).length} | 
+                                Disabled: {alertRules.filter(rule => !rule.enabled).length}
+                            </div>
+                        </div>
+                        
+                        {alertRules.length === 0 ? (
+                            <div className="text-center py-8 text-gray-500">
+                                <i className="fas fa-exclamation-triangle text-4xl mb-4 text-gray-300"></i>
+                                <p className="text-lg mb-2">No alert rules configured</p>
+                                <p className="text-sm">Create your first alert rule to start monitoring your agents</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {alertRules.map(rule => (
+                                    <AlertRuleCard 
+                                        key={rule.id} 
+                                        rule={rule} 
+                                        onToggle={toggleAlertRule}
+                                        onDelete={deleteAlertRule}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
+
+                    {/* Recent Alerts Section */}
+                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                            <i className="fas fa-bell mr-2 text-yellow-600"></i>
+                            Recent Alerts ({alerts.length})
+                        </h3>
+                        
+                        {alerts.length === 0 ? (
+                            <div className="text-center py-8 text-gray-500">
+                                <i className="fas fa-check-circle text-4xl mb-4 text-green-300"></i>
+                                <p className="text-lg mb-2">No recent alerts</p>
+                                <p className="text-sm">All systems are running normally</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {alerts.map(alert => (
+                                    <AlertCard key={alert.id} alert={alert} />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Add Alert Rule Modal */}
+                    <AddAlertRuleModal
+                        show={showAddAlertModal}
+                        onClose={() => setShowAddAlertModal(false)}
+                        onSubmit={handleAddAlertRule}
+                        alertData={newAlertRule}
+                        onInputChange={handleAlertInputChange}
+                        agents={agents}
+                    />
                 </div>
             );
 
@@ -657,29 +2450,262 @@
 
                     {/* Agent Detail Modal */}
                     {selectedAgent && (
-                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                            <div className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h3 className="text-xl font-bold">{selectedAgent.name}</h3>
-                                    <button 
-                                        onClick={() => setSelectedAgent(null)}
-                                        className="text-gray-500 hover:text-gray-700"
-                                    >
-                                        <i className="fas fa-times"></i>
-                                    </button>
-                                </div>
-                                <div className="space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <p className="text-sm text-gray-600">Agent ID</p>
-                                            <p className="font-medium">{selectedAgent.id}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-600">Type</p>
-                                            <p className="font-medium">{selectedAgent.type}</p>
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                            <div className="bg-white rounded-xl p-6 w-full max-w-6xl h-full max-h-[90vh] overflow-hidden flex flex-col">
+                                <div className="flex items-center justify-between mb-4 flex-shrink-0">
+                                    <div className="flex items-center space-x-4">
+                                        <h3 className="text-xl font-bold">{selectedAgent.name}</h3>
+                                        <div className="flex space-x-2">
+                                            <button 
+                                                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                                                    selectedAgent.viewMode === 'overview' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                                }`}
+                                                onClick={() => setSelectedAgent({...selectedAgent, viewMode: 'overview'})}
+                                            >
+                                                Overview
+                                            </button>
+                                            <button 
+                                                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                                                    selectedAgent.viewMode === 'metrics' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                                }`}
+                                                onClick={() => setSelectedAgent({...selectedAgent, viewMode: 'metrics'})}
+                                            >
+                                                Metrics
+                                            </button>
+                                            <button 
+                                                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                                                    selectedAgent.viewMode === 'logs' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                                }`}
+                                                onClick={() => setSelectedAgent({...selectedAgent, viewMode: 'logs'})}
+                                            >
+                                                Logs
+                                            </button>
                                         </div>
                                     </div>
-                                    {/* Add more agent details here */}
+                                    <button 
+                                        onClick={() => setSelectedAgent(null)}
+                                        className="text-gray-500 hover:text-gray-700 flex-shrink-0"
+                                    >
+                                        <i className="fas fa-times text-xl"></i>
+                                    </button>
+                                </div>
+                                
+                                {/* Modal Content Based on View Mode - Now with proper scrolling */}
+                                <div className="flex-1 overflow-y-auto">
+                                    {selectedAgent.viewMode === 'overview' && (
+                                        <div>
+                                            <div className="grid grid-cols-2 gap-4 mb-4">
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Agent ID</p>
+                                                    <p className="font-medium">{selectedAgent.id}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Type</p>
+                                                    <p className="font-medium">{selectedAgent.type}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Status</p>
+                                                    <p className="font-medium">{selectedAgent.status}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Environment</p>
+                                                    <p className="font-medium">{selectedAgent.environment}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Health Score</p>
+                                                    <p className="font-medium">{(selectedAgent.health_score * 100).toFixed(1)}%</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Last Seen</p>
+                                                    <p className="font-medium">{new Date(selectedAgent.last_seen).toLocaleString()}</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="grid grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg">
+                                                <div className="text-center">
+                                                    <p className="text-2xl font-bold text-blue-600">{selectedAgent.cpu_usage}%</p>
+                                                    <p className="text-sm text-gray-500">CPU Usage</p>
+                                                </div>
+                                                <div className="text-center">
+                                                    <p className="text-2xl font-bold text-green-600">{selectedAgent.memory_usage}%</p>
+                                                    <p className="text-sm text-gray-500">Memory</p>
+                                                </div>
+                                                <div className="text-center">
+                                                    <p className="text-2xl font-bold text-purple-600">{selectedAgent.response_time}ms</p>
+                                                    <p className="text-sm text-gray-500">Response Time</p>
+                                                </div>
+                                                <div className="text-center">
+                                                    <p className="text-2xl font-bold text-orange-600">{selectedAgent.requests_per_minute}</p>
+                                                    <p className="text-sm text-gray-500">Requests/min</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    
+                                    {selectedAgent.viewMode === 'metrics' && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold mb-4">📊 Real-time Metrics for {selectedAgent.name}</h4>
+                                            
+                                            {/* Performance Metrics */}
+                                            <div className="grid grid-cols-2 gap-6 mb-6">
+                                                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                                                    <h5 className="font-semibold text-blue-800 mb-3">CPU & Memory Usage</h5>
+                                                    <div className="space-y-2">
+                                                        <div className="flex justify-between items-center">
+                                                            <span className="text-sm">CPU Usage:</span>
+                                                            <div className="flex items-center space-x-2">
+                                                                <div className="w-20 bg-gray-200 rounded-full h-2">
+                                                                    <div className="bg-blue-600 h-2 rounded-full" style={{width: `${selectedAgent.cpu_usage}%`}}></div>
+                                                                </div>
+                                                                <span className="text-sm font-medium">{selectedAgent.cpu_usage}%</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span className="text-sm">Memory Usage:</span>
+                                                            <div className="flex items-center space-x-2">
+                                                                <div className="w-20 bg-gray-200 rounded-full h-2">
+                                                                    <div className="bg-green-600 h-2 rounded-full" style={{width: `${selectedAgent.memory_usage}%`}}></div>
+                                                                </div>
+                                                                <span className="text-sm font-medium">{selectedAgent.memory_usage}%</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                                                    <h5 className="font-semibold text-green-800 mb-3">Network & Performance</h5>
+                                                    <div className="space-y-2">
+                                                        <div className="flex justify-between">
+                                                            <span className="text-sm">Response Time:</span>
+                                                            <span className="text-sm font-medium">{selectedAgent.response_time}ms</span>
+                                                        </div>
+                                                        <div className="flex justify-between">
+                                                            <span className="text-sm">Requests/min:</span>
+                                                            <span className="text-sm font-medium">{selectedAgent.requests_per_minute.toLocaleString()}</span>
+                                                        </div>
+                                                        <div className="flex justify-between">
+                                                            <span className="text-sm">Error Rate:</span>
+                                                            <span className="text-sm font-medium">{(selectedAgent.error_rate * 100).toFixed(2)}%</span>
+                                                        </div>
+                                                        <div className="flex justify-between">
+                                                            <span className="text-sm">Uptime:</span>
+                                                            <span className="text-sm font-medium">99.8%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Real Interactive Charts */}
+                                            <div className="space-y-4">
+                                                {/* Top Row - CPU and Memory */}
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                    <div className="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                                                        <h6 className="font-medium mb-3 text-blue-700">
+                                                            <i className="fas fa-microchip mr-2"></i>CPU Usage (Last 24h)
+                                                        </h6>
+                                                        <div className="h-32">
+                                                            {React.createElement(CPUChart, { 
+                                                                agentId: selectedAgent.id, 
+                                                                cpuUsage: selectedAgent.cpu_usage 
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                                                        <h6 className="font-medium mb-3 text-green-700">
+                                                            <i className="fas fa-memory mr-2"></i>Memory Usage (Last 24h)
+                                                        </h6>
+                                                        <div className="h-32">
+                                                            {React.createElement(MemoryChart, { 
+                                                                agentId: selectedAgent.id, 
+                                                                memoryUsage: selectedAgent.memory_usage 
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {/* Bottom Row - Response Time */}
+                                                <div className="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                                                    <h6 className="font-medium mb-3 text-purple-700">
+                                                        <i className="fas fa-tachometer-alt mr-2"></i>Response Time Trends (Last 24h)
+                                                    </h6>
+                                                    <div className="h-40">
+                                                        {React.createElement(ResponseTimeChart, { 
+                                                            agentId: selectedAgent.id, 
+                                                            responseTime: selectedAgent.response_time 
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    
+                                    {selectedAgent.viewMode === 'logs' && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold mb-4">📝 Recent Logs for {selectedAgent.name}</h4>
+                                            
+                                            {/* Log Controls */}
+                                            <div className="flex justify-between items-center mb-4">
+                                                <div className="flex space-x-2">
+                                                    <select className="px-3 py-1 border border-gray-300 rounded text-sm">
+                                                        <option>All Levels</option>
+                                                        <option>INFO</option>
+                                                        <option>WARNING</option>
+                                                        <option>ERROR</option>
+                                                        <option>DEBUG</option>
+                                                    </select>
+                                                    <select className="px-3 py-1 border border-gray-300 rounded text-sm">
+                                                        <option>Last 1 hour</option>
+                                                        <option>Last 6 hours</option>
+                                                        <option>Last 24 hours</option>
+                                                        <option>Last 7 days</option>
+                                                    </select>
+                                                </div>
+                                                <button className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600">
+                                                    <i className="fas fa-sync mr-1"></i>Refresh
+                                                </button>
+                                            </div>
+                                            
+                                            {/* Log Entries */}
+                                            <div className="bg-black text-green-400 p-4 rounded-lg font-mono text-sm h-80 overflow-y-auto">
+                                                <div className="space-y-1">
+                                                    <div>[2025-10-18 12:45:23] <span className="text-blue-400">INFO</span> Agent {selectedAgent.id} started successfully</div>
+                                                    <div>[2025-10-18 12:45:22] <span className="text-green-400">DEBUG</span> Connecting to database...</div>
+                                                    <div>[2025-10-18 12:45:21] <span className="text-blue-400">INFO</span> Loading configuration for {selectedAgent.type}</div>
+                                                    <div>[2025-10-18 12:45:20] <span className="text-yellow-400">WARN</span> High memory usage detected: {selectedAgent.memory_usage}%</div>
+                                                    <div>[2025-10-18 12:45:19] <span className="text-blue-400">INFO</span> Processing request - Response time: {selectedAgent.response_time}ms</div>
+                                                    <div>[2025-10-18 12:45:18] <span className="text-green-400">DEBUG</span> Health check completed - Score: {(selectedAgent.health_score * 100).toFixed(1)}%</div>
+                                                    <div>[2025-10-18 12:45:17] <span className="text-blue-400">INFO</span> Handling {selectedAgent.requests_per_minute} requests per minute</div>
+                                                    <div>[2025-10-18 12:45:16] <span className="text-green-400">DEBUG</span> CPU usage stabilized at {selectedAgent.cpu_usage}%</div>
+                                                    <div>[2025-10-18 12:45:15] <span className="text-blue-400">INFO</span> Agent {selectedAgent.name} is operational in {selectedAgent.environment} environment</div>
+                                                    <div>[2025-10-18 12:45:14] <span className="text-green-400">DEBUG</span> Metrics collection started</div>
+                                                    <div>[2025-10-18 12:45:13] <span className="text-blue-400">INFO</span> Initialization complete</div>
+                                                    {selectedAgent.error_rate > 0.05 && (
+                                                        <div>[2025-10-18 12:45:12] <span className="text-red-400">ERROR</span> High error rate detected: {(selectedAgent.error_rate * 100).toFixed(2)}%</div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Log Summary */}
+                                            <div className="mt-4 grid grid-cols-4 gap-4 text-center">
+                                                <div className="bg-blue-50 p-3 rounded">
+                                                    <div className="text-lg font-bold text-blue-600">127</div>
+                                                    <div className="text-sm text-blue-600">INFO</div>
+                                                </div>
+                                                <div className="bg-yellow-50 p-3 rounded">
+                                                    <div className="text-lg font-bold text-yellow-600">8</div>
+                                                    <div className="text-sm text-yellow-600">WARNINGS</div>
+                                                </div>
+                                                <div className="bg-red-50 p-3 rounded">
+                                                    <div className="text-lg font-bold text-red-600">{Math.floor(selectedAgent.error_rate * 100)}</div>
+                                                    <div className="text-sm text-red-600">ERRORS</div>
+                                                </div>
+                                                <div className="bg-gray-50 p-3 rounded">
+                                                    <div className="text-lg font-bold text-gray-600">456</div>
+                                                    <div className="text-sm text-gray-600">DEBUG</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
