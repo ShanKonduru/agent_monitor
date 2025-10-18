@@ -1,0 +1,22 @@
+# Simple Container Agent - No external dependencies
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install only essential packages
+RUN pip install httpx asyncio
+
+# Copy only the agent file
+COPY simple_container_agent.py .
+
+# Environment variables with defaults
+ENV MONITOR_URL=http://host.docker.internal:8000
+ENV AGENT_NAME="Container Demo Agent"
+ENV AGENT_TYPE=llm_agent
+ENV WORKLOAD_TYPE=standard
+ENV AGENT_VERSION=1.0.0
+ENV AGENT_ENVIRONMENT=container
+ENV LOG_LEVEL=INFO
+
+# Run the agent
+CMD ["python", "simple_container_agent.py"]

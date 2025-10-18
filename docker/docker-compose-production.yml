@@ -1,0 +1,287 @@
+# Production Docker Compose - Real-world agent deployment scenario
+version: '3.8'
+
+services:
+  # Main monitoring service
+  monitor:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://monitor:password@postgres:5432/agent_monitor
+      - REDIS_URL=redis://redis:6379
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=monitor-token
+      - INFLUXDB_ORG=monitor
+      - INFLUXDB_BUCKET=metrics
+      - LOG_LEVEL=INFO
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      influxdb:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/system/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - monitor-network
+
+  # LLM Agent 1 - GPT-style processing
+  llm-agent-1:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=GPT-4 Processing Agent
+      - AGENT_TYPE=llm_agent
+      - WORKLOAD_TYPE=llm
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # LLM Agent 2 - Claude-style processing
+  llm-agent-2:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Claude Analysis Agent
+      - AGENT_TYPE=llm_agent
+      - WORKLOAD_TYPE=llm
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # API Agent 1 - High-throughput API
+  api-agent-1:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=REST API Gateway
+      - AGENT_TYPE=api_agent
+      - WORKLOAD_TYPE=api
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    deploy:
+      replicas: 2  # Multiple instances for load
+    networks:
+      - monitor-network
+
+  # API Agent 2 - Authentication service
+  api-agent-2:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Auth Service API
+      - AGENT_TYPE=api_agent
+      - WORKLOAD_TYPE=api
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # Data Processing Agent 1 - ETL Pipeline
+  data-agent-1:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=ETL Pipeline Agent
+      - AGENT_TYPE=data_agent
+      - WORKLOAD_TYPE=data
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # Data Processing Agent 2 - Real-time Analytics
+  data-agent-2:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Analytics Engine
+      - AGENT_TYPE=data_agent
+      - WORKLOAD_TYPE=data
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # Monitor Agent - System monitoring
+  monitor-agent-1:
+    build:
+      context: ..
+      dockerfile: docker/agent.Dockerfile
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=System Monitor Agent
+      - AGENT_TYPE=monitor_agent
+      - WORKLOAD_TYPE=standard
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: agent_monitor
+      POSTGRES_USER: monitor
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U monitor -d agent_monitor"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monitor-network
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --requirepass redispassword
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "redispassword", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - monitor-network
+
+  # InfluxDB for metrics
+  influxdb:
+    image: influxdb:2.7-alpine
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: adminpassword
+      DOCKER_INFLUXDB_INIT_ORG: monitor
+      DOCKER_INFLUXDB_INIT_BUCKET: metrics
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: monitor-token
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    ports:
+      - "8086:8086"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - monitor-network
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:10.2.0
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana-dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana-datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+  # Load balancer for demo (optional)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - monitor
+    restart: unless-stopped
+    networks:
+      - monitor-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  influxdb_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  monitor-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

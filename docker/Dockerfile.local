@@ -1,0 +1,42 @@
+# Local Dockerfile - Uses local Python installation
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install basic system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    sqlite3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional packages that might be missing
+RUN pip install requests httpx
+
+# Copy source code
+COPY src/ ./src/
+COPY *.py ./
+
+# Create data directory
+RUN mkdir -p /app/data
+
+# Create non-root user
+RUN useradd --create-home --shell /bin/bash agent && \
+    chown -R agent:agent /app
+USER agent
+
+# Environment variables
+ENV PYTHONPATH=/app
+ENV DATABASE_URL=sqlite:///./data/agent_monitor.db
+ENV LOG_LEVEL=INFO
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import sys; sys.exit(0)" || exit 1
+
+# Default command
+CMD ["python", "main.py"]

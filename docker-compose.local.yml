@@ -1,0 +1,84 @@
+# Simple Local Docker Compose - No External Dependencies
+services:
+  # Main monitoring service
+  monitor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./agent_monitor.db
+      - LOG_LEVEL=INFO
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/api/v1/system/status')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Production agent 1
+  agent-1:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Containerized LLM Agent
+      - AGENT_TYPE=llm_agent
+      - WORKLOAD_TYPE=llm
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=container
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+
+  # Production agent 2
+  agent-2:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Containerized API Agent
+      - AGENT_TYPE=api_agent
+      - WORKLOAD_TYPE=api
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=container
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+
+  # Production agent 3
+  agent-3:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Containerized Data Agent
+      - AGENT_TYPE=data_agent
+      - WORKLOAD_TYPE=data
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=container
+      - LOG_LEVEL=INFO
+    command: ["python", "production_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+
+volumes:
+  app_data:
+    driver: local
+
+networks:
+  default:
+    driver: bridge

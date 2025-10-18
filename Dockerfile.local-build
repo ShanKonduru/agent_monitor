@@ -1,0 +1,15 @@
+# Local Build Dockerfile - Minimal approach using existing Python
+FROM scratch
+
+# Copy all application files
+COPY . /app
+WORKDIR /app
+
+# This container relies on docker run with volume mounts to access Python
+# Usage: docker run -v C:\Python311:/python -v ${PWD}:/app <image> /python/python.exe /app/simple_container_agent.py
+
+# Set working directory
+WORKDIR /app
+
+# Default command (will be overridden)
+CMD ["/bin/sh"]

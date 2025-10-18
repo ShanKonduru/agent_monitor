@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  monitor-dashboard:
+    image: alpine:latest
+    command: >
+      sh -c "
+      apk add --no-cache python3 py3-pip py3-virtualenv curl &&
+      python3 -m venv /app/venv &&
+      . /app/venv/bin/activate &&
+      pip install --break-system-packages -r requirements.txt &&
+      cd /app &&
+      export PYTHONPATH=/app &&
+      python3 main.py
+      "
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/app
+    networks:
+      - agent-network
+
+  container-agent-1:
+    image: alpine:latest
+    command: >
+      sh -c "
+      apk add --no-cache python3 py3-pip py3-virtualenv curl &&
+      python3 -m venv /app/venv &&
+      . /app/venv/bin/activate &&
+      pip install --break-system-packages httpx &&
+      sleep 30 &&
+      cd /app &&
+      python3 simple_container_agent.py
+      "
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - AGENT_NAME=🐳 Alpine Container Agent 1
+      - AGENT_TYPE=llm_agent
+      - WORKLOAD_TYPE=llm
+      - AGENT_ENVIRONMENT=docker-alpine
+      - MONITOR_URL=http://monitor-dashboard:8000
+    networks:
+      - agent-network
+    depends_on:
+      - monitor-dashboard
+
+  container-agent-2:
+    image: alpine:latest
+    command: >
+      sh -c "
+      apk add --no-cache python3 py3-pip py3-virtualenv curl &&
+      python3 -m venv /app/venv &&
+      . /app/venv/bin/activate &&
+      pip install --break-system-packages httpx &&
+      sleep 30 &&
+      cd /app &&
+      python3 simple_container_agent.py
+      "
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - AGENT_NAME=🐳 Alpine Container Agent 2
+      - AGENT_TYPE=api_agent
+      - WORKLOAD_TYPE=api
+      - AGENT_ENVIRONMENT=docker-alpine
+      - MONITOR_URL=http://monitor-dashboard:8000
+    networks:
+      - agent-network
+    depends_on:
+      - monitor-dashboard
+
+  container-agent-3:
+    image: alpine:latest
+    command: >
+      sh -c "
+      apk add --no-cache python3 py3-pip py3-virtualenv curl &&
+      python3 -m venv /app/venv &&
+      . /app/venv/bin/activate &&
+      pip install --break-system-packages httpx &&
+      sleep 30 &&
+      cd /app &&
+      python3 simple_container_agent.py
+      "
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - AGENT_NAME=🐳 Alpine Container Agent 3
+      - AGENT_TYPE=data_agent
+      - WORKLOAD_TYPE=data
+      - AGENT_ENVIRONMENT=docker-alpine
+      - MONITOR_URL=http://monitor-dashboard:8000
+    networks:
+      - agent-network
+    depends_on:
+      - monitor-dashboard
+
+networks:
+  agent-network:
+    driver: bridge
