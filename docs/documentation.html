@@ -506,14 +506,60 @@
         }
 
         /* Mermaid Diagrams */
-        .mermaid {
+        .mermaid-container {
             background: white;
             border-radius: 0.75rem;
-            padding: 2rem;
+            padding: 1.5rem;
             margin: 2rem 0;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            background: transparent !important;
+            border: none !important;
+            padding: 1rem !important;
+            margin: 0 !important;
             text-align: center;
+            font-family: 'Inter', sans-serif;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            fill: #f8fafc !important;
+            stroke: #3b82f6 !important;
+            stroke-width: 2px !important;
+        }
+
+        .mermaid .node .label {
+            color: #1f2937 !important;
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 500 !important;
+        }
+
+        .mermaid .edgePath .path {
+            stroke: #6b7280 !important;
+            stroke-width: 2px !important;
+        }
+
+        .mermaid .edgeLabel {
+            background-color: white !important;
+            color: #374151 !important;
+            font-family: 'Inter', sans-serif !important;
         }
 
         /* Cards and Callouts */
@@ -647,11 +693,23 @@
         body.dark .nav-header,
         body.dark .sidebar,
         body.dark .content-wrapper,
-        body.dark .feature-card,
-        body.dark .mermaid {
+        body.dark .feature-card {
             background: rgba(31, 41, 55, 0.95) !important;
             border-color: var(--border-color);
             color: var(--text-primary) !important;
+        }
+
+        body.dark .mermaid-container {
+            background: rgba(31, 41, 55, 0.95) !important;
+            border-color: #4b5563 !important;
+        }
+
+        body.dark .mermaid {
+            background: transparent !important;
+        }
+
+        body.dark .mermaid svg {
+            background: rgba(31, 41, 55, 0.95) !important;
         }
 
         body.dark .markdown-body {
@@ -1072,7 +1130,7 @@
         let isFullscreen = false;
         let sidebarOpen = false;
 
-        // Initialize Mermaid
+        // Initialize Mermaid with improved configuration
         mermaid.initialize({
             startOnLoad: false,
             theme: 'default',
@@ -1082,11 +1140,34 @@
                 primaryBorderColor: '#e5e7eb',
                 lineColor: '#6b7280',
                 secondaryColor: '#f3f4f6',
-                tertiaryColor: '#ffffff'
+                tertiaryColor: '#ffffff',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f8fafc',
+                tertiaryBkg: '#f1f5f9'
             },
             flowchart: {
                 nodeSpacing: 50,
-                rankSpacing: 50
+                rankSpacing: 60,
+                curve: 'cardinal'
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                fontFamily: '"Inter", sans-serif',
+                fontSize: 11,
+                gridLineStartPadding: 35
             }
         });
 
@@ -1673,10 +1754,15 @@ GET /api/alerts?status=active&severity=critical
                 langPrefix: 'language-'
             });
             
-            // Process Mermaid diagrams
-            let processedMarkdown = markdown.replace(/```mermaid\n([\s\S]*?)\n```/g, (match, diagram) => {
+            // Process Mermaid diagrams - improved regex and processing
+            let processedMarkdown = markdown.replace(/```mermaid\s*\n([\s\S]*?)\n```/g, (match, diagram) => {
                 const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
-                return `<div class="mermaid" id="${id}" data-aos="fade-up">${diagram}</div>`;
+                const cleanDiagram = diagram.trim();
+                return `<div class="mermaid-container mb-6" data-aos="fade-up">
+                    <div class="mermaid bg-white p-4 rounded-lg shadow-lg border border-gray-200" id="${id}">
+                        ${cleanDiagram}
+                    </div>
+                </div>`;
             });
 
             // Convert markdown to HTML
@@ -1723,11 +1809,29 @@ GET /api/alerts?status=active&severity=critical
                 element.setAttribute('data-aos', 'slide-up');
             });
             
-            // Render Mermaid diagrams
-            try {
-                await mermaid.run();
-            } catch (mermaidError) {
-                console.warn('Mermaid rendering error:', mermaidError);
+            // Render Mermaid diagrams with better error handling
+            const mermaidElements = document.querySelectorAll('.mermaid');
+            if (mermaidElements.length > 0) {
+                console.log(`Found ${mermaidElements.length} Mermaid diagrams to render`);
+                try {
+                    // Clear any previous Mermaid instances
+                    mermaid.init(undefined, mermaidElements);
+                    console.log('Mermaid diagrams rendered successfully');
+                } catch (mermaidError) {
+                    console.error('Mermaid rendering error:', mermaidError);
+                    // Fallback: show diagram source if rendering fails
+                    mermaidElements.forEach((element, index) => {
+                        if (element.getAttribute('data-processed') !== 'true') {
+                            element.innerHTML = `<pre class="bg-gray-100 p-4 rounded-lg border">
+                                <code class="language-text">${element.textContent}</code>
+                            </pre>
+                            <p class="text-sm text-gray-600 mt-2">
+                                <i class="fas fa-exclamation-triangle text-yellow-500"></i>
+                                Mermaid diagram could not be rendered. Showing source code.
+                            </p>`;
+                        }
+                    });
+                }
             }
             
             // Enhance features first

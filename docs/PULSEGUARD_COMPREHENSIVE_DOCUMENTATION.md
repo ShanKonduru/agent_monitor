@@ -47,30 +47,30 @@
 
 ```mermaid
 graph TB
-    subgraph ClientLayer ["Client Layer"]
+    subgraph ClientLayer [Client Layer]
         WEB[Web Dashboard<br/>React + Chart.js]
         API[REST API<br/>FastAPI]
     end
     
-    subgraph ApplicationLayer ["Application Layer"]
+    subgraph ApplicationLayer [Application Layer]
         CORE[Core Engine<br/>Python]
         AGENT[Agent Manager<br/>Distributed Agents]
         ALERT[Alert Engine<br/>Rule-based Alerting]
     end
     
-    subgraph DataLayer ["Data Layer"]
+    subgraph DataLayer [Data Layer]
         DB[(PostgreSQL<br/>Primary Database)]
         CACHE[(Redis<br/>Cache Layer)]
         TSDB[(TimescaleDB<br/>Time Series Data)]
     end
     
-    subgraph InfrastructureLayer ["Infrastructure Layer"]
+    subgraph InfrastructureLayer [Infrastructure Layer]
         DOCKER[Docker Containers]
         K8S[Kubernetes Orchestration]
         NGINX[Load Balancer<br/>Nginx]
     end
     
-    subgraph MonitoringTargets ["Monitoring Targets"]
+    subgraph MonitoringTargets [Monitoring Targets]
         SERVER1[Server 01<br/>Web Server]
         SERVER2[Server 02<br/>Database Server]
         SERVER3[Server 03<br/>API Gateway]
@@ -99,7 +99,7 @@ graph TB
 
 ```mermaid
 graph LR
-    subgraph PulseGuardCore ["PulseGuard™ Core"]
+    subgraph PulseGuardCore [PulseGuard™ Core]
         A[Agent Manager] --> B[Data Collector]
         B --> C[Alert Engine]
         C --> D[Notification Service]
@@ -107,7 +107,7 @@ graph LR
         E --> F[Web Interface]
     end
     
-    subgraph ExternalSystems ["External Systems"]
+    subgraph ExternalSystems [External Systems]
         G[Monitoring Agents]
         H[PostgreSQL DB]
         I[Alert Channels]
@@ -316,13 +316,13 @@ stateDiagram-v2
 
 ```mermaid
 graph TB
-    subgraph PulseGuardServer ["PulseGuard™ Server"]
+    subgraph PulseGuardServer [PulseGuard™ Server]
         AM[Agent Manager]
         DB[(Database)]
         API[REST API]
     end
     
-    subgraph MonitoringInfrastructure ["Monitoring Infrastructure"]
+    subgraph MonitoringInfrastructure [Monitoring Infrastructure]
         A1[Agent 01<br/>Web Server]
         A2[Agent 02<br/>Database Server]
         A3[Agent 03<br/>API Gateway]
@@ -460,24 +460,24 @@ spec:
 
 ```mermaid
 graph TB
-    subgraph LoadBalancerLayer ["Load Balancer Layer"]
+    subgraph LoadBalancerLayer [Load Balancer Layer]
         LB[Nginx Load Balancer]
         LB2[Backup Load Balancer]
     end
     
-    subgraph ApplicationLayer ["Application Layer"]
+    subgraph ApplicationLayer [Application Layer]
         API1[PulseGuard API 01]
         API2[PulseGuard API 02]
         API3[PulseGuard API 03]
     end
     
-    subgraph DatabaseLayer ["Database Layer"]
+    subgraph DatabaseLayer [Database Layer]
         MASTER[(PostgreSQL Master)]
         REPLICA1[(PostgreSQL Replica 01)]
         REPLICA2[(PostgreSQL Replica 02)]
     end
     
-    subgraph CacheLayer ["Cache Layer"]
+    subgraph CacheLayer [Cache Layer]
         REDIS1[(Redis Master)]
         REDIS2[(Redis Replica)]
     end
@@ -521,22 +521,22 @@ graph TB
 **Implementation**:
 ```mermaid
 graph TB
-    subgraph DataCenter01 ["Data Center 01"]
+    subgraph DataCenter01 [Data Center 01]
         DC1[500 Servers]
         A1[PulseGuard Agents]
     end
     
-    subgraph DataCenter02 ["Data Center 02"]
+    subgraph DataCenter02 [Data Center 02]
         DC2[300 Servers]
         A2[PulseGuard Agents]
     end
     
-    subgraph CloudInfrastructure ["Cloud Infrastructure"]
+    subgraph CloudInfrastructure [Cloud Infrastructure]
         CLOUD[200 Cloud Instances]
         A3[Cloud Agents]
     end
     
-    subgraph CentralManagement ["Central Management"]
+    subgraph CentralManagement [Central Management]
         MASTER[PulseGuard™ Master]
         DASH[Executive Dashboard]
     end
@@ -836,7 +836,7 @@ ws.onmessage = function(event) {
 
 ```mermaid
 graph TB
-    subgraph SecurityLayers ["Security Layers"]
+    subgraph SecurityLayers [Security Layers]
         A[Network Security<br/>TLS 1.3 Encryption]
         B[Authentication<br/>OAuth 2.0 + JWT]
         C[Authorization<br/>RBAC + ABAC]
@@ -844,7 +844,7 @@ graph TB
         E[Audit Logging<br/>Immutable Logs]
     end
     
-    subgraph ThreatProtection ["Threat Protection"]
+    subgraph ThreatProtection [Threat Protection]
         F[DDoS Protection]
         G[SQL Injection Prevention]
         H[XSS Protection]
@@ -907,14 +907,14 @@ graph TB
 #### Resource Utilization
 ```mermaid
 graph LR
-    subgraph ResourceUsage ["Resource Usage"]
+    subgraph ResourceUsage [Resource Usage]
         A[CPU: 2-4 cores<br/>@ 15% average]
         B[Memory: 4-8 GB<br/>@ 60% average]
         C[Storage: 100GB+<br/>@ 70% utilization]
         D[Network: 10 Mbps<br/>@ 20% utilization]
     end
     
-    subgraph PerformanceMetrics ["Performance Metrics"]
+    subgraph PerformanceMetrics [Performance Metrics]
         E[Throughput:<br/>1M metrics/sec]
         F[Latency:<br/>< 100ms p99]
         G[Availability:<br/>99.99% uptime]
