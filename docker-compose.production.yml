@@ -27,7 +27,7 @@ services:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app
-      - MONITOR_URL=http://localhost:8000
+      - MONITOR_URL=http://192.168.1.220:8000
       - DATABASE_URL=postgresql+asyncpg://agent_monitor:agent_monitor_password@postgres:5432/agent_monitor
     volumes:
       - agent_data:/app/data

@@ -127,10 +127,30 @@ async def root():
 async def dashboard():
     """Serve the agent monitoring dashboard"""
     try:
-        return FileResponse("web/dashboard.html")
+        return FileResponse("web/dashboard-offline.html")
     except Exception as e:
         logger.error(f"Failed to serve dashboard: {e}")
         return HTMLResponse("<h1>Dashboard temporarily unavailable</h1>", status_code=500)
+
+
+@app.get("/dashboard/react", response_class=HTMLResponse)
+async def react_dashboard():
+    """Serve the React-based dashboard (requires internet)"""
+    try:
+        return FileResponse("web/dashboard.html")
+    except Exception as e:
+        logger.error(f"Failed to serve React dashboard: {e}")
+        return HTMLResponse("<h1>React Dashboard temporarily unavailable</h1>", status_code=500)
+
+
+@app.get("/simple", response_class=HTMLResponse)
+async def simple_dashboard():
+    """Serve the lightweight agent monitoring dashboard"""
+    try:
+        return FileResponse("web/simple-dashboard.html")
+    except Exception as e:
+        logger.error(f"Failed to serve simple dashboard: {e}")
+        return HTMLResponse("<h1>Simple Dashboard temporarily unavailable</h1>", status_code=500)
 
 
 @app.get("/api/v1/system/status")
