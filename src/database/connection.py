@@ -12,7 +12,14 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import StaticPool
 import redis.asyncio as redis
-from influxdb_client.client.influxdb_client_async import InfluxDBClientAsync
+
+# Optional InfluxDB import
+try:
+    from influxdb_client.client.influxdb_client_async import InfluxDBClientAsync
+    INFLUXDB_AVAILABLE = True
+except ImportError:
+    InfluxDBClientAsync = None
+    INFLUXDB_AVAILABLE = False
 
 from src.config import settings
 from src.database.models import Base
@@ -152,6 +159,11 @@ class DatabaseManager:
     async def _setup_influxdb(self):
         """Setup InfluxDB connection"""
         try:
+            if not INFLUXDB_AVAILABLE:
+                logger.warning("InfluxDB client not available - skipping InfluxDB setup")
+                self.influx_client = None
+                return
+                
             self.influx_client = InfluxDBClientAsync(
                 url=settings.database.influxdb_url,
                 token=settings.database.influxdb_token,
@@ -213,7 +225,7 @@ class DatabaseManager:
         """Get Redis client"""
         return self.redis_client
     
-    async def get_influx(self) -> Optional[InfluxDBClientAsync]:
+    async def get_influx(self):
         """Get InfluxDB client"""
         return self.influx_client
     
@@ -293,7 +305,7 @@ async def get_redis_client() -> Optional[redis.Redis]:
     return await db_manager.get_redis()
 
 
-async def get_influx_client() -> Optional[InfluxDBClientAsync]:
+async def get_influx_client():
     """FastAPI dependency for InfluxDB client"""
     return await db_manager.get_influx()
 

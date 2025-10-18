@@ -30,11 +30,11 @@ class AgentStatus(str, Enum):
 
 class DeploymentType(str, Enum):
     """Where the agent is deployed"""
-    DOCKER = "docker"
-    KUBERNETES = "kubernetes"
-    LOCAL = "local"
-    CLOUD = "cloud"
-    SERVERLESS = "serverless"
+    DOCKER = "DOCKER"
+    KUBERNETES = "KUBERNETES"
+    LOCAL = "LOCAL"
+    CLOUD = "CLOUD"
+    SERVERLESS = "SERVERLESS"
 
 
 class AgentInfo(BaseModel):

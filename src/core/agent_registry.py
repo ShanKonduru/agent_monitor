@@ -4,7 +4,7 @@ Agent Registry Service - Manages agent registration and discovery with PostgreSQ
 
 import asyncio
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional
 from uuid import uuid4
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -45,7 +45,7 @@ class AgentRegistry:
                 port=getattr(agent_info, 'port', None),
                 environment=agent_info.environment,
                 status=AgentStatus.ONLINE,
-                last_heartbeat=datetime.utcnow(),
+                last_heartbeat=datetime.now(timezone.utc),
                 agent_metadata=agent_info.metadata or {}
             )
             
@@ -210,8 +210,8 @@ class AgentRegistry:
                     .where(DBAgent.id == agent_id)
                     .values(
                         status=status,
-                        last_heartbeat=datetime.utcnow(),
-                        updated_at=datetime.utcnow()
+                        last_heartbeat=datetime.now(timezone.utc),
+                        updated_at=datetime.now(timezone.utc)
                     )
                 )
                 await session.commit()
@@ -235,8 +235,8 @@ class AgentRegistry:
                         update(DBAgent)
                         .where(DBAgent.id == agent_id)
                         .values(
-                            last_heartbeat=datetime.utcnow(),
-                            updated_at=datetime.utcnow(),
+                            last_heartbeat=datetime.now(timezone.utc),
+                            updated_at=datetime.now(timezone.utc),
                             status=AgentStatus.ONLINE if current_status == AgentStatus.OFFLINE else current_status
                         )
                     )
@@ -280,17 +280,20 @@ class AgentRegistry:
         
         if agent.status == AgentStatus.ONLINE:
             base_score = 1.0
-        elif agent.status == AgentStatus.WARNING:
+        elif agent.status == AgentStatus.MAINTENANCE:
             base_score = 0.7
         elif agent.status == AgentStatus.ERROR:
             base_score = 0.3
         elif agent.status == AgentStatus.OFFLINE:
             base_score = 0.0
+        elif agent.status == AgentStatus.UNKNOWN:
+            base_score = 0.5
         else:
             base_score = 0.5
         
         # Adjust based on last seen time
-        time_since_last_seen = datetime.utcnow() - agent.last_seen
+        now_utc = datetime.now(timezone.utc)
+        time_since_last_seen = now_utc - agent.last_seen
         if time_since_last_seen > timedelta(minutes=5):
             base_score *= 0.8
         elif time_since_last_seen > timedelta(minutes=2):
@@ -333,7 +336,7 @@ class AgentRegistry:
                     return
                 
                 last_heartbeat, current_status = row
-                time_since_heartbeat = datetime.utcnow() - last_heartbeat
+                time_since_heartbeat = datetime.now(timezone.utc) - last_heartbeat
                 
                 # Define timeouts
                 warning_timeout = timedelta(minutes=2)
