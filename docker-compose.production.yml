@@ -1,6 +1,27 @@
 version: '3.8'
 
 services:
+  # PostgreSQL Database (unified storage)
+  # Note: Commented out due to network connectivity issues
+  # Uncomment when Docker Hub access is available
+  # postgres:
+  #   image: postgres:15
+  #   container_name: agent_monitor_postgres
+  #   environment:
+  #     POSTGRES_DB: agent_monitor
+  #     POSTGRES_USER: monitor_user
+  #     POSTGRES_PASSWORD: secure_monitor_pass
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - agent-network
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U monitor_user -d agent_monitor"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   restart: unless-stopped
+
   monitor-dashboard:
     image: agent-monitor:latest
     command: python main.py
@@ -9,8 +30,16 @@ services:
     environment:
       - PYTHONPATH=/app
       - MONITOR_URL=http://localhost:8000
+      # Use persistent SQLite until PostgreSQL is available
+      - DATABASE_URL=sqlite+aiosqlite:///./data/agent_monitor.db
+    volumes:
+      # Persistent database storage
+      - agent_data:/app/data
     networks:
       - agent-network
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/agents/"]
       interval: 30s
@@ -106,3 +135,9 @@ services:
 networks:
   agent-network:
     driver: bridge
+
+volumes:
+  # postgres_data:  # Uncomment when PostgreSQL is enabled
+  #   driver: local
+  agent_data:
+    driver: local
