@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseGuard™ - Comprehensive Documentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-http.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-docker.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #1f2937;
+            --light-bg: #f8fafc;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        .nav-title i {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-left: 3rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle, .fullscreen-btn, .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover, .fullscreen-btn:hover, .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Search */
+        .search-container {
+            position: relative;
+            display: none;
+        }
+
+        .search-container.active {
+            display: block;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+
+        .search-result {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-result:hover {
+            background-color: var(--light-bg);
+        }
+
+        .search-result:last-child {
+            border-bottom: none;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Sidebar TOC */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: -350px;
+            width: 320px;
+            height: calc(100vh - 80px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 999;
+            transition: left 0.3s ease;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .toc-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-link:hover, .toc-link.active {
+            color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .toc-link.level-2 { margin-left: 1rem; }
+        .toc-link.level-3 { margin-left: 2rem; }
+        .toc-link.level-4 { margin-left: 3rem; }
+
+        /* Main Content */
+        .main-content {
+            margin: 2rem auto;
+            transition: margin-left 0.3s ease;
+        }
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Typography */
+        .markdown-body {
+            line-height: 1.7;
+            color: var(--text-primary) !important;
+        }
+
+        .markdown-body h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .markdown-body h1::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .markdown-body h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary-color) !important;
+            margin: 3rem 0 1.5rem 0;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .markdown-body h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .markdown-body h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary) !important;
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .markdown-body h3::before {
+            content: '▶';
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .markdown-body h4 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--text-primary) !important;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        .markdown-body p {
+            color: var(--text-primary) !important;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body li {
+            color: var(--text-primary) !important;
+        }
+
+        .markdown-body strong {
+            color: var(--text-primary) !important;
+            font-weight: 700;
+        }
+
+        /* Tables */
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .markdown-body th {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .markdown-body td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .markdown-body tr:hover td {
+            background-color: var(--light-bg);
+        }
+
+        .markdown-body tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Code block enhancements */
+        .language-indicator {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+            color: white !important;
+            font-weight: 600;
+            border-radius: 0 0 0.375rem 0 !important;
+            z-index: 10;
+        }
+
+        .markdown-body pre {
+            background: #2d3748 !important;
+            color: #e2e8f0 !important;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .markdown-body pre::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .markdown-body code {
+            background: rgba(59, 130, 246, 0.1) !important;
+            color: var(--primary-color) !important;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.875em;
+            font-weight: 500;
+        }
+
+        .markdown-body pre code {
+            background: transparent !important;
+            color: #e2e8f0 !important;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        /* Dark theme code blocks */
+        body.dark .markdown-body pre {
+            background: #1a202c !important;
+            color: #e2e8f0 !important;
+            border: 1px solid #2d3748;
+        }
+
+        body.dark .markdown-body pre code {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark .markdown-body code {
+            background: rgba(59, 130, 246, 0.2) !important;
+            color: #60a5fa !important;
+        }
+
+        /* Mermaid Diagrams */
+        .mermaid {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        /* Cards and Callouts */
+        .feature-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 2rem;
+            margin: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+        }
+
+        .badge-success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+        }
+
+        .badge-warning {
+            background: linear-gradient(135deg, var(--warning-color), #d97706);
+            color: white;
+        }
+
+        .badge-danger {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+            color: white;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 4rem;
+            height: 4rem;
+            border: 4px solid rgba(59, 130, 246, 0.2);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Scroll to Top */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .scroll-to-top.visible {
+            display: flex;
+        }
+
+        /* Dark Theme */
+        body.dark {
+            --bg-color: #111827;
+            --light-bg: #374151;
+            --text-primary: #f9fafb !important;
+            --text-secondary: #d1d5db !important;
+            --border-color: #4b5563;
+            --card-bg: #1f2937;
+            --code-bg: #374151;
+            --hover-bg: #374151;
+        }
+
+        body.dark .nav-header,
+        body.dark .sidebar,
+        body.dark .content-wrapper,
+        body.dark .feature-card,
+        body.dark .mermaid {
+            background: rgba(31, 41, 55, 0.95) !important;
+            border-color: var(--border-color);
+            color: var(--text-primary) !important;
+        }
+
+        body.dark .markdown-body {
+            color: var(--text-primary) !important;
+        }
+
+        body.dark .markdown-body h1,
+        body.dark .markdown-body h2,
+        body.dark .markdown-body h3,
+        body.dark .markdown-body h4,
+        body.dark .markdown-body h5,
+        body.dark .markdown-body h6,
+        body.dark .markdown-body p,
+        body.dark .markdown-body li,
+        body.dark .markdown-body td,
+        body.dark .markdown-body th,
+        body.dark .markdown-body strong,
+        body.dark .markdown-body em {
+            color: var(--text-primary) !important;
+        }
+
+        body.dark .search-input {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+        }
+
+        /* Ensure text visibility with highest specificity */
+        html body .markdown-body,
+        html body .markdown-body * {
+            color: #1f2937 !important;
+        }
+
+        html body.dark .markdown-body,
+        html body.dark .markdown-body * {
+            color: #f9fafb !important;
+        }
+
+        /* Force text visibility for all text elements */
+        html body .markdown-body h1,
+        html body .markdown-body h2,
+        html body .markdown-body h3,
+        html body .markdown-body h4,
+        html body .markdown-body h5,
+        html body .markdown-body h6,
+        html body .markdown-body p,
+        html body .markdown-body li,
+        html body .markdown-body td,
+        html body .markdown-body th,
+        html body .markdown-body strong,
+        html body .markdown-body em,
+        html body .markdown-body span,
+        html body .markdown-body div {
+            color: #1f2937 !important;
+        }
+
+        /* Code blocks with specific colors */
+        html body .markdown-body code {
+            background: rgba(59, 130, 246, 0.1) !important;
+            color: #3b82f6 !important;
+        }
+
+        html body .markdown-body pre {
+            background: #2d3748 !important;
+            color: #e2e8f0 !important;
+        }
+
+        html body .markdown-body pre code {
+            background: transparent !important;
+            color: #e2e8f0 !important;
+        }
+
+        /* Prism.js syntax highlighting overrides */
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: #6b7280 !important;
+        }
+
+        .token.punctuation {
+            color: #d1d5db !important;
+        }
+
+        .token.property,
+        .token.tag,
+        .token.boolean,
+        .token.number,
+        .token.constant,
+        .token.symbol,
+        .token.deleted {
+            color: #f87171 !important;
+        }
+
+        .token.selector,
+        .token.attr-name,
+        .token.string,
+        .token.char,
+        .token.builtin,
+        .token.inserted {
+            color: #34d399 !important;
+        }
+
+        .token.operator,
+        .token.entity,
+        .token.url,
+        .language-css .token.string,
+        .style .token.string {
+            color: #60a5fa !important;
+        }
+
+        .token.atrule,
+        .token.attr-value,
+        .token.keyword {
+            color: #a78bfa !important;
+        }
+
+        .token.function,
+        .token.class-name {
+            color: #fbbf24 !important;
+        }
+
+        .token.regex,
+        .token.important,
+        .token.variable {
+            color: #f472b6 !important;
+        }
+
+        /* Bash/Shell specific */
+        .language-bash .token.function {
+            color: #34d399 !important;
+        }
+
+        .language-bash .token.parameter {
+            color: #60a5fa !important;
+        }
+
+        /* JSON specific */
+        .language-json .token.property {
+            color: #60a5fa !important;
+        }
+
+        .language-json .token.string {
+            color: #34d399 !important;
+        }
+
+        /* HTTP specific */
+        .language-http .token.request-line {
+            color: #a78bfa !important;
+        }
+
+        .language-http .token.header-name {
+            color: #fbbf24 !important;
+        }
+
+        html body.dark .markdown-body h1,
+        html body.dark .markdown-body h2,
+        html body.dark .markdown-body h3,
+        html body.dark .markdown-body h4,
+        html body.dark .markdown-body h5,
+        html body.dark .markdown-body h6,
+        html body.dark .markdown-body p,
+        html body.dark .markdown-body li,
+        html body.dark .markdown-body td,
+        html body.dark .markdown-body th,
+        html body.dark .markdown-body strong,
+        html body.dark .markdown-body em,
+        html body.dark .markdown-body span,
+        html body.dark .markdown-body div {
+            color: #f9fafb !important;
+        }
+
+        /* Dark theme code blocks */
+        html body.dark .markdown-body code {
+            background: rgba(59, 130, 246, 0.2) !important;
+            color: #60a5fa !important;
+        }
+
+        html body.dark .markdown-body pre {
+            background: #1a202c !important;
+            color: #e2e8f0 !important;
+        }
+
+        html body.dark .markdown-body pre code {
+            background: transparent !important;
+            color: #e2e8f0 !important;
+        }
+
+        /* Dark theme syntax highlighting */
+        body.dark .token.comment,
+        body.dark .token.prolog,
+        body.dark .token.doctype,
+        body.dark .token.cdata {
+            color: #6b7280 !important;
+        }
+
+        body.dark .token.punctuation {
+            color: #9ca3af !important;
+        }
+
+        body.dark .token.property,
+        body.dark .token.tag,
+        body.dark .token.boolean,
+        body.dark .token.number,
+        body.dark .token.constant,
+        body.dark .token.symbol,
+        body.dark .token.deleted {
+            color: #fca5a5 !important;
+        }
+
+        body.dark .token.selector,
+        body.dark .token.attr-name,
+        body.dark .token.string,
+        body.dark .token.char,
+        body.dark .token.builtin,
+        body.dark .token.inserted {
+            color: #6ee7b7 !important;
+        }
+
+        body.dark .token.operator,
+        body.dark .token.entity,
+        body.dark .token.url,
+        body.dark .language-css .token.string,
+        body.dark .style .token.string {
+            color: #93c5fd !important;
+        }
+
+        body.dark .token.atrule,
+        body.dark .token.attr-value,
+        body.dark .token.keyword {
+            color: #c4b5fd !important;
+        }
+
+        body.dark .token.function,
+        body.dark .token.class-name {
+            color: #fed7aa !important;
+        }
+
+        body.dark .token.regex,
+        body.dark .token.important,
+        body.dark .token.variable {
+            color: #f9a8d4 !important;
+        }
+
+        /* Override any webkit text fill */
+        html body .markdown-body h1 {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        html body.dark .markdown-body h1 {
+            -webkit-text-fill-color: #f9fafb !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-title {
+                font-size: 1.25rem;
+            }
+
+            .nav-subtitle {
+                display: none;
+            }
+
+            .nav-controls {
+                gap: 0.5rem;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .content-wrapper {
+                padding: 2rem 1.5rem;
+            }
+
+            .markdown-body h1 {
+                font-size: 2rem;
+            }
+
+            .markdown-body h2 {
+                font-size: 1.75rem;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Highlight Animation */
+        .highlight {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            animation: highlight 2s ease-out;
+        }
+
+        @keyframes highlight {
+            0% {
+                background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
+            }
+            100% {
+                background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="container">
+            <div class="nav-content">
+                <div>
+                    <div class="nav-title">
+                        <i class="fas fa-heartbeat"></i>
+                        PulseGuard™
+                    </div>
+                    <div class="nav-subtitle">Comprehensive Documentation - Powered by VedicMetaverses</div>
+                </div>
+                <div class="nav-controls">
+                    <div class="search-container" id="searchContainer">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search documentation...">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <button class="search-btn" id="searchBtn" title="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar TOC -->
+    <aside class="sidebar" id="sidebar">
+        <div class="toc-title">
+            <i class="fas fa-list"></i>
+            Table of Contents
+        </div>
+        <nav class="toc-list" id="tocList">
+            <!-- TOC will be generated here -->
+        </nav>
+    </aside>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading">
+        <div class="loading-spinner"></div>
+        <div class="text-xl font-semibold mb-2">Loading Documentation...</div>
+        <div class="text-gray-600">Preparing your comprehensive guide to PulseGuard™</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content container" id="mainContent">
+        <div class="content-wrapper">
+            <div id="content" class="markdown-body" style="display: none;"></div>
+        </div>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" title="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Initialize variables
+        let currentTheme = 'light';
+        let searchIndex = [];
+        let isFullscreen = false;
+        let sidebarOpen = false;
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#3b82f6',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#e5e7eb',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#ffffff'
+            },
+            flowchart: {
+                nodeSpacing: 50,
+                rankSpacing: 50
+            }
+        });
+
+        // Configure Marked options
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && Prism.languages[lang]) {
+                    return Prism.highlight(code, Prism.languages[lang], lang);
+                }
+                return code;
+            },
+            breaks: true,
+            gfm: true
+        });
+
+        // Initialize AOS (Animate On Scroll)
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 100
+            });
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.classList.toggle('dark', currentTheme === 'dark');
+            
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            localStorage.setItem('pulseguard-theme', currentTheme);
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!isFullscreen) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+                isFullscreen = true;
+                document.querySelector('#fullscreenBtn i').className = 'fas fa-compress';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                isFullscreen = false;
+                document.querySelector('#fullscreenBtn i').className = 'fas fa-expand';
+            }
+        }
+
+        // Search functionality
+        function initializeSearch() {
+            const searchBtn = document.getElementById('searchBtn');
+            const searchContainer = document.getElementById('searchContainer');
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+
+            searchBtn.addEventListener('click', function() {
+                searchContainer.classList.toggle('active');
+                if (searchContainer.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            });
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                if (query.length < 2) {
+                    searchResults.innerHTML = '';
+                    return;
+                }
+
+                const results = searchIndex.filter(item => 
+                    item.text.toLowerCase().includes(query) ||
+                    item.title.toLowerCase().includes(query)
+                ).slice(0, 10);
+
+                displaySearchResults(results, query);
+            });
+
+            // Close search when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchContainer.contains(e.target) && !searchBtn.contains(e.target)) {
+                    searchContainer.classList.remove('active');
+                }
+            });
+        }
+
+        function displaySearchResults(results, query) {
+            const searchResults = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-result">No results found</div>';
+                return;
+            }
+
+            searchResults.innerHTML = results.map(result => `
+                <div class="search-result" onclick="scrollToElement('${result.id}')">
+                    <div class="font-semibold text-sm">${highlightText(result.title, query)}</div>
+                    <div class="text-xs text-gray-600 mt-1">${highlightText(result.text.substring(0, 100), query)}...</div>
+                </div>
+            `).join('');
+        }
+
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
+        }
+
+        function scrollToElement(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                element.classList.add('highlight');
+                setTimeout(() => element.classList.remove('highlight'), 2000);
+            }
+            document.getElementById('searchContainer').classList.remove('active');
+        }
+
+        // Sidebar Toggle
+        function toggleSidebar() {
+            sidebarOpen = !sidebarOpen;
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active', sidebarOpen);
+            
+            const icon = document.querySelector('#sidebarToggle i');
+            icon.className = sidebarOpen ? 'fas fa-times' : 'fas fa-bars';
+        }
+
+        // Progress Bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        }
+
+        // Table of Contents
+        function generateTOC() {
+            const headings = document.querySelectorAll('h1, h2, h3, h4');
+            const tocList = document.getElementById('tocList');
+            
+            if (headings.length === 0) return;
+
+            let tocHTML = '';
+            headings.forEach((heading, index) => {
+                const id = `heading-${index}`;
+                heading.id = id;
+                
+                const level = parseInt(heading.tagName.charAt(1));
+                const text = heading.textContent;
+                
+                tocHTML += `
+                    <div class="toc-item">
+                        <a href="#${id}" class="toc-link level-${level}" data-heading="${id}">
+                            ${text}
+                        </a>
+                    </div>
+                `;
+
+                // Add to search index
+                searchIndex.push({
+                    id: id,
+                    title: text,
+                    text: text + ' ' + (heading.nextElementSibling?.textContent || '')
+                });
+            });
+
+            tocList.innerHTML = tocHTML;
+
+            // Add click handlers for smooth scrolling
+            tocList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('toc-link')) {
+                    e.preventDefault();
+                    const targetId = e.target.getAttribute('href').substring(1);
+                    scrollToElement(targetId);
+                }
+            });
+        }
+
+        // Active TOC item highlighting
+        function updateActiveTOCItem() {
+            const headings = document.querySelectorAll('h1, h2, h3, h4');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let activeHeading = null;
+            
+            for (let i = headings.length - 1; i >= 0; i--) {
+                const heading = headings[i];
+                const rect = heading.getBoundingClientRect();
+                
+                if (rect.top <= 100) {
+                    activeHeading = heading;
+                    break;
+                }
+            }
+
+            tocLinks.forEach(link => link.classList.remove('active'));
+            
+            if (activeHeading) {
+                const activeLink = document.querySelector(`[data-heading="${activeHeading.id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Enhanced code block styling
+        function enhanceCodeBlocks() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                const text = block.textContent.toLowerCase();
+                
+                // Auto-detect language if not specified
+                let language = '';
+                const className = block.className;
+                
+                if (className.includes('language-')) {
+                    language = className.match(/language-(\w+)/)[1];
+                } else {
+                    // Auto-detect based on content
+                    if (text.includes('git clone') || text.includes('cd ') || text.includes('python ') || text.includes('pip ') || text.includes('docker ')) {
+                        language = 'bash';
+                        block.className = 'language-bash';
+                    } else if (text.includes('{') && text.includes('"') && text.includes(':')) {
+                        language = 'json';
+                        block.className = 'language-json';
+                    } else if (text.includes('get /') || text.includes('post /') || text.includes('content-type:')) {
+                        language = 'http';
+                        block.className = 'language-http';
+                    } else if (text.includes('def ') || text.includes('import ') || text.includes('python')) {
+                        language = 'python';
+                        block.className = 'language-python';
+                    } else if (text.includes('version:') || text.includes('services:')) {
+                        language = 'yaml';
+                        block.className = 'language-yaml';
+                    } else if (text.includes('from ') && text.includes('dockerfile')) {
+                        language = 'docker';
+                        block.className = 'language-docker';
+                    } else {
+                        language = 'text';
+                        block.className = 'language-text';
+                    }
+                }
+                
+                // Set data attribute for styling
+                if (language) {
+                    pre.setAttribute('data-language', language);
+                    
+                    // Add language indicator
+                    if (!pre.querySelector('.language-indicator')) {
+                        const indicator = document.createElement('div');
+                        indicator.className = 'language-indicator absolute top-2 left-2 bg-gray-600 text-white px-2 py-1 rounded text-xs';
+                        indicator.textContent = language.toUpperCase();
+                        pre.appendChild(indicator);
+                        pre.style.position = 'relative';
+                    }
+                }
+            });
+            
+            // Re-run Prism highlighting after language detection
+            setTimeout(() => {
+                Prism.highlightAll();
+            }, 100);
+        }
+
+        // Copy code functionality
+        function addCopyButtons() {
+            const codeBlocks = document.querySelectorAll('pre');
+            codeBlocks.forEach(block => {
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                copyBtn.className = 'absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs transition-colors';
+                copyBtn.title = 'Copy code';
+                
+                block.style.position = 'relative';
+                block.appendChild(copyBtn);
+                
+                copyBtn.addEventListener('click', function() {
+                    const code = block.querySelector('code').textContent;
+                    navigator.clipboard.writeText(code).then(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                        }, 2000);
+                    });
+                });
+            });
+        }
+
+        // Fallback content for file:// protocol
+        const fallbackContent = `
+# PulseGuard™ - Comprehensive System Documentation
+
+**Intelligent Infrastructure Monitoring Platform**  
+*Powered by VedicMetaverses*
+
+## Executive Summary
+
+**PulseGuard™** is a next-generation intelligent infrastructure monitoring platform designed to provide comprehensive real-time monitoring, alerting, and analytics for modern distributed systems.
+
+### Key Benefits
+- 🚀 **Real-time Monitoring**: Live performance metrics with sub-second accuracy
+- 🎯 **Intelligent Alerting**: AI-powered alert rules with predictive analytics  
+- 📊 **Advanced Analytics**: Interactive dashboards with Chart.js visualizations
+- 🔧 **Agent-based Architecture**: Scalable distributed monitoring agents
+- 🛡️ **Enterprise Security**: End-to-end encryption and secure communications
+- ☁️ **Cloud Native**: Docker-first architecture with Kubernetes support
+
+## System Architecture
+
+### High-Level Architecture
+
+The PulseGuard™ platform consists of several key components:
+
+- **Client Layer**: Web Dashboard (React + Chart.js) and REST API (FastAPI)
+- **Application Layer**: Core Engine, Agent Manager, Alert Engine
+- **Data Layer**: PostgreSQL, Redis Cache, TimescaleDB
+- **Infrastructure Layer**: Docker Containers, Kubernetes, Nginx Load Balancer
+
+## Key Features
+
+### 🎛️ Real-time Dashboard
+- Interactive charts for CPU, Memory, Response Time, Error Rate monitoring
+- System overview with comprehensive infrastructure health
+- Live updates with configurable intervals
+- Responsive design with mobile-first approach
+
+### 📊 Advanced Analytics
+- Historical trend analysis with Chart.js
+- Sparkline charts for quick insights
+- System-wide metrics aggregation
+- Custom dashboards for different user roles
+
+### 🚨 Intelligent Alert System
+- Rule-based alerting with customizable conditions
+- Multi-level severity: Critical, Warning, Error, Info
+- Alert lifecycle: Active → Acknowledged → Resolved
+- Multiple notification channels: Email, SMS, Slack, WebHook
+
+### 🤖 Agent Management
+- Distributed architecture with lightweight agents
+- Auto-discovery and configuration
+- Health monitoring with failover capabilities
+- Secure encrypted communication
+
+## Technology Stack
+
+### Backend Technologies
+- **FastAPI**: High-performance Python web framework
+- **PostgreSQL**: Primary database for persistent storage
+- **Redis**: High-speed cache layer
+- **TimescaleDB**: Time-series data optimization
+- **Docker**: Containerization platform
+- **Kubernetes**: Container orchestration
+
+### Frontend Technologies
+- **React**: Component-based UI framework
+- **Chart.js**: Interactive data visualization
+- **Tailwind CSS**: Utility-first styling
+- **FontAwesome**: Icon library
+
+### Monitoring & Observability
+- **Prometheus**: Metrics collection
+- **Grafana**: Advanced dashboards
+- **ELK Stack**: Log aggregation
+- **Jaeger**: Distributed tracing
+
+## Installation & Setup
+
+### Prerequisites
+- Python 3.8+
+- Docker & Docker Compose
+- PostgreSQL 13+
+- Redis 6+
+
+### Quick Start
+\`\`\`bash
+# Clone repository
+git clone https://github.com/ShanKonduru/agent_monitor.git
+cd agent_monitor
+
+# Setup virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.venv\\Scripts\\activate.ps1  # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start services
+docker-compose up -d
+
+# Run application
+python main_local.py
+\`\`\`
+
+### Docker Deployment
+\`\`\`bash
+# Build and run with Docker
+docker-compose -f docker-compose.production.yml up -d
+\`\`\`
+
+## API Documentation
+
+### Agent Registration
+\`\`\`http
+POST /api/agents/register
+Content-Type: application/json
+
+{
+  "name": "web-server-01",
+  "type": "web_server",
+  "location": "datacenter-01",
+  "capabilities": ["cpu", "memory", "disk", "network"]
+}
+\`\`\`
+
+### Metrics Submission
+\`\`\`http
+POST /api/metrics
+Content-Type: application/json
+
+{
+  "agent_id": "agent-uuid",
+  "timestamp": "2025-10-18T10:30:00Z",
+  "metrics": {
+    "cpu_usage": 75.5,
+    "memory_usage": 82.3,
+    "disk_usage": 45.2,
+    "response_time": 150
+  }
+}
+\`\`\`
+
+### Alert Management
+\`\`\`http
+GET /api/alerts?status=active&severity=critical
+\`\`\`
+
+## Security Features
+
+### 🔐 Enterprise Security
+- **Role-Based Access Control (RBAC)**: Granular permissions
+- **OAuth 2.0 + JWT**: Modern authentication
+- **TLS 1.3 Encryption**: End-to-end security
+- **AES-256 Encryption**: Data at rest protection
+- **Audit Logging**: Comprehensive activity tracking
+
+### 🛡️ Threat Protection
+- DDoS protection with rate limiting
+- SQL injection prevention
+- XSS protection with CSP headers
+- CSRF protection with tokens
+
+## Performance Metrics
+
+### System Requirements
+- **CPU**: 2-4 cores minimum
+- **Memory**: 4-8 GB RAM
+- **Storage**: 100GB+ for data retention
+- **Network**: 10 Mbps minimum bandwidth
+
+### Performance Benchmarks
+- **Throughput**: 1M+ metrics per second
+- **Latency**: < 100ms p99 response time
+- **Availability**: 99.99% uptime SLA
+- **Scalability**: Linear horizontal scaling
+
+## Competitive Advantages
+
+### ✅ **Why Choose PulseGuard™?**
+
+1. **📊 Superior Visualizations**: Advanced Chart.js integrations
+2. **🚀 Real-time Performance**: Sub-second metric updates
+3. **🎯 Intelligent Alerts**: AI-powered predictive alerting
+4. **🔧 Easy Integration**: RESTful APIs and webhooks
+5. **💰 Cost-Effective**: Open-source with enterprise features
+6. **🛡️ Enterprise Security**: Military-grade encryption
+7. **☁️ Cloud-Native**: Kubernetes-ready architecture
+8. **📱 Mobile-Responsive**: Works on all devices
+
+## Future Roadmap
+
+### Phase 1 (Q4 2025)
+- [ ] Machine Learning anomaly detection
+- [ ] Advanced dashboard customization
+- [ ] Multi-tenant architecture
+- [ ] Enhanced mobile app
+
+### Phase 2 (Q1 2026)
+- [ ] Predictive analytics engine
+- [ ] Advanced reporting suite
+- [ ] Third-party integrations marketplace
+- [ ] Enterprise SSO integration
+
+### Phase 3 (Q2 2026)
+- [ ] AI-powered root cause analysis
+- [ ] Automated remediation actions
+- [ ] Advanced capacity planning
+- [ ] Global deployment templates
+
+---
+
+**© 2025 VedicMetaverses - PulseGuard™ Enterprise Monitoring Platform**
+
+*For complete documentation with interactive diagrams, please serve this file via HTTP server.*
+        `;
+
+        // Load and render documentation
+        async function loadDocumentation() {
+            try {
+                // Try to fetch the full documentation first, regardless of protocol
+                let markdown = '';
+                let usedFallback = false;
+                
+                try {
+                    const response = await fetch('./PULSEGUARD_COMPREHENSIVE_DOCUMENTATION.md');
+                    if (response.ok) {
+                        markdown = await response.text();
+                        console.log('Successfully loaded full documentation');
+                    } else {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                } catch (fetchError) {
+                    console.log('Failed to fetch full documentation, using fallback content');
+                    markdown = fallbackContent;
+                    usedFallback = true;
+                }
+                
+                await renderContent(markdown, usedFallback);
+                
+            } catch (error) {
+                console.error('Error loading documentation:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="text-red-600">
+                        <i class="fas fa-exclamation-triangle text-3xl mb-4"></i>
+                        <div>Error loading documentation: ${error.message}</div>
+                        <div class="mt-4 text-sm text-gray-600">
+                            <p><strong>To view the full documentation with all diagrams:</strong></p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1">
+                                <li>Open PowerShell/Terminal in the docs folder</li>
+                                <li>Run: <code class="bg-gray-100 px-2 py-1 rounded">python -m http.server 8002</code></li>
+                                <li>Open: <a href="http://localhost:8002/documentation.html" class="text-blue-600 hover:underline">http://localhost:8002/documentation.html</a></li>
+                            </ol>
+                        </div>
+                        <div class="mt-4">
+                            <a href="./PULSEGUARD_COMPREHENSIVE_DOCUMENTATION.md" 
+                               class="text-blue-600 hover:underline">
+                                View Raw Documentation
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Render content function
+        async function renderContent(markdown, isLimitedContent = false) {
+            // Configure marked.js for better code highlighting
+            marked.setOptions({
+                highlight: function(code, language) {
+                    if (language && Prism.languages[language]) {
+                        return Prism.highlight(code, Prism.languages[language], language);
+                    } else {
+                        return code;
+                    }
+                },
+                langPrefix: 'language-'
+            });
+            
+            // Process Mermaid diagrams
+            let processedMarkdown = markdown.replace(/```mermaid\n([\s\S]*?)\n```/g, (match, diagram) => {
+                const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
+                return `<div class="mermaid" id="${id}" data-aos="fade-up">${diagram}</div>`;
+            });
+
+            // Convert markdown to HTML
+            const html = marked.parse(processedMarkdown);
+            
+            // Hide loading and show content
+            document.getElementById('loading').style.display = 'none';
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = html;
+            contentDiv.style.display = 'block';
+            
+            // Add notice if using limited content
+            if (isLimitedContent) {
+                const notice = document.createElement('div');
+                notice.className = 'bg-blue-50 border-l-4 border-blue-400 p-4 mb-6';
+                notice.innerHTML = `
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-blue-700">
+                                <strong>Limited Content Mode:</strong> You're viewing a simplified version of the documentation. 
+                                For the complete documentation with all Mermaid diagrams, interactive features, and detailed content, 
+                                please <a href="#" onclick="window.location.reload()" class="underline font-semibold">serve this file via HTTP</a> or 
+                                <a href="./PULSEGUARD_COMPREHENSIVE_DOCUMENTATION.md" class="underline font-semibold">view the raw Markdown file</a>.
+                            </p>
+                        </div>
+                    </div>
+                `;
+                contentDiv.insertBefore(notice, contentDiv.firstChild);
+            }
+            
+            // Add AOS attributes to elements
+            contentDiv.querySelectorAll('h1, h2, h3').forEach((heading, index) => {
+                heading.setAttribute('data-aos', index % 2 === 0 ? 'fade-right' : 'fade-left');
+            });
+            
+            contentDiv.querySelectorAll('table, .feature-card').forEach(element => {
+                element.setAttribute('data-aos', 'fade-up');
+            });
+            
+            contentDiv.querySelectorAll('pre').forEach(element => {
+                element.setAttribute('data-aos', 'slide-up');
+            });
+            
+            // Render Mermaid diagrams
+            try {
+                await mermaid.run();
+            } catch (mermaidError) {
+                console.warn('Mermaid rendering error:', mermaidError);
+            }
+            
+            // Enhance features first
+            enhanceCodeBlocks();
+            
+            // Highlight code blocks
+            Prism.highlightAll();
+            
+            // Generate TOC
+            generateTOC();
+            
+            // Add copy buttons
+            addCopyButtons();
+            
+            // Refresh AOS
+            AOS.refresh();
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme
+            const savedTheme = localStorage.getItem('pulseguard-theme');
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                document.body.classList.toggle('dark', currentTheme === 'dark');
+                const themeIcon = document.querySelector('#themeToggle i');
+                themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            // Event listeners
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+            document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
+            
+            document.getElementById('scrollToTop').addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Scroll events
+            window.addEventListener('scroll', function() {
+                updateProgressBar();
+                updateActiveTOCItem();
+                
+                const scrollToTop = document.getElementById('scrollToTop');
+                if (window.pageYOffset > 300) {
+                    scrollToTop.classList.add('visible');
+                } else {
+                    scrollToTop.classList.remove('visible');
+                }
+            });
+
+            // Initialize search
+            initializeSearch();
+            
+            // Load documentation
+            loadDocumentation();
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'k':
+                            e.preventDefault();
+                            document.getElementById('searchBtn').click();
+                            break;
+                        case 'b':
+                            e.preventDefault();
+                            toggleSidebar();
+                            break;
+                        case 't':
+                            e.preventDefault();
+                            toggleTheme();
+                            break;
+                    }
+                }
+                
+                if (e.key === 'Escape') {
+                    document.getElementById('searchContainer').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
