@@ -1,0 +1,19 @@
+graph TD
+    Trigger[Alert Trigger]
+    Processor[Alert Processor / Engine]
+    Router[Notification Router]
+    Email[Email Service]
+    Slack[Slack]
+    SMS[SMS Provider]
+    Webhook[Webhook Endpoint]
+    Escalation[Escalation Policy]
+    Ops[On-call Team]
+
+    Trigger --> Processor
+    Processor --> Router
+    Router --> Email
+    Router --> Slack
+    Router --> SMS
+    Router --> Webhook
+    Processor --> Escalation
+    Escalation --> Ops

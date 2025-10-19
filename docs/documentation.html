@@ -514,6 +514,194 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-color);
             overflow-x: auto;
+            position: relative;
+        }
+
+        .diagram-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .mermaid-fallback {
+            transition: all 0.3s ease;
+        }
+
+        .mermaid-fallback img {
+            transition: transform 0.3s ease;
+        }
+
+        .mermaid-fallback:hover img {
+            transform: scale(1.02);
+        }
+
+        .diagram-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .diagram-controls button,
+        .diagram-controls a {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .diagram-controls button:hover,
+        .diagram-controls a:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: white;
+            color: #1f2937;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0.5rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .toast.error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .toast.warning {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .toast.info {
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* Navigation Enhancements */
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .diagram-quick-access,
+        .export-options {
+            position: relative;
+        }
+
+        .diagram-dropdown,
+        .export-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .diagram-dropdown.show,
+        .export-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            color: var(--text-primary);
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+
+        /* Dark theme adjustments */
+        body.dark .diagram-dropdown,
+        body.dark .export-dropdown {
+            background: #1f2937;
+            border-color: #374151;
+        }
+
+        body.dark .dropdown-header {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #374151;
+            color: #e5e7eb;
+        }
+
+        body.dark .dropdown-item {
+            color: #e5e7eb;
+        }
+
+        body.dark .dropdown-item:hover {
+            background: rgba(59, 130, 246, 0.2);
         }
 
         .mermaid {
@@ -1074,6 +1262,36 @@
                         <input type="text" class="search-input" id="searchInput" placeholder="Search documentation...">
                         <div class="search-results" id="searchResults"></div>
                     </div>
+                    
+                    <!-- Diagram Quick Access -->
+                    <div class="diagram-quick-access relative">
+                        <button class="nav-btn" id="diagramBtn" title="Quick access to diagrams">
+                            <i class="fas fa-project-diagram"></i>
+                        </button>
+                        <div class="diagram-dropdown" id="diagramDropdown">
+                            <div class="dropdown-header">
+                                <i class="fas fa-project-diagram mr-2"></i>
+                                Diagrams
+                            </div>
+                            <a href="#system-architecture" class="dropdown-item" data-diagram="system-architecture">
+                                <i class="fas fa-sitemap mr-2"></i>
+                                System Architecture
+                            </a>
+                            <a href="#alert-management-system" class="dropdown-item" data-diagram="alert-management">
+                                <i class="fas fa-bell mr-2"></i>
+                                Alert Management
+                            </a>
+                            <a href="#deployment-architecture" class="dropdown-item" data-diagram="deployment-architecture">
+                                <i class="fas fa-docker mr-2"></i>
+                                Deployment Architecture
+                            </a>
+                            <a href="#alert-lifecycle-management" class="dropdown-item" data-diagram="alert-lifecycle">
+                                <i class="fas fa-route mr-2"></i>
+                                Alert Lifecycle
+                            </a>
+                        </div>
+                    </div>
+                    
                     <button class="search-btn" id="searchBtn" title="Search">
                         <i class="fas fa-search"></i>
                     </button>
@@ -1083,6 +1301,31 @@
                     <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle fullscreen">
                         <i class="fas fa-expand"></i>
                     </button>
+                    
+                    <!-- Print & Export Options -->
+                    <div class="export-options relative">
+                        <button class="nav-btn" id="exportBtn" title="Export options">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <div class="export-dropdown" id="exportDropdown">
+                            <div class="dropdown-header">
+                                <i class="fas fa-download mr-2"></i>
+                                Export & Print
+                            </div>
+                            <button class="dropdown-item" onclick="window.print()">
+                                <i class="fas fa-print mr-2"></i>
+                                Print Documentation
+                            </button>
+                            <a href="PULSEGUARD_COMPREHENSIVE_DOCUMENTATION.md" target="_blank" class="dropdown-item">
+                                <i class="fab fa-markdown mr-2"></i>
+                                View Markdown
+                            </a>
+                            <button class="dropdown-item" onclick="exportToPDF()">
+                                <i class="fas fa-file-pdf mr-2"></i>
+                                Export to PDF
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1117,6 +1360,35 @@
             <div id="content" class="markdown-body" style="display: none;"></div>
         </div>
     </main>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <div class="image-modal-content">
+            <div class="image-modal-header">
+                <h3 id="modalTitle" class="image-modal-title">Diagram</h3>
+                <button class="image-modal-close" onclick="closeImageModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="image-modal-body">
+                <img id="modalImage" src="" alt="" class="modal-diagram-image">
+                <div class="image-modal-controls">
+                    <button onclick="zoomImage(-0.2)" class="modal-btn">
+                        <i class="fas fa-search-minus"></i> Zoom Out
+                    </button>
+                    <button onclick="resetImageZoom()" class="modal-btn">
+                        <i class="fas fa-expand-arrows-alt"></i> Reset
+                    </button>
+                    <button onclick="zoomImage(0.2)" class="modal-btn">
+                        <i class="fas fa-search-plus"></i> Zoom In
+                    </button>
+                    <button onclick="downloadCurrentImage()" class="modal-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scroll to Top Button -->
     <button id="scrollToTop" class="scroll-to-top" title="Scroll to top">
@@ -1227,6 +1499,183 @@
                 isFullscreen = false;
                 document.querySelector('#fullscreenBtn i').className = 'fas fa-expand';
             }
+        }
+
+        // Diagram interaction functions
+        function showMermaidDiagram(diagramId) {
+            const mermaidDiv = document.getElementById(diagramId);
+            const fallbackDiv = document.getElementById(diagramId + '-fallback');
+            
+            if (mermaidDiv && fallbackDiv) {
+                // Hide fallback and show interactive diagram
+                fallbackDiv.style.display = 'none';
+                mermaidDiv.style.display = 'block';
+                
+                // Initialize Mermaid for this specific diagram
+                try {
+                    mermaid.init(undefined, mermaidDiv);
+                } catch (error) {
+                    console.warn('Mermaid initialization failed:', error);
+                    // If Mermaid fails, show fallback again
+                    fallbackDiv.style.display = 'block';
+                    mermaidDiv.style.display = 'none';
+                }
+            }
+        }
+
+        function downloadDiagram(imageName) {
+            const formats = ['png', 'svg'];
+            const dropdown = document.createElement('div');
+            dropdown.className = 'absolute bg-white shadow-lg rounded-lg py-2 mt-1 z-50 border';
+            dropdown.innerHTML = formats.map(format => 
+                `<a href="images/${imageName}.${format}" download="${imageName}.${format}" 
+                    class="block px-4 py-2 hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-download mr-2"></i>Download ${format.toUpperCase()}
+                </a>`
+            ).join('');
+            
+            // Position dropdown
+            const event = window.event;
+            const btn = event.target.closest('button');
+            const rect = btn.getBoundingClientRect();
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = (rect.bottom + 5) + 'px';
+            dropdown.style.left = rect.left + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // Close on outside click
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!dropdown.contains(e.target)) {
+                        dropdown.remove();
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }, 100);
+        }
+
+        function copyDiagramCode(diagramId) {
+            const mermaidDiv = document.getElementById(diagramId);
+            if (mermaidDiv) {
+                const code = mermaidDiv.textContent.trim();
+                navigator.clipboard.writeText('```mermaid\n' + code + '\n```').then(() => {
+                    showToast('Diagram code copied to clipboard!', 'success');
+                }).catch(() => {
+                    showToast('Failed to copy diagram code', 'error');
+                });
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all transform translate-x-full`;
+            
+            const colors = {
+                success: 'bg-green-500 text-white',
+                error: 'bg-red-500 text-white',
+                warning: 'bg-yellow-500 text-black',
+                info: 'bg-blue-500 text-white'
+            };
+            
+            toast.className += ` ${colors[type] || colors.info}`;
+            toast.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                toast.style.transform = 'translateX(full)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Navigation enhancements
+        function initializeNavigation() {
+            // Diagram dropdown
+            const diagramBtn = document.getElementById('diagramBtn');
+            const diagramDropdown = document.getElementById('diagramDropdown');
+            
+            if (diagramBtn && diagramDropdown) {
+                diagramBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    diagramDropdown.classList.toggle('show');
+                    // Close export dropdown if open
+                    document.getElementById('exportDropdown')?.classList.remove('show');
+                });
+            }
+            
+            // Export dropdown
+            const exportBtn = document.getElementById('exportBtn');
+            const exportDropdown = document.getElementById('exportDropdown');
+            
+            if (exportBtn && exportDropdown) {
+                exportBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    exportDropdown.classList.toggle('show');
+                    // Close diagram dropdown if open
+                    document.getElementById('diagramDropdown')?.classList.remove('show');
+                });
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.diagram-dropdown, .export-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            });
+            
+            // Diagram quick navigation
+            document.querySelectorAll('[data-diagram]').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const diagramName = item.dataset.diagram;
+                    scrollToDiagram(diagramName);
+                    // Close dropdown
+                    diagramDropdown?.classList.remove('show');
+                });
+            });
+        }
+
+        function scrollToDiagram(diagramName) {
+            // Find the diagram in the content
+            const diagrams = document.querySelectorAll('.mermaid-container');
+            let targetDiagram = null;
+            
+            diagrams.forEach(container => {
+                const img = container.querySelector(`img[src*="${diagramName}"]`);
+                if (img) {
+                    targetDiagram = container;
+                }
+            });
+            
+            if (targetDiagram) {
+                targetDiagram.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Add highlight effect
+                targetDiagram.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
+                setTimeout(() => {
+                    targetDiagram.style.boxShadow = '';
+                }, 2000);
+            }
+        }
+
+        function exportToPDF() {
+            showToast('PDF export feature coming soon!', 'info');
+            // Future implementation would use libraries like jsPDF or Puppeteer
         }
 
         // Search functionality
@@ -1754,13 +2203,75 @@ GET /api/alerts?status=active&severity=critical
                 langPrefix: 'language-'
             });
             
-            // Process Mermaid diagrams - improved regex and processing
+            // Process Mermaid diagrams - improved regex and processing with image fallbacks
             let processedMarkdown = markdown.replace(/```mermaid\s*\n([\s\S]*?)\n```/g, (match, diagram) => {
                 const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
                 const cleanDiagram = diagram.trim();
+                
+                // Detect diagram type for image fallback
+                let imageName = '';
+                let altText = 'Mermaid Diagram';
+                
+                if (cleanDiagram.includes('Web[Web Dashboard]') && cleanDiagram.includes('API[REST API]')) {
+                    imageName = 'system-architecture';
+                    altText = 'System Architecture Diagram';
+                } else if (cleanDiagram.includes('Trigger[Alert Trigger]') && cleanDiagram.includes('Router[Notification Router]')) {
+                    imageName = 'alert-management';
+                    altText = 'Alert Management System Diagram';
+                } else if (cleanDiagram.includes('Containers[PulseGuard Container Ecosystem]')) {
+                    imageName = 'deployment-architecture';
+                    altText = 'Deployment Architecture Diagram';
+                } else if (cleanDiagram.includes('stateDiagram-v2') && cleanDiagram.includes('Triggered')) {
+                    imageName = 'alert-lifecycle';
+                    altText = 'Alert Lifecycle Diagram';
+                }
+                
                 return `<div class="mermaid-container mb-6" data-aos="fade-up">
-                    <div class="mermaid bg-white p-4 rounded-lg shadow-lg border border-gray-200" id="${id}">
-                        ${cleanDiagram}
+                    <div class="diagram-wrapper relative">
+                        <div class="mermaid bg-white p-4 rounded-lg shadow-lg border border-gray-200" id="${id}" style="display: none;">
+                            ${cleanDiagram}
+                        </div>
+                        ${imageName ? `
+                        <div class="mermaid-fallback bg-white p-4 rounded-lg shadow-lg border border-gray-200" id="${id}-fallback">
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="relative group">
+                                    <img src="images/${imageName}.png" alt="${altText}" 
+                                         class="max-w-full h-auto rounded-lg shadow-md cursor-pointer transition-transform hover:scale-105" 
+                                         onclick="openImageModal('images/${imageName}.png', '${altText}')"
+                                         onerror="this.src='images/${imageName}.svg'; this.onerror=null;">
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-search-plus text-white opacity-0 group-hover:opacity-100 transition-opacity text-2xl"></i>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2 justify-center">
+                                    <button onclick="showMermaidDiagram('${id}')" 
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                        <i class="fas fa-code mr-2"></i>Interactive
+                                    </button>
+                                    <button onclick="openImageModal('images/${imageName}.svg', '${altText}')" 
+                                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                                        <i class="fas fa-search-plus mr-2"></i>Zoom
+                                    </button>
+                                    <a href="images/${imageName}.svg" target="_blank" 
+                                       class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
+                                        <i class="fas fa-external-link-alt mr-2"></i>Open SVG
+                                    </a>
+                                    <button onclick="downloadDiagram('${imageName}')" 
+                                            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center">
+                                        <i class="fas fa-download mr-2"></i>Download
+                                    </button>
+                                    <button onclick="copyDiagramCode('${id}')" 
+                                            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+                                        <i class="fas fa-copy mr-2"></i>Copy Code
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        ` : `
+                        <div class="mermaid bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+                            ${cleanDiagram}
+                        </div>
+                        `}
                     </div>
                 </div>`;
             });
@@ -1885,6 +2396,9 @@ GET /api/alerts?status=active&severity=critical
 
             // Initialize search
             initializeSearch();
+            
+            // Initialize navigation enhancements
+            initializeNavigation();
             
             // Load documentation
             loadDocumentation();

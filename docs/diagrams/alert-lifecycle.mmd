@@ -1,0 +1,8 @@
+stateDiagram-v2
+    [*] --> Triggered
+    Triggered --> Active
+    Active --> Acknowledged
+    Active --> Escalated
+    Escalated --> Resolved
+    Acknowledged --> Resolved
+    Resolved --> [*]

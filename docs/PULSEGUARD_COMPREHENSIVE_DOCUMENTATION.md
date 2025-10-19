@@ -29,7 +29,7 @@
 
 ## Executive Summary
 
-**PulseGuard™** is a next-generation intelligent infrastructure monitoring platform designed to provide comprehensive real-time monitoring, alerting, and analytics for modern distributed systems. Built with cutting-edge technologies and enterprise-grade security, PulseGuard™ delivers unparalleled visibility into your infrastructure health.
+**PulseGuard™** is a next-generation intelligent infrastructure monitoring platform designed to provide comprehensive real-time monitoring, alerting, and analytics for modern distributed agentic AI systems. Built with cutting-edge technologies and enterprise-grade security, PulseGuard™ delivers unparalleled visibility into your infrastructure health.
 
 ### Key Benefits
 - 🚀 **Real-time Monitoring**: Live performance metrics with sub-second accuracy
@@ -47,76 +47,35 @@
 
 ```mermaid
 graph TB
-    subgraph ClientLayer [Client Layer]
-        WEB[Web Dashboard<br/>React + Chart.js]
-        API[REST API<br/>FastAPI]
-    end
-    
-    subgraph ApplicationLayer [Application Layer]
-        CORE[Core Engine<br/>Python]
-        AGENT[Agent Manager<br/>Distributed Agents]
-        ALERT[Alert Engine<br/>Rule-based Alerting]
-    end
-    
-    subgraph DataLayer [Data Layer]
-        DB[(PostgreSQL<br/>Primary Database)]
-        CACHE[(Redis<br/>Cache Layer)]
-        TSDB[(TimescaleDB<br/>Time Series Data)]
-    end
-    
-    subgraph InfrastructureLayer [Infrastructure Layer]
-        DOCKER[Docker Containers]
-        K8S[Kubernetes Orchestration]
-        NGINX[Load Balancer<br/>Nginx]
-    end
-    
-    subgraph MonitoringTargets [Monitoring Targets]
-        SERVER1[Server 01<br/>Web Server]
-        SERVER2[Server 02<br/>Database Server]
-        SERVER3[Server 03<br/>API Gateway]
-        MICROSERVICE[Microservices<br/>Container Cluster]
-    end
-    
-    WEB --> API
-    API --> CORE
-    CORE --> AGENT
-    CORE --> ALERT
-    CORE --> DB
-    AGENT --> CACHE
-    ALERT --> DB
-    
-    DOCKER --> CORE
-    K8S --> DOCKER
-    NGINX --> WEB
-    
-    AGENT -.-> SERVER1
-    AGENT -.-> SERVER2
-    AGENT -.-> SERVER3
-    AGENT -.-> MICROSERVICE
+    Web[Web Dashboard]
+    API[REST API]
+    Core[Core Engine]
+    AgentMgr[Agent Manager]
+    AlertEngine[Alert Engine]
+    DB[(PostgreSQL)]
+    Redis[(Redis)]
+
+    Web --> API
+    API --> Core
+    Core --> AgentMgr
+    Core --> AlertEngine
+    Core --> DB
+    AgentMgr --> Redis
+    AlertEngine --> Redis
+    DB --> Redis
 ```
 
 ### Component Architecture
 
-```mermaid
-graph LR
-    subgraph PulseGuardCore [PulseGuard™ Core]
-        A[Agent Manager] --> B[Data Collector]
-        B --> C[Alert Engine]
-        C --> D[Notification Service]
-        D --> E[Dashboard API]
-        E --> F[Web Interface]
-    end
-    
-    subgraph ExternalSystems [External Systems]
-        G[Monitoring Agents]
-        H[PostgreSQL DB]
-        I[Alert Channels]
-    end
-    
-    G --> A
-    B --> H
-    D --> I
+**PulseGuard Core Components:**
 ```
+Agent Manager → Data Collector → Alert Engine → Notification Service → Dashboard API → Web Interface
+```
+
+**External System Integrations:**
+- Monitoring Agents → Agent Manager
+- Data Collector → PostgreSQL DB  
+- Notification Service → Alert Channels (Email, Slack, etc.)
 
 ---
 
@@ -241,6 +200,28 @@ Comprehensive alert management with intelligent features:
 - 📧 **Notification Routing**: Multi-channel alert distribution
 - 🔄 **Escalation Policies**: Automated escalation workflows
 
+```mermaid
+graph TD
+  Trigger[Alert Trigger]
+  Processor[Alert Processor / Engine]
+  Router[Notification Router]
+  Email[Email Service]
+  Slack[Slack]
+  SMS[SMS Provider]
+  Webhook[Webhook Endpoint]
+  Escalation[Escalation Policy]
+  Ops[On-call Team]
+
+  Trigger --> Processor
+  Processor --> Router
+  Router --> Email
+  Router --> Slack
+  Router --> SMS
+  Router --> Webhook
+  Processor --> Escalation
+  Escalation --> Ops
+```
+
 ### Metrics & Analytics
 Advanced analytics with predictive insights:
 
@@ -262,41 +243,36 @@ Advanced analytics with predictive insights:
 
 ### Alert Classification System
 
-```mermaid
-graph TD
-    A[Alert Triggered] --> B{Severity Level}
-    B -->|Critical| C[🔴 Critical Alert]
-    B -->|Warning| D[🟡 Warning Alert]
-    B -->|Error| E[🔴 Error Alert]
-    B -->|Info| F[🔵 Info Alert]
-    
-    C --> G[Immediate Notification]
-    D --> H[Standard Notification]
-    E --> I[Priority Notification]
-    F --> J[Log Only]
-    
-    G --> K[Escalation Policy]
-    H --> L[Standard Policy]
-    I --> M[Priority Policy]
-    J --> N[Information Only]
-```
+**Alert Severity Levels:**
+- **Critical Alert** → Immediate Notification → Escalation Policy
+- **Warning Alert** → Standard Notification → Standard Policy  
+- **Error Alert** → Priority Notification → Priority Policy
+- **Info Alert** → Log Only → Information Only
+
+**Alert Processing Flow:**
+1. Alert Triggered
+2. Severity Level Assessment  
+3. Notification Routing
+4. Policy Application
 
 ### Alert Lifecycle Management
 
+**Alert Lifecycle States:**
+1. **Triggered** → Alert condition detected
+2. **Active** → Alert created and active
+3. **Acknowledged** → User acknowledges alert
+4. **Escalated** → Alert escalated due to timeout
+5. **Resolved** → Alert condition cleared
 ```mermaid
 stateDiagram-v2
-    [*] --> Triggered : Alert Condition Met
-    Triggered --> Active : Alert Created
-    Active --> Acknowledged : User Acknowledges
-    Active --> Resolved : Condition Cleared
-    Acknowledged --> Resolved : Condition Cleared
-    Resolved --> [*] : Alert Closed
-    
-    Active --> Escalated : Timeout Reached
-    Escalated --> Acknowledged : User Acknowledges
-    Escalated --> Resolved : Condition Cleared
+  [*] --> Triggered
+  Triggered --> Active
+  Active --> Acknowledged
+  Active --> Escalated
+  Escalated --> Resolved
+  Acknowledged --> Resolved
+  Resolved --> [*]
 ```
-
 ### Sample Alert Rules
 
 | Alert Rule | Metric | Condition | Threshold | Action |
@@ -316,28 +292,28 @@ stateDiagram-v2
 
 ```mermaid
 graph TB
-    subgraph PulseGuardServer [PulseGuard™ Server]
-        AM[Agent Manager]
-        DB[(Database)]
-        API[REST API]
-    end
-    
-    subgraph MonitoringInfrastructure [Monitoring Infrastructure]
-        A1[Agent 01<br/>Web Server]
-        A2[Agent 02<br/>Database Server]
-        A3[Agent 03<br/>API Gateway]
-        A4[Agent 04<br/>Load Balancer]
-        A5[Agent 05<br/>Microservice]
-    end
-    
-    AM <--> A1
-    AM <--> A2
-    AM <--> A3
-    AM <--> A4
-    AM <--> A5
-    
-    AM --> DB
-    API --> AM
+  subgraph PulseGuardServer[PulseGuard Server]
+    AM[Agent Manager]
+    DB[(PostgreSQL DB)]
+    API[REST API]
+  end
+
+  subgraph MonitoringInfrastructure[Monitoring Infrastructure]
+    A1[Agent-01: Web Server]
+    A2[Agent-02: DB Server]
+    A3[Agent-03: API Gateway]
+    A4[Agent-04: Load Balancer]
+    A5[Agent-05: Microservice]
+  end
+
+  AM <---> A1
+  AM <---> A2
+  AM <---> A3
+  AM <---> A4
+  AM <---> A5
+
+  AM --> DB
+  API --> AM
 ```
 
 ### Agent Features
@@ -382,6 +358,28 @@ PulseGuard™ Container Ecosystem
 ├── 🐳 redis-cache (Cache Layer)
 ├── 🐳 nginx-proxy (Load Balancer)
 └── 🐳 pulseguard-agent (Monitoring Agent)
+```
+
+```mermaid
+graph LR
+  subgraph Containers[PulseGuard Container Ecosystem]
+    API[pulseguard-api]
+    WEB[pulseguard-web]
+    WORKER[pulseguard-worker]
+    PG[postgresql-primary]
+    REDIS[redis-cache]
+    NGINX[nginx-proxy]
+    AGENT[pulseguard-agent]
+  end
+
+  NGINX --> WEB
+  WEB --> API
+  API --> PG
+  API --> REDIS
+  WORKER --> PG
+  WORKER --> REDIS
+  AGENT --> API
+  AGENT --> REDIS
 ```
 
 #### Docker Compose Configuration
@@ -460,47 +458,36 @@ spec:
 
 ```mermaid
 graph TB
-    subgraph LoadBalancerLayer [Load Balancer Layer]
-        LB[Nginx Load Balancer]
-        LB2[Backup Load Balancer]
-    end
-    
-    subgraph ApplicationLayer [Application Layer]
-        API1[PulseGuard API 01]
-        API2[PulseGuard API 02]
-        API3[PulseGuard API 03]
-    end
-    
-    subgraph DatabaseLayer [Database Layer]
-        MASTER[(PostgreSQL Master)]
-        REPLICA1[(PostgreSQL Replica 01)]
-        REPLICA2[(PostgreSQL Replica 02)]
-    end
-    
-    subgraph CacheLayer [Cache Layer]
-        REDIS1[(Redis Master)]
-        REDIS2[(Redis Replica)]
-    end
-    
-    LB --> API1
-    LB --> API2
-    LB --> API3
-    LB2 --> API1
-    LB2 --> API2
-    LB2 --> API3
-    
-    API1 --> MASTER
-    API2 --> MASTER
-    API3 --> MASTER
-    
-    MASTER --> REPLICA1
-    MASTER --> REPLICA2
-    
-    API1 --> REDIS1
-    API2 --> REDIS1
-    API3 --> REDIS1
-    
-    REDIS1 --> REDIS2
+  LB[Nginx Load Balancer]
+  LB2[Backup Load Balancer]
+  API1[API Instance 1]
+  API2[API Instance 2]
+  API3[API Instance 3]
+  MASTER[(Postgres Master)]
+  REPLICA1[(Postgres Replica 1)]
+  REPLICA2[(Postgres Replica 2)]
+  REDIS1[(Redis Master)]
+  REDIS2[(Redis Replica)]
+
+  LB --> API1
+  LB --> API2
+  LB --> API3
+  LB2 --> API1
+  LB2 --> API2
+  LB2 --> API3
+
+  API1 --> MASTER
+  API2 --> MASTER
+  API3 --> MASTER
+
+  MASTER --> REPLICA1
+  MASTER --> REPLICA2
+
+  API1 --> REDIS1
+  API2 --> REDIS1
+  API3 --> REDIS1
+
+  REDIS1 --> REDIS2
 ```
 
 ---
@@ -521,30 +508,30 @@ graph TB
 **Implementation**:
 ```mermaid
 graph TB
-    subgraph DataCenter01 [Data Center 01]
-        DC1[500 Servers]
-        A1[PulseGuard Agents]
-    end
-    
-    subgraph DataCenter02 [Data Center 02]
-        DC2[300 Servers]
-        A2[PulseGuard Agents]
-    end
-    
-    subgraph CloudInfrastructure [Cloud Infrastructure]
-        CLOUD[200 Cloud Instances]
-        A3[Cloud Agents]
-    end
-    
-    subgraph CentralManagement [Central Management]
-        MASTER[PulseGuard™ Master]
-        DASH[Executive Dashboard]
-    end
-    
-    A1 --> MASTER
-    A2 --> MASTER
-    A3 --> MASTER
-    MASTER --> DASH
+  subgraph DC1[Data Center 01]
+    DC1_Servers[500 Servers]
+    DC1_Agents[Agents]
+  end
+
+  subgraph DC2[Data Center 02]
+    DC2_Servers[300 Servers]
+    DC2_Agents[Agents]
+  end
+
+  subgraph CLOUD[Cloud Infrastructure]
+    Cloud_Instances[200 Cloud Instances]
+    Cloud_Agents[Cloud Agents]
+  end
+
+  subgraph Central[Central Management]
+    Master[PulseGuard Master]
+    Dash[Executive Dashboard]
+  end
+
+  DC1_Agents --> Master
+  DC2_Agents --> Master
+  Cloud_Agents --> Master
+  Master --> Dash
 ```
 
 ### ☁️ **Cloud-Native Application Monitoring**
@@ -836,15 +823,15 @@ ws.onmessage = function(event) {
 
 ```mermaid
 graph TB
-    subgraph SecurityLayers [Security Layers]
-        A[Network Security<br/>TLS 1.3 Encryption]
-        B[Authentication<br/>OAuth 2.0 + JWT]
-        C[Authorization<br/>RBAC + ABAC]
-        D[Data Protection<br/>AES-256 Encryption]
-        E[Audit Logging<br/>Immutable Logs]
+    subgraph SecurityLayers[Security Layers]
+        A[Network Security TLS]
+        B[Authentication OAuth JWT]
+        C[Authorization RBAC ABAC]
+        D[Data Protection AES256]
+        E[Audit Logging]
     end
     
-    subgraph ThreatProtection [Threat Protection]
+    subgraph ThreatProtection[Threat Protection]
         F[DDoS Protection]
         G[SQL Injection Prevention]
         H[XSS Protection]
@@ -908,17 +895,17 @@ graph TB
 ```mermaid
 graph LR
     subgraph ResourceUsage [Resource Usage]
-        A[CPU: 2-4 cores<br/>@ 15% average]
-        B[Memory: 4-8 GB<br/>@ 60% average]
-        C[Storage: 100GB+<br/>@ 70% utilization]
-        D[Network: 10 Mbps<br/>@ 20% utilization]
+        A[CPU 2-4 cores 15% average]
+        B[Memory 4-8 GB 60% average]
+        C[Storage 100GB 70% utilization]
+        D[Network 10 Mbps 20% utilization]
     end
     
     subgraph PerformanceMetrics [Performance Metrics]
-        E[Throughput:<br/>1M metrics/sec]
-        F[Latency:<br/>< 100ms p99]
-        G[Availability:<br/>99.99% uptime]
-        H[Scalability:<br/>Linear scaling]
+        E[Throughput 1M metrics per sec]
+        F[Latency 100ms p99]
+        G[Availability 99.99% uptime]
+        H[Scalability Linear scaling]
     end
     
     A --> E

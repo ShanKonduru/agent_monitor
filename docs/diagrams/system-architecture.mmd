@@ -1,0 +1,17 @@
+graph TB
+    Web[Web Dashboard]
+    API[REST API]
+    Core[Core Engine]
+    AgentMgr[Agent Manager]
+    AlertEngine[Alert Engine]
+    DB[(PostgreSQL)]
+    Redis[(Redis)]
+
+    Web --> API
+    API --> Core
+    Core --> AgentMgr
+    Core --> AlertEngine
+    Core --> DB
+    AgentMgr --> Redis
+    AlertEngine --> Redis
+    DB --> Redis

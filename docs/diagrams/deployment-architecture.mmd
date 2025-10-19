@@ -1,0 +1,19 @@
+graph LR
+    subgraph Containers[PulseGuard Container Ecosystem]
+        API[pulseguard-api]
+        WEB[pulseguard-web]
+        WORKER[pulseguard-worker]
+        PG[postgresql-primary]
+        REDIS[redis-cache]
+        NGINX[nginx-proxy]
+        AGENT[pulseguard-agent]
+    end
+
+    NGINX --> WEB
+    WEB --> API
+    API --> PG
+    API --> REDIS
+    WORKER --> PG
+    WORKER --> REDIS
+    AGENT --> API
+    AGENT --> REDIS
