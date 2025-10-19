@@ -8,24 +8,40 @@ from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query
 
 from ..models import HealthStatus, HealthCheck, Alert, AgentStatus
-from ..core.agent_registry import agent_registry
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+# Global registry instance - will be set by main.py
+agent_registry = None
+
+def set_agent_registry(registry):
+    """Set the agent registry instance"""
+    global agent_registry
+    agent_registry = registry
+
+def get_agent_registry():
+    """Get the current agent registry instance"""
+    if agent_registry is None:
+        raise HTTPException(status_code=500, detail="Agent registry not initialized")
+    return agent_registry
 
 
 @router.get("/{agent_id}")
 async def get_agent_health(agent_id: str):
     """Get health status for a specific agent"""
     try:
+        # Get agent registry
+        agent_reg = get_agent_registry()
+        
         # Verify agent exists
-        agent = await agent_registry.get_agent(agent_id)
+        agent = await agent_reg.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
         
         # Calculate health score
-        health_score = agent_registry._calculate_health_score(agent)
+        health_score = agent_reg._calculate_health_score(agent)
         
         # Mock health checks (in real implementation, these would be actual checks)
         health_checks = [
@@ -76,8 +92,11 @@ async def get_agent_health(agent_id: str):
 async def get_system_health():
     """Get overall system health status"""
     try:
+        # Get agent registry
+        agent_reg = get_agent_registry()
+        
         # Get all agents
-        agents = await agent_registry.get_all_agents()
+        agents = await agent_reg.get_all_agents()
         
         if not agents:
             return {
@@ -130,8 +149,11 @@ async def get_system_health():
 async def perform_health_check(agent_id: str):
     """Perform on-demand health check for an agent"""
     try:
+        # Get agent registry
+        agent_reg = get_agent_registry()
+        
         # Verify agent exists
-        agent = await agent_registry.get_agent(agent_id)
+        agent = await agent_reg.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
         
@@ -178,7 +200,7 @@ async def perform_health_check(agent_id: str):
         else:
             new_status = AgentStatus.ERROR
         
-        await agent_registry.update_agent_status(agent_id, new_status)
+        await agent_reg.update_agent_status(agent_id, new_status)
         
         return {
             "agent_id": agent_id,

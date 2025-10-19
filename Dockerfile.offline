@@ -1,0 +1,48 @@
+# Offline Dockerfile using Alpine Linux
+FROM alpine:latest
+
+# Install Python and required packages
+RUN apk add --no-cache \
+    python3 \
+    python3-dev \
+    py3-pip \
+    curl \
+    sqlite \
+    gcc \
+    musl-dev \
+    linux-headers
+
+# Set working directory
+WORKDIR /app
+
+# Create a symbolic link for python
+RUN ln -sf python3 /usr/bin/python
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
+
+# Copy source code
+COPY src/ ./src/
+COPY *.py ./
+COPY web/ ./web/
+
+# Create data directory
+RUN mkdir -p /app/data
+
+# Create non-root user
+RUN adduser -D -s /bin/sh agent && \
+    chown -R agent:agent /app
+USER agent
+
+# Environment variables
+ENV PYTHONPATH=/app
+ENV DATABASE_URL=sqlite:///./data/agent_monitor.db
+ENV LOG_LEVEL=INFO
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import sys; sys.exit(0)" || exit 1
+
+# Default command
+CMD ["python", "main.py"]

@@ -35,7 +35,7 @@ class SimpleContainerAgent:
             "type": self.agent_type,
             "version": os.getenv('AGENT_VERSION', '1.0.0'),
             "description": f"Container demo agent - {self.workload_type} workload",
-            "deployment_type": os.getenv("AGENT_ENVIRONMENT", "DOCKER"),
+            "deployment_type": os.getenv("DEPLOYMENT_TYPE", "DOCKER"),
             "host": f"container-{random.randint(1000, 9999)}",
             "environment": self.environment,
             "tags": ["container", "demo", self.workload_type, "docker"]

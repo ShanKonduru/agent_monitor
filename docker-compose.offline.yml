@@ -1,0 +1,47 @@
+# Offline Docker Compose - Uses host PostgreSQL
+services:
+  # Main monitoring service
+  monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile.offline
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://monitor:password@host.docker.internal:5432/agent_monitor_docker
+      - LOG_LEVEL=INFO
+      - REDIS_URL=
+      - INFLUXDB_URL=
+      - PYTHONPATH=/app
+    volumes:
+      - ./data:/app/data
+    command: ["python", "main_docker_real.py"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Test agent
+  test-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.offline
+    environment:
+      - MONITOR_URL=http://monitor:8000
+      - AGENT_NAME=Docker Test Agent
+      - AGENT_TYPE=LLM_AGENT
+      - DEPLOYMENT_TYPE=DOCKER
+      - AGENT_VERSION=1.0.0
+      - AGENT_ENVIRONMENT=docker
+      - LOG_LEVEL=INFO
+    command: ["python", "simple_container_agent.py"]
+    depends_on:
+      - monitor
+    restart: unless-stopped
+
+volumes:
+  data:
+    driver: local
