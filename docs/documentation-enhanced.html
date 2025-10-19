@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseGuard™ - Comprehensive Documentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #059669;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-border: #334155;
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --light-border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-dark-primary: #f1f5f9;
+            --text-dark-secondary: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--light-bg);
+            transition: all 0.3s ease;
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            color: var(--text-dark-primary);
+            background: var(--dark-bg);
+        }
+
+        /* Header styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--light-border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark .header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom-color: var(--dark-border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Navigation styles */
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        body.dark .nav-link {
+            color: var(--text-dark-secondary);
+        }
+
+        body.dark .nav-link:hover {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--light-border);
+            border-radius: 0.5rem;
+            background: var(--light-surface);
+            color: var(--text-primary);
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        body.dark .search-input {
+            background: var(--dark-surface);
+            border-color: var(--dark-border);
+            color: var(--text-dark-primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle {
+            padding: 0.5rem;
+            background: none;
+            border: 1px solid var(--light-border);
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        body.dark .theme-toggle {
+            border-color: var(--dark-border);
+            color: var(--text-dark-secondary);
+        }
+
+        /* Main content */
+        .main {
+            margin-top: 6rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 6rem;
+            left: -300px;
+            width: 300px;
+            height: calc(100vh - 6rem);
+            background: var(--light-surface);
+            border-right: 1px solid var(--light-border);
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            z-index: 100;
+            padding: 1rem;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        body.dark .sidebar {
+            background: var(--dark-surface);
+            border-right-color: var(--dark-border);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 50%;
+            left: 1rem;
+            transform: translateY(-50%);
+            z-index: 101;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background: #1d4ed8;
+        }
+
+        /* Table of Contents */
+        .toc {
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        body.dark .toc a {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Diagram Controls */
+        .diagram-controls {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        body.dark .diagram-controls {
+            background: var(--dark-surface);
+            border-color: var(--dark-border);
+        }
+
+        .diagram-controls h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .diagram-btn {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: 1px solid var(--light-border);
+            border-radius: 0.25rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .diagram-btn:hover, .diagram-btn.active {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        body.dark .diagram-btn {
+            border-color: var(--dark-border);
+            color: var(--text-dark-secondary);
+        }
+
+        /* Content styles */
+        .content {
+            background: var(--light-surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        body.dark .content {
+            background: var(--dark-surface);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-border);
+        }
+
+        body.dark h2 {
+            border-bottom-color: var(--dark-border);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        body.dark p {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        body.dark li {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: var(--light-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark table {
+            background: var(--dark-bg);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        body.dark th, body.dark td {
+            border-bottom-color: var(--dark-border);
+        }
+
+        th {
+            background: var(--light-surface);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        body.dark th {
+            background: var(--dark-surface);
+            color: var(--text-dark-primary);
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--dark-bg);
+            color: var(--text-dark-primary);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        code {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Mermaid Diagrams */
+        .mermaid-container {
+            position: relative;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        body.dark .mermaid-container {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+        }
+
+        .mermaid {
+            display: inline-block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            fill: var(--primary-color);
+            stroke: var(--primary-color);
+            stroke-width: 2px;
+        }
+
+        .mermaid .node .label {
+            color: white;
+            font-weight: 500;
+        }
+
+        .mermaid .edgePath .path {
+            stroke: var(--text-secondary);
+            stroke-width: 2px;
+        }
+
+        .mermaid .edgeLabel {
+            background-color: var(--light-bg);
+            color: var(--text-primary);
+        }
+
+        /* Diagram Controls */
+        .diagram-toolbar {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .mermaid-container:hover .diagram-toolbar {
+            opacity: 1;
+        }
+
+        .diagram-control-btn {
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--light-border);
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .diagram-control-btn:hover {
+            background: var(--light-bg);
+            color: var(--primary-color);
+        }
+
+        body.dark .diagram-control-btn {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: var(--dark-border);
+            color: var(--text-dark-secondary);
+        }
+
+        body.dark .diagram-control-btn:hover {
+            background: var(--dark-surface);
+            color: var(--primary-color);
+        }
+
+        /* Image fallback styles */
+        .diagram-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .diagram-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .image-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .image-modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: -2rem;
+            right: 0;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .badge-success {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .badge-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .alert-success {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .alert-warning {
+            background: rgba(217, 119, 6, 0.1);
+            border-color: var(--warning-color);
+            color: var(--warning-color);
+        }
+
+        .alert-danger {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .scroll-to-top:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .scroll-to-top.show {
+            display: flex;
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 2rem;
+            height: 2rem;
+            border: 2px solid var(--light-border);
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .main {
+                margin-top: 5rem;
+                padding: 1rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .sidebar-toggle {
+                left: 0.5rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-heartbeat"></i>
+                PulseGuard™
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="#overview" class="nav-link">Overview</a></li>
+                    <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#api" class="nav-link">API</a></li>
+                    <li><a href="#deployment" class="nav-link">Deployment</a></li>
+                </ul>
+                
+                <div class="controls">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="toc">
+            <h3><i class="fas fa-list"></i> Table of Contents</h3>
+            <ul id="tocList">
+                <!-- TOC will be generated dynamically -->
+            </ul>
+        </div>
+
+        <div class="diagram-controls">
+            <h4><i class="fas fa-diagram-project"></i> Quick Access</h4>
+            <div class="diagram-grid">
+                <button class="diagram-btn" data-target="system-architecture">
+                    <i class="fas fa-sitemap"></i> System Architecture
+                </button>
+                <button class="diagram-btn" data-target="alert-management">
+                    <i class="fas fa-bell"></i> Alert Management
+                </button>
+                <button class="diagram-btn" data-target="deployment">
+                    <i class="fas fa-docker"></i> Deployment
+                </button>
+                <button class="diagram-btn" data-target="alert-lifecycle">
+                    <i class="fas fa-route"></i> Alert Lifecycle
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="content fade-in">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+            </div>
+            <div id="documentContent" style="display: none;">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-content">
+            <button class="image-modal-close" id="imageModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Global variables
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        let markdown = '';
+        let searchIndex = [];
+
+        // Initialize Mermaid with simplified configuration
+        function initMermaid() {
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: currentTheme === 'dark' ? 'dark' : 'default',
+                    securityLevel: 'loose',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: 16,
+                    themeVariables: {
+                        primaryColor: '#2563eb',
+                        primaryTextColor: currentTheme === 'dark' ? '#ffffff' : '#1f2937',
+                        primaryBorderColor: '#1d4ed8',
+                        lineColor: '#64748b',
+                        sectionBkgColor: currentTheme === 'dark' ? '#1f2937' : '#f8fafc',
+                        altSectionBkgColor: currentTheme === 'dark' ? '#374151' : '#f1f5f9',
+                        gridColor: '#e2e8f0',
+                        secondaryColor: '#64748b',
+                        tertiaryColor: currentTheme === 'dark' ? '#1f2937' : '#f8fafc'
+                    },
+                    flowchart: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    }
+                });
+                console.log('Mermaid initialized successfully');
+            } else {
+                console.warn('Mermaid not loaded');
+            }
+        }
+
+        // Theme management
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.classList.toggle('dark', currentTheme === 'dark');
+            localStorage.setItem('theme', currentTheme);
+            
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // No need to reinitialize Mermaid - using direct images
+        }
+
+        // Apply saved theme
+        function applyTheme() {
+            document.body.classList.toggle('dark', currentTheme === 'dark');
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // Sidebar management
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.getElementById('sidebarToggle');
+            
+            sidebar.classList.toggle('open');
+            const isOpen = sidebar.classList.contains('open');
+            
+            toggle.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+
+        // Load static content with embedded images
+        async function loadMarkdown() {
+            const content = `
+                <h1 id="overview">PulseGuard Overview</h1>
+                <p>PulseGuard is a comprehensive agent monitoring and alerting system designed to provide real-time insights into system health and performance. This system monitors the health and status of distributed agents, providing real-time alerts and comprehensive reporting capabilities.</p>
+                
+                <h3>What is PulseGuard?</h3>
+                <p>PulseGuard serves as a centralized monitoring solution that:</p>
+                <ul>
+                    <li><strong>Monitors Agent Health</strong> - Continuously tracks the status of distributed agents</li>
+                    <li><strong>Provides Real-time Alerts</strong> - Instant notifications when issues arise</li>
+                    <li><strong>Offers Comprehensive Reporting</strong> - Detailed insights into system performance</li>
+                    <li><strong>Ensures High Availability</strong> - Redundant systems for reliable monitoring</li>
+                </ul>
+
+                <h2 id="architecture">System Architecture</h2>
+                <div class="mermaid-container">
+                    <div class="diagram-toolbar">
+                        <button class="diagram-control-btn" onclick="openImageModal(document.querySelector('#system-arch-img'))" title="View Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="diagram-control-btn" onclick="downloadImage('system-architecture.png')" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <img id="system-arch-img" class="diagram-image" src="images/system-architecture.png" alt="System Architecture Diagram" onclick="openImageModal(this)" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                </div>
+                <p>The system architecture consists of three main components:</p>
+                <ul>
+                    <li><strong>Web Dashboard</strong> - User interface for monitoring and management</li>
+                    <li><strong>REST API</strong> - Central API layer handling all requests</li>
+                    <li><strong>Core Engine</strong> - Processing engine for agent data and alerts</li>
+                    <li><strong>Database</strong> - Data persistence layer</li>
+                    <li><strong>Cache</strong> - Redis for performance optimization</li>
+                    <li><strong>Message Queue</strong> - Asynchronous processing</li>
+                    <li><strong>External Services</strong> - Third-party integrations</li>
+                </ul>
+
+                <h3 id="alert-management">Alert Management System</h3>
+                <div class="mermaid-container">
+                    <div class="diagram-toolbar">
+                        <button class="diagram-control-btn" onclick="openImageModal(document.querySelector('#alert-mgmt-img'))" title="View Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="diagram-control-btn" onclick="downloadImage('alert-management.png')" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <img id="alert-mgmt-img" class="diagram-image" src="images/alert-management.png" alt="Alert Management System Diagram" onclick="openImageModal(this)" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                </div>
+                <p>The alert management system processes and routes alerts through multiple channels:</p>
+                <ul>
+                    <li><strong>Alert Trigger</strong> - Initial alert generation from various sources</li>
+                    <li><strong>Alert Processor</strong> - Processing and validation of alerts</li>
+                    <li><strong>Alert Router</strong> - Intelligent routing based on rules</li>
+                    <li><strong>Email Notifications</strong> - Email-based alert delivery</li>
+                    <li><strong>Slack Integration</strong> - Real-time team notifications</li>
+                    <li><strong>SMS Alerts</strong> - Critical alert messaging</li>
+                    <li><strong>Dashboard Updates</strong> - Real-time UI updates</li>
+                </ul>
+
+                <h3 id="deployment-architecture">Deployment Architecture</h3>
+                <div class="mermaid-container">
+                    <div class="diagram-toolbar">
+                        <button class="diagram-control-btn" onclick="openImageModal(document.querySelector('#deployment-img'))" title="View Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="diagram-control-btn" onclick="downloadImage('deployment-architecture.png')" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <img id="deployment-img" class="diagram-image" src="images/deployment-architecture.png" alt="Deployment Architecture Diagram" onclick="openImageModal(this)" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                </div>
+                <p>The deployment architecture shows the containerized environment:</p>
+                <ul>
+                    <li><strong>NGINX</strong> - Reverse proxy and load balancer</li>
+                    <li><strong>Web Container</strong> - Frontend application</li>
+                    <li><strong>API Container</strong> - Backend REST API</li>
+                    <li><strong>Database Container</strong> - PostgreSQL database</li>
+                    <li><strong>Redis Container</strong> - Caching layer</li>
+                    <li><strong>Queue Container</strong> - Message processing</li>
+                    <li><strong>Monitor Container</strong> - System monitoring</li>
+                </ul>
+
+                <h3 id="alert-lifecycle">Alert Lifecycle</h3>
+                <div class="mermaid-container">
+                    <div class="diagram-toolbar">
+                        <button class="diagram-control-btn" onclick="openImageModal(document.querySelector('#lifecycle-img'))" title="View Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="diagram-control-btn" onclick="downloadImage('alert-lifecycle.png')" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <img id="lifecycle-img" class="diagram-image" src="images/alert-lifecycle.png" alt="Alert Lifecycle State Diagram" onclick="openImageModal(this)" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                </div>
+                <p>The alert lifecycle follows these states:</p>
+                <ul>
+                    <li><strong>Triggered</strong> - Initial alert creation</li>
+                    <li><strong>Active</strong> - Alert is active and needs attention</li>
+                    <li><strong>Acknowledged</strong> - Alert has been seen by an operator</li>
+                    <li><strong>Escalated</strong> - Alert has been escalated to higher priority</li>
+                    <li><strong>Resolved</strong> - Alert has been resolved and closed</li>
+                </ul>
+
+                <h2 id="features">Key Features</h2>
+                <ul>
+                    <li><strong>Real-time Monitoring</strong> - Continuous agent health monitoring</li>
+                    <li><strong>Multi-channel Alerts</strong> - Email, Slack, SMS notifications</li>
+                    <li><strong>Scalable Architecture</strong> - Docker-based containerized deployment</li>
+                    <li><strong>REST API</strong> - Comprehensive API for integrations</li>
+                    <li><strong>Web Dashboard</strong> - Intuitive web-based interface</li>
+                    <li><strong>Database Persistence</strong> - PostgreSQL with Redis caching</li>
+                </ul>
+
+                <h2 id="api">REST API</h2>
+                <p>PulseGuard provides a comprehensive REST API for programmatic access to all system functions.</p>
+                
+                <h3>API Endpoints</h3>
+                <h4>Agent Management</h4>
+                <ul>
+                    <li><code>GET /api/agents</code> - List all registered agents</li>
+                    <li><code>POST /api/agents</code> - Register a new agent</li>
+                    <li><code>GET /api/agents/{id}</code> - Get agent details</li>
+                    <li><code>PUT /api/agents/{id}</code> - Update agent configuration</li>
+                    <li><code>DELETE /api/agents/{id}</code> - Unregister an agent</li>
+                </ul>
+                
+                <h4>Alert Management</h4>
+                <ul>
+                    <li><code>GET /api/alerts</code> - List all alerts</li>
+                    <li><code>POST /api/alerts</code> - Create a new alert</li>
+                    <li><code>PUT /api/alerts/{id}/acknowledge</code> - Acknowledge an alert</li>
+                    <li><code>PUT /api/alerts/{id}/resolve</code> - Resolve an alert</li>
+                </ul>
+                
+                <h4>Monitoring Data</h4>
+                <ul>
+                    <li><code>GET /api/metrics</code> - Get system metrics</li>
+                    <li><code>GET /api/health</code> - System health check</li>
+                    <li><code>GET /api/status</code> - Overall system status</li>
+                </ul>
+
+                <h2 id="deployment">Deployment Guide</h2>
+                <p>PulseGuard can be deployed in multiple ways to suit different environments and requirements.</p>
+                
+                <h3>Docker Deployment (Recommended)</h3>
+                <p>The easiest way to deploy PulseGuard is using Docker Compose:</p>
+                <pre><code># Clone the repository
+git clone https://github.com/ShanKonduru/agent_monitor.git
+cd agent_monitor
+
+# Run setup scripts
+./000_init.bat
+./001_env.bat
+./002_activate.bat
+./003_setup.bat
+
+# Deploy with Docker
+./007_run_docker.bat</code></pre>
+                
+                <h3>Production Deployment</h3>
+                <p>For production environments, use the production configuration:</p>
+                <pre><code># Deploy production environment
+./deploy.bat
+./start_docker_production.bat</code></pre>
+                
+                <h3>Development Setup</h3>
+                <p>For local development:</p>
+                <pre><code># Run locally
+./004_run.bat
+
+# Run with code coverage
+./005_run_code_cov.bat
+
+# Run tests
+./005_run_test.bat</code></pre>
+                
+                <h3>Configuration</h3>
+                <p>Key configuration files:</p>
+                <ul>
+                    <li><code>docker-compose.yml</code> - Main Docker configuration</li>
+                    <li><code>docker-compose.production.yml</code> - Production overrides</li>
+                    <li><code>requirements.txt</code> - Python dependencies</li>
+                    <li><code>pytest.ini</code> - Test configuration</li>
+                </ul>
+
+                <h2 id="getting-started">Getting Started</h2>
+                <p>To get started with PulseGuard:</p>
+                <ol>
+                    <li><strong>Clone the repository</strong> - <code>git clone https://github.com/ShanKonduru/agent_monitor.git</code></li>
+                    <li><strong>Run the setup scripts</strong> - Execute the numbered batch files in order</li>
+                    <li><strong>Configure your environment</strong> - Update configuration files as needed</li>
+                    <li><strong>Deploy using Docker Compose</strong> - Use the provided deployment scripts</li>
+                    <li><strong>Access the web dashboard</strong> - Navigate to http://localhost:8080</li>
+                </ol>
+                
+                <h3>Quick Start Commands</h3>
+                <pre><code># Full setup and deployment
+./000_init.bat && ./001_env.bat && ./002_activate.bat && ./003_setup.bat && ./007_run_docker.bat
+
+# Check system status
+./check_db_values.py
+./debug_api.py</code></pre>
+            `;
+            
+            document.getElementById('documentContent').innerHTML = content;
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('documentContent').style.display = 'block';
+
+            // Generate table of contents
+            generateTOC();
+            
+            // Build search index
+            buildSearchIndex();
+            
+            // Initialize scroll spy
+            initScrollSpy();
+            
+            // Add smooth scrolling to anchors
+            addSmoothScrolling();
+        }
+
+
+
+
+
+        // Download image function
+        function downloadImage(filename) {
+            const link = document.createElement('a');
+            link.href = `images/${filename}`;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Diagram control functions
+        function downloadDiagram(diagramId) {
+            const diagram = document.getElementById(diagramId);
+            const svg = diagram.querySelector('svg');
+            
+            if (svg) {
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const blob = new Blob([svgData], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${diagramId}.svg`;
+                link.click();
+                
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        function fullscreenDiagram(diagramId) {
+            const container = document.getElementById(diagramId).closest('.mermaid-container');
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            }
+        }
+
+        function showImageFallback(diagramId, imageFile) {
+            const container = document.getElementById(diagramId).closest('.mermaid-container');
+            const mermaidDiv = container.querySelector('.mermaid');
+            const image = container.querySelector('.diagram-image');
+            
+            if (mermaidDiv.style.display === 'none') {
+                mermaidDiv.style.display = 'block';
+                image.style.display = 'none';
+            } else {
+                mermaidDiv.style.display = 'none';
+                image.style.display = 'block';
+            }
+        }
+
+        // Image modal functions
+        function openImageModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.classList.add('show');
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('show');
+        }
+
+        // Generate table of contents
+        function generateTOC() {
+            const headings = document.querySelectorAll('#documentContent h1, #documentContent h2, #documentContent h3');
+            const tocList = document.getElementById('tocList');
+            
+            tocList.innerHTML = '';
+            
+            headings.forEach((heading, index) => {
+                // Create ID if it doesn't exist
+                if (!heading.id) {
+                    heading.id = heading.textContent.toLowerCase()
+                        .replace(/[^\w\s-]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/--+/g, '-')
+                        .trim();
+                }
+                
+                const li = document.createElement('li');
+                li.style.paddingLeft = `${(parseInt(heading.tagName.slice(1)) - 1) * 1}rem`;
+                
+                const a = document.createElement('a');
+                a.href = `#${heading.id}`;
+                a.textContent = heading.textContent;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    smoothScrollTo(heading);
+                });
+                
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+        }
+
+        // Search functionality
+        function buildSearchIndex() {
+            const content = document.getElementById('documentContent');
+            const elements = content.querySelectorAll('h1, h2, h3, h4, p, li');
+            
+            searchIndex = [];
+            elements.forEach((element, index) => {
+                searchIndex.push({
+                    id: index,
+                    element: element,
+                    text: element.textContent.toLowerCase(),
+                    type: element.tagName.toLowerCase()
+                });
+            });
+        }
+
+        function performSearch(query) {
+            if (!query.trim()) {
+                clearSearchHighlights();
+                return;
+            }
+            
+            query = query.toLowerCase();
+            clearSearchHighlights();
+            
+            const results = searchIndex.filter(item => 
+                item.text.includes(query)
+            );
+            
+            results.forEach(result => {
+                highlightText(result.element, query);
+            });
+            
+            if (results.length > 0) {
+                smoothScrollTo(results[0].element);
+            }
+        }
+
+        function highlightText(element, query) {
+            const text = element.textContent;
+            const regex = new RegExp(`(${query})`, 'gi');
+            const highlightedText = text.replace(regex, '<mark>$1</mark>');
+            
+            if (highlightedText !== text) {
+                element.innerHTML = highlightedText;
+                element.classList.add('search-highlighted');
+            }
+        }
+
+        function clearSearchHighlights() {
+            document.querySelectorAll('.search-highlighted').forEach(element => {
+                element.innerHTML = element.textContent;
+                element.classList.remove('search-highlighted');
+            });
+        }
+
+        // Smooth scrolling
+        function smoothScrollTo(element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function addSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        smoothScrollTo(target);
+                    }
+                });
+            });
+        }
+
+        // Scroll spy
+        function initScrollSpy() {
+            const headings = document.querySelectorAll('#documentContent h1, #documentContent h2, #documentContent h3');
+            const tocLinks = document.querySelectorAll('#tocList a');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        tocLinks.forEach(link => link.classList.remove('active'));
+                        const activeLink = document.querySelector(`#tocList a[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '-100px 0px -80% 0px'
+            });
+            
+            headings.forEach(heading => observer.observe(heading));
+        }
+
+        // Scroll to top functionality
+        function initScrollToTop() {
+            const button = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    button.classList.add('show');
+                } else {
+                    button.classList.remove('show');
+                }
+            });
+            
+            button.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Quick navigation to diagrams
+        function initDiagramNavigation() {
+            const diagramButtons = document.querySelectorAll('.diagram-btn');
+            
+            diagramButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = button.getAttribute('data-target');
+                    const targetElement = document.querySelector(`[data-diagram-type*="${target}"], [id*="${target}"]`);
+                    
+                    if (targetElement) {
+                        smoothScrollTo(targetElement);
+                        
+                        // Close sidebar on mobile
+                        if (window.innerWidth <= 768) {
+                            toggleSidebar();
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply theme
+            applyTheme();
+            
+            // Load content with embedded images
+            loadMarkdown();
+            
+            // Initialize scroll to top
+            initScrollToTop();
+            
+            // Initialize diagram navigation
+            initDiagramNavigation();
+            
+            // Event listeners
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    performSearch(e.target.value);
+                }, 300);
+            });
+            
+            // Image modal events
+            document.getElementById('imageModalClose').addEventListener('click', closeImageModal);
+            document.getElementById('imageModal').addEventListener('click', (e) => {
+                if (e.target.id === 'imageModal') {
+                    closeImageModal();
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Escape key closes modal
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                }
+                
+                // Ctrl/Cmd + K focuses search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                
+                // Ctrl/Cmd + \ toggles sidebar
+                if ((e.ctrlKey || e.metaKey) && e.key === '\\') {
+                    e.preventDefault();
+                    toggleSidebar();
+                }
+                
+                // Ctrl/Cmd + D toggles theme
+                if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+            });
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                
+                if (window.innerWidth <= 768 && 
+                    sidebar.classList.contains('open') && 
+                    !sidebar.contains(e.target) && 
+                    !sidebarToggle.contains(e.target)) {
+                    toggleSidebar();
+                }
+            });
+            
+            // Initialize AOS animations
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 600,
+                    easing: 'ease-in-out',
+                    once: true
+                });
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                // Don't auto-close on desktop
+            }
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Documentation loaded in ${Math.round(loadTime)}ms`);
+        });
+    </script>
+</body>
+</html>
