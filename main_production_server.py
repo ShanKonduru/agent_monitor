@@ -151,11 +151,11 @@ async def health_check():
 @app.get("/dashboard", response_class=HTMLResponse)
 async def get_dashboard():
     """Serve the main dashboard"""
-    # Try to serve the real dashboard from web directory (prioritize the large React dashboard)
+    # Try to serve the real dashboard from web directory (prioritize the real PulseGuard dashboard)
     dashboard_paths = [
-        "web/dashboard.html",  # The real 159KB React dashboard we worked on
-        "web/dashboard-offline.html",
-        "web/simple-dashboard.html"
+        "web/pulseguard-enterprise-dashboard.html",  # The REAL PulseGuard™ Enterprise Dashboard
+        "web/basic-agent-monitor-dashboard.html",    # Simple fallback dashboard  
+        "web/simple-dashboard.html"  # Legacy fallback (if exists)
     ]
     
     for path in dashboard_paths:

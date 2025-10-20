@@ -15,7 +15,7 @@ services:
       - PYTHONPATH=/app
     volumes:
       - ./data:/app/data
-    command: ["python", "main_docker_real.py"]
+    command: ["python", "main_production_server.py"]
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -37,7 +37,7 @@ services:
       - AGENT_VERSION=1.0.0
       - AGENT_ENVIRONMENT=docker
       - LOG_LEVEL=INFO
-    command: ["python", "simple_container_agent.py"]
+    command: ["python", "agent_production_deployment.py"]
     depends_on:
       - monitor
     restart: unless-stopped

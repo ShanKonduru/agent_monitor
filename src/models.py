@@ -55,13 +55,18 @@ class AgentInfo(BaseModel):
     config: Dict[str, Any] = Field(default_factory=dict, description="Agent configuration")
     tags: List[str] = Field(default_factory=list, description="Tags for categorization")
     
-    # Registration Info
+    # Registration Info  
     registered_at: datetime = Field(default_factory=datetime.utcnow)
     last_seen: datetime = Field(default_factory=datetime.utcnow)
     status: AgentStatus = Field(default=AgentStatus.UNKNOWN)
     
     # Metadata
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
+    
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.isoformat()
+        }
 
 
 class AgentSummary(BaseModel):
