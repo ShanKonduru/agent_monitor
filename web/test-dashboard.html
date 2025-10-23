@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Metrics Test Dashboard</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Mock agent data with AI metrics
+        const mockAgents = [
+            {
+                id: 'test-1',
+                name: 'Docker Test Agent',
+                type: 'SYSTEM_AGENT',
+                status: 'ONLINE',
+                cpu_usage: 39,
+                memory_usage: 37,
+                response_time: 1005,
+                requests_per_minute: 465,
+                error_rate: 0.0935,
+                health_score: 0.8
+            },
+            {
+                id: 'test-2',
+                name: 'LLM Agent - Live Demo',
+                type: 'LLM_AGENT',
+                status: 'ONLINE',
+                cpu_usage: 13,
+                memory_usage: 81,
+                response_time: 509,
+                requests_per_minute: 891,
+                error_rate: 0.0147,
+                health_score: 0.95,
+                tokens_per_second: 45.7,
+                model_accuracy: 0.923,
+                model_inference_time_ms: 234.5,
+                context_length: 2048,
+                api_call_latency_ms: 125.3
+            },
+            {
+                id: 'test-3',
+                name: 'Fresh LLM Agent',
+                type: 'LLM_AGENT',
+                status: 'ONLINE',
+                cpu_usage: 80,
+                memory_usage: 66,
+                response_time: 304,
+                requests_per_minute: 382,
+                error_rate: 0.0141,
+                health_score: 0.87,
+                tokens_per_second: 73.2,
+                model_accuracy: 0.891,
+                model_inference_time_ms: 187.2,
+                context_length: 4096,
+                api_call_latency_ms: 89.7
+            },
+            {
+                id: 'test-4',
+                name: 'GPT-4 Simulator',
+                type: 'LLM_AGENT',
+                status: 'ONLINE',
+                cpu_usage: 25,
+                memory_usage: 50,
+                response_time: 711,
+                requests_per_minute: 1028,
+                error_rate: 0.0356,
+                health_score: 0.92,
+                tokens_per_second: 62.1,
+                model_accuracy: 0.967,
+                model_inference_time_ms: 156.8,
+                context_length: 8192,
+                api_call_latency_ms: 103.4
+            }
+        ];
+
+        const AgentCard = ({ agent }) => {
+            const getStatusColor = (status) => {
+                switch (status) {
+                    case 'ONLINE': return 'text-green-600 bg-green-100';
+                    case 'OFFLINE': return 'text-red-600 bg-red-100';
+                    default: return 'text-gray-600 bg-gray-100';
+                }
+            };
+
+            const getPerformanceColor = (value, thresholds) => {
+                if (value >= thresholds.critical) return 'text-red-600';
+                if (value >= thresholds.warning) return 'text-yellow-600';
+                return 'text-green-600';
+            };
+
+            return (
+                <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-lg font-semibold text-gray-800">
+                            {agent.name}
+                            <span className="ml-2 px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">
+                                TYPE: {agent.type || 'UNDEFINED'}
+                            </span>
+                            {agent.type === 'LLM_AGENT' && (
+                                <span className="ml-2 px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                                    🤖 LLM
+                                </span>
+                            )}
+                        </h3>
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(agent.status)}`}>
+                            {agent.status}
+                        </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div className="text-center">
+                            <p className={`text-2xl font-bold ${getPerformanceColor(agent.cpu_usage, {warning: 70, critical: 85})}`}>
+                                {agent.cpu_usage}%
+                            </p>
+                            <p className="text-xs text-gray-500">CPU Usage</p>
+                        </div>
+                        <div className="text-center">
+                            <p className={`text-2xl font-bold ${getPerformanceColor(agent.memory_usage, {warning: 75, critical: 90})}`}>
+                                {agent.memory_usage}%
+                            </p>
+                            <p className="text-xs text-gray-500">Memory</p>
+                        </div>
+                    </div>
+                    
+                    <div className="space-y-2 text-sm text-gray-600">
+                        <div className="flex justify-between">
+                            <span>Response Time:</span>
+                            <span className={getPerformanceColor(agent.response_time, {warning: 1000, critical: 2000})}>
+                                {agent.response_time}ms
+                            </span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span>Requests/min:</span>
+                            <span>{agent.requests_per_minute.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span>Error Rate:</span>
+                            <span className={getPerformanceColor(agent.error_rate * 100, {warning: 2, critical: 5})}>
+                                {(agent.error_rate * 100).toFixed(2)}%
+                            </span>
+                        </div>
+                        
+                        {/* AI/LLM Specific Metrics */}
+                        {agent.type === 'LLM_AGENT' && (
+                            <>
+                                <div className="flex justify-between border-t pt-2 mt-2 bg-purple-50 rounded p-2 mb-2">
+                                    <span className="text-xs text-purple-600">AI Metrics Available:</span>
+                                    <span className="text-xs text-purple-600">
+                                        {agent.tokens_per_second ? '✅' : '❌'} Tokens | 
+                                        {agent.model_accuracy ? '✅' : '❌'} Accuracy | 
+                                        {agent.model_inference_time_ms ? '✅' : '❌'} Time
+                                    </span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>Tokens/sec:</span>
+                                    <span className="text-purple-600 font-medium">
+                                        {agent.tokens_per_second ? agent.tokens_per_second.toFixed(1) : 'N/A'}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>Model Accuracy:</span>
+                                    <span className="text-green-600 font-medium">
+                                        {agent.model_accuracy ? (agent.model_accuracy * 100).toFixed(1) + '%' : 'N/A'}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>Inference Time:</span>
+                                    <span className={getPerformanceColor(agent.model_inference_time_ms, {warning: 300, critical: 500})}>
+                                        {agent.model_inference_time_ms ? agent.model_inference_time_ms.toFixed(0) + 'ms' : 'N/A'}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>Context Length:</span>
+                                    <span className="text-blue-600 font-medium">
+                                        {agent.context_length ? agent.context_length.toLocaleString() : 'N/A'}
+                                    </span>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const TestDashboard = () => {
+            return (
+                <div className="min-h-screen bg-gray-50 p-6">
+                    <div className="max-w-7xl mx-auto">
+                        <h1 className="text-3xl font-bold text-gray-800 mb-8">AI Metrics Test Dashboard</h1>
+                        
+                        {/* Agent Status Grid */}
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                <i className="fas fa-server mr-2 text-green-600"></i>
+                                Agent Status Overview
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {mockAgents.map(agent => (
+                                    <AgentCard key={agent.id} agent={agent} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<TestDashboard />, document.getElementById('root'));
+    </script>
+</body>
+</html>

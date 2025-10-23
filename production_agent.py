@@ -33,7 +33,7 @@ class ProductionAgent:
             monitor_url=os.getenv('MONITOR_URL', 'http://localhost:8000'),
             agent_name=self.agent_name,
             agent_type=self.agent_type,
-            deployment_type=DeploymentType.CONTAINER,
+            deployment_type=DeploymentType.DOCKER,
             environment=os.getenv('AGENT_ENVIRONMENT', 'production'),
             version=os.getenv('AGENT_VERSION', '1.0.0'),
             description=f"Production {self.workload_type} agent running in container",
@@ -67,9 +67,25 @@ class ProductionAgent:
             
             def get_model_accuracy():
                 return random.uniform(0.85, 0.99)
+            
+            def get_tokens_per_second():
+                return random.uniform(10.0, 100.0)
+            
+            def get_model_inference_time():
+                return random.uniform(50.0, 500.0)  # ms
+            
+            def get_context_length():
+                return random.randint(512, 4096)
+            
+            def get_api_call_latency():
+                return random.uniform(20.0, 200.0)  # ms
                 
             self.client.register_custom_metric("tokens_processed", get_token_count)
             self.client.register_custom_metric("model_accuracy", get_model_accuracy)
+            self.client.register_custom_metric("tokens_per_second", get_tokens_per_second)
+            self.client.register_custom_metric("model_inference_time_ms", get_model_inference_time)
+            self.client.register_custom_metric("context_length", get_context_length)
+            self.client.register_custom_metric("api_call_latency_ms", get_api_call_latency)
             
         elif self.workload_type == "api":
             # API-specific metrics

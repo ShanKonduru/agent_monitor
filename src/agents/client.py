@@ -84,7 +84,7 @@ class AgentMonitorClient:
             
             response = await self._http_client.post(
                 "/api/v1/agents/register",
-                json=agent_info.dict()
+                json=agent_info.model_dump(mode='json')
             )
             
             if response.status_code == 200:
@@ -164,7 +164,7 @@ class AgentMonitorClient:
             
             response = await self._http_client.post(
                 f"/api/v1/agents/{self.agent_id}/metrics",
-                json=metrics.dict()
+                json=metrics.model_dump(mode='json')
             )
             
             return response.status_code == 200
@@ -245,11 +245,37 @@ class AgentMonitorClient:
             except Exception as e:
                 logger.error(f"Failed to collect custom metric {name}: {e}")
         
+        # Extract AI-specific metrics from custom metrics
+        ai_metrics = None
+        ai_metric_fields = {}
+        
+        # Map custom metric names to AIMetrics fields
+        ai_metric_mapping = {
+            "tokens_processed": "tokens_processed",
+            "model_accuracy": "model_accuracy", 
+            "model_inference_time_ms": "model_inference_time_ms",
+            "tokens_per_second": "tokens_per_second",
+            "context_length": "context_length",
+            "api_calls_made": "api_calls_made",
+            "api_call_latency_ms": "api_call_latency_ms",
+            "confidence_score": "confidence_score"
+        }
+        
+        # Extract AI metrics from custom metrics
+        for custom_name, ai_field in ai_metric_mapping.items():
+            if custom_name in collected_custom_metrics:
+                ai_metric_fields[ai_field] = collected_custom_metrics[custom_name]
+        
+        # Create AIMetrics if we have any AI-specific data
+        if ai_metric_fields:
+            ai_metrics = AIMetrics(**ai_metric_fields)
+        
         # Create metrics object
         metrics = AgentMetrics(
             agent_id=self.agent_id,
             resource_metrics=resource_metrics,
             performance_metrics=performance_metrics,
+            ai_metrics=ai_metrics,
             custom_metrics=collected_custom_metrics,
             health_checks={
                 "system_health": True,  # Could be more sophisticated

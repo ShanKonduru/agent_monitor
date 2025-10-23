@@ -837,6 +837,201 @@
             return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
         };
 
+        // AI Metrics Charts
+        const TokensPerSecondChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Filter LLM agents and get tokens per second data
+                    const llmAgents = agents.filter(agent => agent.type === 'LLM_AGENT');
+                    const agentNames = llmAgents.map(agent => agent.name.length > 12 ? agent.name.substring(0, 12) + '...' : agent.name);
+                    const tokensPerSecond = llmAgents.map(agent => agent.tokens_per_second || 0);
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: agentNames,
+                            datasets: [{
+                                label: 'Tokens/sec',
+                                data: tokensPerSecond,
+                                backgroundColor: 'rgba(138, 43, 226, 0.8)',
+                                borderColor: 'rgba(138, 43, 226, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'LLM Agent Token Processing Rate',
+                                    font: { size: 16, weight: 'bold' }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Tokens per Second'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
+
+        const ModelAccuracyChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Filter LLM agents and get model accuracy data
+                    const llmAgents = agents.filter(agent => agent.type === 'LLM_AGENT');
+                    const agentNames = llmAgents.map(agent => agent.name.length > 12 ? agent.name.substring(0, 12) + '...' : agent.name);
+                    const accuracyData = llmAgents.map(agent => ((agent.model_accuracy || 0) * 100).toFixed(1));
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: agentNames,
+                            datasets: [{
+                                label: 'Model Accuracy %',
+                                data: accuracyData,
+                                backgroundColor: [
+                                    'rgba(46, 204, 113, 0.8)',
+                                    'rgba(52, 152, 219, 0.8)',
+                                    'rgba(155, 89, 182, 0.8)',
+                                    'rgba(241, 196, 15, 0.8)',
+                                    'rgba(230, 126, 34, 0.8)'
+                                ],
+                                borderColor: [
+                                    'rgba(46, 204, 113, 1)',
+                                    'rgba(52, 152, 219, 1)',
+                                    'rgba(155, 89, 182, 1)',
+                                    'rgba(241, 196, 15, 1)',
+                                    'rgba(230, 126, 34, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'LLM Model Accuracy Distribution',
+                                    font: { size: 16, weight: 'bold' }
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
+
+        const InferenceTimeChart = ({ agents }) => {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (chartRef.current && agents.length > 0) {
+                    const ctx = chartRef.current.getContext('2d');
+                    
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+
+                    // Filter LLM agents and get inference time data
+                    const llmAgents = agents.filter(agent => agent.type === 'LLM_AGENT');
+                    const agentNames = llmAgents.map(agent => agent.name.length > 12 ? agent.name.substring(0, 12) + '...' : agent.name);
+                    const inferenceTime = llmAgents.map(agent => agent.model_inference_time_ms || 0);
+
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: agentNames,
+                            datasets: [{
+                                label: 'Inference Time (ms)',
+                                data: inferenceTime,
+                                backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                                borderColor: 'rgba(231, 76, 60, 1)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Model Inference Time',
+                                    font: { size: 16, weight: 'bold' }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Milliseconds'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [agents]);
+
+            return React.createElement('canvas', { ref: chartRef, style: { height: '300px' } });
+        };
+
         // API Configuration
         const API_BASE_URL = 'http://localhost:8001/api/v1';
 
@@ -846,6 +1041,7 @@
             const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
             const [agents, setAgents] = useState([]);
             const [selectedAgent, setSelectedAgent] = useState(null);
+            const [useMockData, setUseMockData] = useState(true); // Toggle for mock vs live data
             const [showAddAgentModal, setShowAddAgentModal] = useState(false);
             const [newAgent, setNewAgent] = useState({
                 name: '',
@@ -909,15 +1105,56 @@
                         agentsData = [];
                     }
                     
-                    // Add mock performance metrics for display (until metrics API is implemented)
-                    const enrichedAgents = agentsData.map(agent => ({
-                        ...agent,
-                        cpu_usage: Math.floor(Math.random() * 100),
-                        memory_usage: Math.floor(Math.random() * 100),
-                        response_time: Math.floor(Math.random() * 1000) + 100,
-                        requests_per_minute: Math.floor(Math.random() * 1000) + 100,
-                        error_rate: Math.random() * 0.1
-                    }));
+                    // Add performance metrics based on toggle setting
+                    const enrichedAgents = agentsData.map(agent => {
+                        const baseAgent = { ...agent };
+                        
+                        if (useMockData) {
+                            // Mock data for demos
+                            baseAgent.cpu_usage = Math.floor(Math.random() * 100);
+                            baseAgent.memory_usage = Math.floor(Math.random() * 100);
+                            baseAgent.response_time = Math.floor(Math.random() * 1000) + 100;
+                            baseAgent.requests_per_minute = Math.floor(Math.random() * 1000) + 100;
+                            baseAgent.error_rate = Math.random() * 0.1;
+                            
+                            // Add AI/LLM-specific metrics for LLM agents
+                            if (agent.type === 'LLM_AGENT') {
+                                baseAgent.tokens_processed = Math.floor(Math.random() * 2000) + 50;
+                                baseAgent.model_accuracy = Math.random() * 0.14 + 0.85; // 0.85-0.99
+                                baseAgent.tokens_per_second = Math.random() * 90 + 10; // 10-100
+                                baseAgent.model_inference_time_ms = Math.random() * 450 + 50; // 50-500ms
+                                baseAgent.context_length = Math.floor(Math.random() * 3584) + 512; // 512-4096
+                                baseAgent.api_call_latency_ms = Math.random() * 180 + 20; // 20-200ms
+                            }
+                        } else {
+                            // Live data - use actual metrics from agents (if available)
+                            baseAgent.cpu_usage = agent.cpu_usage || 0;
+                            baseAgent.memory_usage = agent.memory_usage || 0; 
+                            baseAgent.response_time = agent.response_time || 0;
+                            baseAgent.requests_per_minute = agent.requests_per_minute || 0;
+                            baseAgent.error_rate = agent.error_rate || 0;
+                            
+                            // Live AI metrics for LLM agents
+                            if (agent.type === 'LLM_AGENT') {
+                                baseAgent.tokens_processed = agent.tokens_processed || 0;
+                                baseAgent.model_accuracy = agent.model_accuracy || 0;
+                                baseAgent.tokens_per_second = agent.tokens_per_second || 0;
+                                baseAgent.model_inference_time_ms = agent.model_inference_time_ms || 0;
+                                baseAgent.context_length = agent.context_length || 0;
+                                baseAgent.api_call_latency_ms = agent.api_call_latency_ms || 0;
+                            }
+                        }
+                        
+                        return baseAgent;
+                    });
+                    
+                    // Debug: Log LLM agents and their AI metrics
+                    const llmAgentsDebug = enrichedAgents.filter(agent => agent.type === 'LLM_AGENT');
+                    console.log('LLM Agents with AI metrics:', llmAgentsDebug.length, llmAgentsDebug.map(a => ({
+                        name: a.name, 
+                        tokens_per_second: a.tokens_per_second, 
+                        model_accuracy: a.model_accuracy
+                    })));
                     
                     setAgents(enrichedAgents);
                     
@@ -1918,7 +2155,14 @@
                 return (
                     <div className="bg-white rounded-xl shadow-sm p-6 card-hover border border-gray-100 cursor-pointer" onClick={() => onClick({...agent, viewMode: 'overview'})}>
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-800">{agent.name}</h3>
+                            <h3 className="text-lg font-semibold text-gray-800">
+                                {agent.name}
+                                {agent.type === 'LLM_AGENT' && (
+                                    <span className="ml-2 px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                                        🤖 LLM
+                                    </span>
+                                )}
+                            </h3>
                             <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(agent.status)}`}>
                                 <StatusIndicator status={agent.status} />
                                 {agent.status}
@@ -1957,6 +2201,43 @@
                                     {(agent.error_rate * 100).toFixed(2)}%
                                 </span>
                             </div>
+                            {/* AI/LLM Specific Metrics */}
+                            {agent.type === 'LLM_AGENT' && (
+                                <>
+                                    <div className="flex justify-between border-t pt-2 mt-2 bg-purple-50 rounded p-2 mb-2">
+                                        <span className="text-xs text-purple-600">AI Metrics Available:</span>
+                                        <span className="text-xs text-purple-600">
+                                            {agent.tokens_per_second ? '✅' : '❌'} Tokens | 
+                                            {agent.model_accuracy ? '✅' : '❌'} Accuracy | 
+                                            {agent.model_inference_time_ms ? '✅' : '❌'} Time
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Tokens/sec:</span>
+                                        <span className="text-purple-600 font-medium">
+                                            {agent.tokens_per_second ? agent.tokens_per_second.toFixed(1) : 'N/A'}
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Model Accuracy:</span>
+                                        <span className="text-green-600 font-medium">
+                                            {agent.model_accuracy ? (agent.model_accuracy * 100).toFixed(1) + '%' : 'N/A'}
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Inference Time:</span>
+                                        <span className={getPerformanceColor(agent.model_inference_time_ms, {warning: 300, critical: 500})}>
+                                            {agent.model_inference_time_ms ? agent.model_inference_time_ms.toFixed(0) + 'ms' : 'N/A'}
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Context Length:</span>
+                                        <span className="text-blue-600 font-medium">
+                                            {agent.context_length ? agent.context_length.toLocaleString() : 'N/A'}
+                                        </span>
+                                    </div>
+                                </>
+                            )}
                         </div>
                         
                         <div className="mt-4 flex space-x-2">
@@ -2073,6 +2354,37 @@
 
                 return (
                     <div className="space-y-6">
+                        {/* Data Mode Toggle */}
+                        <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                    <i className="fas fa-database text-blue-600"></i>
+                                    <span className="font-medium text-gray-800">Data Mode:</span>
+                                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${useMockData ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'}`}>
+                                        {useMockData ? '🎭 Demo Mode' : '📡 Live Data'} 
+                                    </span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <span className="text-sm text-gray-600">Demo</span>
+                                    <button
+                                        onClick={() => setUseMockData(!useMockData)}
+                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${useMockData ? 'bg-purple-600' : 'bg-green-600'}`}
+                                    >
+                                        <span
+                                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${useMockData ? 'translate-x-1' : 'translate-x-6'}`}
+                                        />
+                                    </button>
+                                    <span className="text-sm text-gray-600">Live</span>
+                                </div>
+                            </div>
+                            <p className="text-xs text-gray-500 mt-2">
+                                {useMockData 
+                                    ? '🎭 Demo mode shows simulated data perfect for presentations and testing' 
+                                    : '📡 Live mode displays real-time data from connected agents'
+                                }
+                            </p>
+                        </div>
+
                         {/* System Stats */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <StatsCard
@@ -2250,6 +2562,44 @@
                             </div>
                         </div>
                     </div>
+
+                    {/* AI/LLM Metrics Section */}
+                    {agents.some(agent => agent.type === 'LLM_AGENT') && (
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                            {/* Tokens Per Second Chart */}
+                            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                    <i className="fas fa-brain mr-2 text-purple-600"></i>
+                                    Token Processing Rate
+                                </h3>
+                                <div className="h-80">
+                                    {React.createElement(TokensPerSecondChart, { agents: agents })}
+                                </div>
+                            </div>
+
+                            {/* Model Accuracy Chart */}
+                            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                    <i className="fas fa-bullseye mr-2 text-green-600"></i>
+                                    Model Accuracy
+                                </h3>
+                                <div className="h-80">
+                                    {React.createElement(ModelAccuracyChart, { agents: agents })}
+                                </div>
+                            </div>
+
+                            {/* Inference Time Chart */}
+                            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                                    <i className="fas fa-clock mr-2 text-red-600"></i>
+                                    Inference Time
+                                </h3>
+                                <div className="h-80">
+                                    {React.createElement(InferenceTimeChart, { agents: agents })}
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* System Summary Stats */}
                     <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
