@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres-local:latest
+    image: postgres:15
     restart: unless-stopped
     environment:
       - POSTGRES_DB=agent_monitor
@@ -21,8 +21,10 @@ services:
       retries: 5
 
   monitor-dashboard:
-    image: agent-monitor:latest
-    command: python main.py
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: python main_production_server.py
     ports:
       - "8000:8000"
     environment:
@@ -44,7 +46,9 @@ services:
       start_period: 40s
 
   container-agent-1:
-    image: agent-monitor:latest
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     command: python simple_container_agent.py
     restart: unless-stopped
     environment:
@@ -61,7 +65,9 @@ services:
         condition: service_healthy
 
   container-agent-2:
-    image: agent-monitor:latest
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     command: python simple_container_agent.py
     restart: unless-stopped
     environment:
@@ -78,7 +84,9 @@ services:
         condition: service_healthy
 
   container-agent-3:
-    image: agent-monitor:latest
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     command: python simple_container_agent.py
     restart: unless-stopped
     environment:
@@ -95,7 +103,9 @@ services:
         condition: service_healthy
 
   container-agent-4:
-    image: agent-monitor:latest
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     command: python simple_container_agent.py
     restart: unless-stopped
     environment:
@@ -112,7 +122,9 @@ services:
         condition: service_healthy
 
   container-agent-5:
-    image: agent-monitor:latest
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     command: python simple_container_agent.py
     restart: unless-stopped
     environment:

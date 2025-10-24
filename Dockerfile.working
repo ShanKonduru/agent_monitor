@@ -1,0 +1,17 @@
+# Working Dashboard Dockerfile - Simple solution with mock data
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install only essential dependencies
+RUN pip install fastapi uvicorn
+
+# Copy the working server and web files
+COPY working_dashboard_server.py .
+COPY web/ ./web/
+
+# Expose port
+EXPOSE 8000
+
+# Run the working server
+CMD ["python", "working_dashboard_server.py"]
