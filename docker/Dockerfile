@@ -13,7 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy source code
 COPY src/ ./src/
+COPY web/ ./web/
 COPY main.py .
+COPY main_production_server.py .
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app \

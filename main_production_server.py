@@ -21,6 +21,8 @@ os.environ.setdefault('REDIS_URL', '')  # Disable Redis
 os.environ.setdefault('INFLUXDB_URL', '')  # Disable InfluxDB
 os.environ.setdefault('LOG_LEVEL', 'INFO')
 os.environ.setdefault('LOG_FILE', '')  # Log to console
+# QUICK FIX: Use SQLite for local development (no 15-minute timeout)
+os.environ.setdefault('DATABASE_URL', 'sqlite+aiosqlite:///./data/agent_monitor.db')
 
 # Configure logging
 logging.basicConfig(

@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 """
-Simple Agent Monitor API Server
-Serves agent data without complex database dependencies
+PulseGuard Dashboard Server
+The ONE and ONLY server you need to run the dashboard
+Uses only Python standard library - no external dependencies
 """
 
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 import json
-import asyncio
-from datetime import datetime, timezone
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-import uvicorn
+import urllib.parse as urlparse
+import os
 
 app = FastAPI(title="Simple Agent Monitor API")
 
