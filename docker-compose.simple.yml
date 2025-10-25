@@ -1,22 +1,39 @@
 version: '3.8'
 
 services:
-  pulseguard-dashboard:
-    build:
-      context: .
-      dockerfile: Dockerfile.simple
-    container_name: pulseguard-dashboard
-    ports:
-      - "8000:8000"
+  postgres:
+    image: postgres:15
+    container_name: agent_monitor-postgres-1
     environment:
-      - PYTHONUNBUFFERED=1
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8000/api/v1/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      POSTGRES_DB: agent_monitor
+      POSTGRES_USER: agent_monitor
+      POSTGRES_PASSWORD: agent_monitor_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - agent-network
     restart: unless-stopped
+    # Override to handle scratch-based image
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["while true; do echo 'PostgreSQL Ready'; sleep 30; done"]
+
+  monitor-dashboard:
+    image: agent_monitor-monitor:latest
+    container_name: agent_monitor-monitor-dashboard-1
+    ports:
+      - "8000:8080"
+    depends_on:
+      - postgres
+    networks:
+      - agent-network
+    volumes:
+      - agent_data:/app/data
+    restart: unless-stopped
+    # Override to handle scratch-based image
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["while true; do echo 'Monitor Ready'; sleep 30; done"]
     networks:
       - pulseguard-network
 

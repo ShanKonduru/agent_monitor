@@ -1,0 +1,11 @@
+# Minimal Dockerfile for agent_monitor
+# Uses scratch/minimal approach for network-limited environments
+
+FROM scratch as agent_monitor
+
+# Copy Python application directly
+COPY . /app
+WORKDIR /app
+
+# Set entrypoint for monitor service
+ENTRYPOINT ["python", "main.py"]

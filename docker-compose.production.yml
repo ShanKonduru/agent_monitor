@@ -21,6 +21,9 @@ services:
       retries: 5
 
   monitor-dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     image: agent_monitor-monitor:latest
     command: python main_production_server.py
     ports:
@@ -44,6 +47,9 @@ services:
       start_period: 40s
 
   container-agent-1:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     image: agent_monitor-test-agent:latest
     command: python agent_production_deployment.py
     restart: unless-stopped
@@ -61,6 +67,9 @@ services:
         condition: service_healthy
 
   container-agent-2:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     image: agent_monitor-test-agent:latest
     command: python agent_production_deployment.py
     restart: unless-stopped
@@ -78,6 +87,9 @@ services:
         condition: service_healthy
 
   container-agent-3:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     image: agent_monitor-test-agent:latest
     command: python agent_production_deployment.py
     restart: unless-stopped
@@ -95,6 +107,9 @@ services:
         condition: service_healthy
 
   container-agent-4:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     image: agent_monitor-test-agent:latest
     command: python agent_production_deployment.py
     restart: unless-stopped
@@ -112,6 +127,9 @@ services:
         condition: service_healthy
 
   container-agent-5:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
     image: agent_monitor-test-agent:latest
     command: python agent_production_deployment.py
     restart: unless-stopped
