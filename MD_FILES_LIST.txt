@@ -1,0 +1,2382 @@
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is B6EA-D0B1
+
+ Directory of C:\MyProjects\agent_monitor
+
+2025-10-23  09:39 PM             2,722 DEPLOYMENT.md
+2025-10-19  09:07 PM             2,930 DOCKER_COMPOSE_ANALYSIS.md
+2025-10-19  09:07 PM             3,816 FINAL_CLEANUP_SUMMARY.md
+2025-10-19  09:07 PM             6,470 NON_PRODUCTION_FILES_ANALYSIS.md
+2025-10-24  11:44 PM             3,535 ON_THE_FLY_DEPLOYMENT_SUCCESS_REPORT.md
+2025-10-24  10:37 PM             6,008 PRODUCTION_FILES.md
+2025-10-24  10:37 PM             1,825 PRODUCTION_QUICK_REF.md
+2025-10-23  08:57 PM            11,876 PROJECT_WBS.md
+2025-10-17  10:35 PM            15,988 README.md
+2025-10-26  08:17 AM            14,176 WBS_PROGRESS_ANALYSIS.md
+              10 File(s)         69,346 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docker
+
+2025-10-17  09:20 PM             2,789 DOCKER_NETWORK_FIX.md
+2025-10-17  09:20 PM             2,107 NETWORK_TROUBLESHOOTING.md
+2025-10-17  09:20 PM             8,575 PRODUCTION_DEPLOYMENT.md
+               3 File(s)         13,471 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs
+
+2025-10-15  08:43 PM            15,805 ARCHITECTURE.md
+2025-10-19  08:27 PM             4,096 CLEANUP_SUMMARY.md
+2025-10-16  10:40 PM             5,658 DASHBOARD_TEMPLATE.md
+2025-10-17  12:56 AM             9,003 DATABASE_ARCHITECTURE.md
+2025-10-16  11:48 PM             5,921 DATA_FLOW_EXPLANATION.md
+2025-10-15  08:43 PM            14,429 DATA_MODELS.md
+2025-10-17  09:20 PM             2,855 DOCKER_BUILD_STATUS.md
+2025-10-15  08:43 PM            10,773 IMPLEMENTATION_PLAN.md
+2025-10-16  11:48 PM             6,357 METRICS_IMPLEMENTATION_GUIDE.md
+2025-10-15  09:55 PM             7,669 PHASE2_ARCHITECTURE.md
+2025-10-15  10:21 PM             6,872 PHASE2_STATUS_REPORT.md
+2025-10-19  07:38 PM             3,119 PRODUCTION_FILES.md
+2025-10-18  07:47 PM            32,011 PULSEGUARD_COMPREHENSIVE_DOCUMENTATION.md
+2025-10-18  09:49 AM             6,581 PULSEGUARD_SIMPLE_DOCS.md
+2025-10-18  07:56 PM             6,442 README-diagrams.md
+2025-10-16  11:59 PM             6,165 REST_API_ONLY_ARCHITECTURE.md
+2025-10-18  08:17 PM             1,800 SERVER_INSTRUCTIONS.md
+2025-10-16  11:55 PM             4,609 SIMPLE_BLOCK_DIAGRAM.md
+2025-10-17  12:56 AM             6,773 SYSTEM_ARCHITECTURE.md
+2025-10-16  11:59 PM            30,477 SYSTEM_BLOCK_DIAGRAM.md
+2025-10-17  10:15 PM             7,058 UNIFIED_DATABASE_ARCHITECTURE.md
+              21 File(s)        194,473 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@alloc\quick-lru
+
+2025-10-18  07:46 PM             3,660 readme.md
+               1 File(s)          3,660 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@antfu\install-pkg
+
+2025-10-18  07:46 PM               676 README.md
+               1 File(s)            676 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@antfu\utils
+
+2025-10-18  07:46 PM               807 README.md
+               1 File(s)            807 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@babel\code-frame
+
+2025-10-18  07:46 PM               334 README.md
+               1 File(s)            334 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@babel\helper-validator-identifier
+
+2025-10-18  07:46 PM               369 README.md
+               1 File(s)            369 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@braintree\sanitize-url
+
+2025-10-18  07:46 PM             2,869 CHANGELOG.md
+2025-10-18  07:46 PM             1,381 README.md
+               2 File(s)          4,250 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@floating-ui\core
+
+2025-10-18  07:46 PM               150 README.md
+               1 File(s)            150 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@floating-ui\dom
+
+2025-10-18  07:46 PM               126 README.md
+               1 File(s)            126 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@floating-ui\react
+
+2025-10-18  07:46 PM                73 README.md
+               1 File(s)             73 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@floating-ui\react-dom
+
+2025-10-18  07:46 PM                81 README.md
+               1 File(s)             81 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@floating-ui\utils
+
+2025-10-18  07:46 PM               163 README.md
+               1 File(s)            163 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@headlessui\react
+
+2025-10-18  07:46 PM             1,006 README.md
+               1 File(s)          1,006 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@headlessui\react\node_modules\@floating-ui\react
+
+2025-10-18  07:46 PM                73 README.md
+               1 File(s)             73 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@headlessui\tailwindcss
+
+2025-10-18  07:46 PM             2,286 README.md
+               1 File(s)          2,286 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@iconify\types
+
+2025-10-18  07:46 PM            15,651 README.md
+               1 File(s)         15,651 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@iconify\utils
+
+2025-10-18  07:46 PM               494 readme.md
+               1 File(s)            494 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@isaacs\cliui
+
+2025-10-18  07:46 PM             3,055 README.md
+               1 File(s)          3,055 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@jridgewell\gen-mapping
+
+2025-10-18  07:46 PM             7,506 README.md
+               1 File(s)          7,506 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@jridgewell\resolve-uri
+
+2025-10-18  07:46 PM             2,826 README.md
+               1 File(s)          2,826 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@jridgewell\sourcemap-codec
+
+2025-10-18  07:46 PM            10,051 README.md
+               1 File(s)         10,051 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@jridgewell\trace-mapping
+
+2025-10-18  07:46 PM            14,417 README.md
+               1 File(s)         14,417 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@mermaid-js\mermaid-cli
+
+2025-10-18  07:46 PM             7,252 README.md
+               1 File(s)          7,252 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@mermaid-js\mermaid-zenuml
+
+2025-10-18  07:46 PM             7,489 README.md
+               1 File(s)          7,489 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@mermaid-js\parser
+
+2025-10-18  07:46 PM             1,563 README.md
+               1 File(s)          1,563 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@nodelib\fs.scandir
+
+2025-10-18  07:46 PM             4,959 README.md
+               1 File(s)          4,959 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@nodelib\fs.stat
+
+2025-10-18  07:46 PM             3,075 README.md
+               1 File(s)          3,075 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@nodelib\fs.walk
+
+2025-10-18  07:46 PM             6,139 README.md
+               1 File(s)          6,139 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@pkgjs\parseargs
+
+2025-10-18  07:46 PM             6,968 CHANGELOG.md
+2025-10-18  07:46 PM            13,642 README.md
+               2 File(s)         20,610 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@puppeteer\browsers
+
+2025-10-18  07:46 PM             2,393 README.md
+               1 File(s)          2,393 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-aria\focus
+
+2025-10-18  07:46 PM               135 README.md
+               1 File(s)            135 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-aria\interactions
+
+2025-10-18  07:46 PM               142 README.md
+               1 File(s)            142 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-aria\ssr
+
+2025-10-18  07:46 PM               133 README.md
+               1 File(s)            133 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-aria\utils
+
+2025-10-18  07:46 PM               135 README.md
+               1 File(s)            135 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-stately\flags
+
+2025-10-18  07:46 PM               138 README.md
+               1 File(s)            138 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-stately\utils
+
+2025-10-18  07:46 PM               138 README.md
+               1 File(s)            138 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@react-types\shared
+
+2025-10-18  07:46 PM               137 README.md
+               1 File(s)            137 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@tootallnate\quickjs-emscripten
+
+2025-10-18  07:46 PM            23,411 README.md
+               1 File(s)         23,411 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3
+
+2025-10-18  07:46 PM             3,717 README.md
+               1 File(s)          3,717 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-array
+
+2025-10-18  07:46 PM               738 README.md
+               1 File(s)            738 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-axis
+
+2025-10-18  07:46 PM               719 README.md
+               1 File(s)            719 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-brush
+
+2025-10-18  07:46 PM               680 README.md
+               1 File(s)            680 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-chord
+
+2025-10-18  07:46 PM               616 README.md
+               1 File(s)            616 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-color
+
+2025-10-18  07:46 PM               739 README.md
+               1 File(s)            739 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-contour
+
+2025-10-18  07:46 PM               687 README.md
+               1 File(s)            687 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-delaunay
+
+2025-10-18  07:46 PM               531 README.md
+               1 File(s)            531 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-dispatch
+
+2025-10-18  07:46 PM               712 README.md
+               1 File(s)            712 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-drag
+
+2025-10-18  07:46 PM               676 README.md
+               1 File(s)            676 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-dsv
+
+2025-10-18  07:46 PM               651 README.md
+               1 File(s)            651 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-ease
+
+2025-10-18  07:46 PM               612 README.md
+               1 File(s)            612 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-fetch
+
+2025-10-18  07:46 PM               614 README.md
+               1 File(s)            614 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-force
+
+2025-10-18  07:46 PM               659 README.md
+               1 File(s)            659 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-format
+
+2025-10-18  07:46 PM               663 README.md
+               1 File(s)            663 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-geo
+
+2025-10-18  07:46 PM               711 README.md
+               1 File(s)            711 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-hierarchy
+
+2025-10-18  07:46 PM               706 README.md
+               1 File(s)            706 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-interpolate
+
+2025-10-18  07:46 PM               739 README.md
+               1 File(s)            739 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-path
+
+2025-10-18  07:46 PM               612 README.md
+               1 File(s)            612 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-polygon
+
+2025-10-18  07:46 PM             2,417 README.md
+               1 File(s)          2,417 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-quadtree
+
+2025-10-18  07:46 PM               671 README.md
+               1 File(s)            671 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-random
+
+2025-10-18  07:46 PM               620 README.md
+               1 File(s)            620 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-scale
+
+2025-10-18  07:46 PM               754 README.md
+               1 File(s)            754 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-scale-chromatic
+
+2025-10-18  07:46 PM               712 README.md
+               1 File(s)            712 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-selection
+
+2025-10-18  07:46 PM               722 README.md
+               1 File(s)            722 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-shape
+
+2025-10-18  07:46 PM               744 README.md
+               1 File(s)            744 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-time
+
+2025-10-18  07:46 PM               655 README.md
+               1 File(s)            655 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-time-format
+
+2025-10-18  07:46 PM               640 README.md
+               1 File(s)            640 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-timer
+
+2025-10-18  07:46 PM               659 README.md
+               1 File(s)            659 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-transition
+
+2025-10-18  07:46 PM               748 README.md
+               1 File(s)            748 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\d3-zoom
+
+2025-10-18  07:46 PM               793 README.md
+               1 File(s)            793 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\geojson
+
+2025-10-18  07:46 PM               637 README.md
+               1 File(s)            637 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\node
+
+2025-10-18  07:46 PM             1,582 README.md
+               1 File(s)          1,582 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\trusted-types
+
+2025-10-18  07:46 PM               673 README.md
+               1 File(s)            673 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@types\yauzl
+
+2025-10-18  07:46 PM               513 README.md
+               1 File(s)            513 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core
+
+2025-10-18  07:46 PM             4,495 CLAUDE.md
+2025-10-18  07:46 PM             1,837 DEPLOYMENT.md
+2025-10-18  07:46 PM             5,290 IMPLEMENTATION_PLAN.md
+2025-10-18  07:46 PM             3,155 MCP-ASSISTANT-RULES.md
+2025-10-18  07:46 PM             4,785 README.md
+2025-10-18  07:46 PM               411 README_CN.md
+2025-10-18  07:46 PM             3,327 TUTORIAL.md
+               7 File(s)         23,300 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\.claude\commands
+
+2025-10-18  07:46 PM             6,254 analyze.md
+2025-10-18  07:46 PM             9,962 clarify.md
+2025-10-18  07:46 PM            11,473 code-review.md
+2025-10-18  07:46 PM             5,140 constitution.md
+2025-10-18  07:46 PM            14,645 create-docs.md
+2025-10-18  07:46 PM             8,095 full-context.md
+2025-10-18  07:46 PM             6,202 gemini-consult.md
+2025-10-18  07:46 PM             5,614 handoff.md
+2025-10-18  07:46 PM             3,175 implement.md
+2025-10-18  07:46 PM             2,397 plan.md
+2025-10-18  07:46 PM             6,843 README.md
+2025-10-18  07:46 PM             8,995 refactor.md
+2025-10-18  07:46 PM             1,454 specify.md
+2025-10-18  07:46 PM             2,559 tasks.md
+2025-10-18  07:46 PM            15,661 update-docs.md
+              15 File(s)        108,469 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\.claude\hooks
+
+2025-10-18  07:46 PM             8,846 README.md
+               1 File(s)          8,846 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\.claude\hooks\setup
+
+2025-10-18  07:46 PM             2,611 hook-setup.md
+               1 File(s)          2,611 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\.kiro\hooks
+
+2025-10-18  07:46 PM             1,314 README.md
+               1 File(s)          1,314 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\.specify\memory
+
+2025-10-18  07:46 PM             1,234 constitution.md
+               1 File(s)          1,234 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\.specify\templates
+
+2025-10-18  07:46 PM               454 agent-file-template.md
+2025-10-18  07:46 PM             8,512 plan-template.md
+2025-10-18  07:46 PM             4,165 spec-template.md
+2025-10-18  07:46 PM             4,655 tasks-template.md
+               4 File(s)         17,786 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\docs
+
+2025-10-18  07:46 PM             1,513 async-vs-sync-parser-rules.md
+2025-10-18  07:46 PM             3,661 CONTEXT-tier2-component.md
+2025-10-18  07:46 PM             5,017 CONTEXT-tier3-feature.md
+2025-10-18  07:46 PM               990 divider-parser-allow-spaces.md
+2025-10-18  07:46 PM             1,314 highlighting-messages.md
+2025-10-18  07:46 PM             1,167 inherited-vs-provided-from.md
+2025-10-18  07:46 PM               887 module-vs-main-in-package-json.md
+2025-10-18  07:46 PM               695 osx-unsupported-arm64-node12.md
+2025-10-18  07:46 PM             1,046 participants-function.md
+2025-10-18  07:46 PM             7,146 README.md
+2025-10-18  07:46 PM             2,454 responsive-participant-margin.md
+2025-10-18  07:46 PM             2,763 running-cypress-tests-locally.md
+2025-10-18  07:46 PM               260 starter.md
+2025-10-18  07:46 PM               812 testing-minified-lib.md
+2025-10-18  07:46 PM             3,920 UNICODE_SUPPORT.md
+2025-10-18  07:46 PM                26 watch.md
+2025-10-18  07:46 PM               570 why-we-publish-embed-view-to-github-pages.md
+2025-10-18  07:46 PM             1,534 width-translate-and-offsets.md
+2025-10-18  07:46 PM             2,661 xss.md
+              19 File(s)         38,436 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\docs\ai-context
+
+2025-10-18  07:46 PM               812 deployment-infrastructure.md
+2025-10-18  07:46 PM             6,229 docs-overview.md
+2025-10-18  07:46 PM             5,170 handoff.md
+2025-10-18  07:46 PM             9,330 project-structure.md
+2025-10-18  07:46 PM               836 system-integration.md
+               5 File(s)         22,377 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\docs\open-issues
+
+2025-10-18  07:46 PM             2,613 example-api-performance-issue.md
+               1 File(s)          2,613 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\docs\parser
+
+2025-10-18  07:46 PM             4,417 grammar_review_gemini.md
+2025-10-18  07:46 PM            10,598 PARSER_IMPROVEMENTS_CC.md
+               2 File(s)         15,015 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\@zenuml\core\newsletter
+
+2025-10-18  07:46 PM             3,789 unicode-support-announcement.md
+               1 File(s)          3,789 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\abort-controller
+
+2025-10-18  07:46 PM             3,223 README.md
+               1 File(s)          3,223 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\acorn
+
+2025-10-18  07:46 PM            23,249 CHANGELOG.md
+2025-10-18  07:46 PM            10,799 README.md
+               2 File(s)         34,048 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\agent-base
+
+2025-10-18  07:46 PM             2,459 README.md
+               1 File(s)          2,459 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ansi-regex
+
+2025-10-18  07:46 PM             2,434 readme.md
+               1 File(s)          2,434 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ansi-styles
+
+2025-10-18  07:46 PM             4,908 readme.md
+               1 File(s)          4,908 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\antlr4
+
+2025-10-18  07:46 PM               806 README.md
+               1 File(s)            806 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\any-promise
+
+2025-10-18  07:46 PM             7,066 README.md
+               1 File(s)          7,066 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\anymatch
+
+2025-10-18  07:46 PM             4,023 README.md
+               1 File(s)          4,023 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\arg
+
+2025-10-18  07:46 PM             1,079 LICENSE.md
+2025-10-18  07:46 PM             6,642 README.md
+               2 File(s)          7,721 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\argparse
+
+2025-10-18  07:46 PM             5,966 CHANGELOG.md
+2025-10-18  07:46 PM             2,768 README.md
+               2 File(s)          8,734 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ast-types
+
+2025-10-18  07:46 PM            16,825 README.md
+               1 File(s)         16,825 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\atomic-sleep
+
+2025-10-18  07:46 PM             1,697 readme.md
+               1 File(s)          1,697 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\b4a
+
+2025-10-18  07:46 PM             4,450 README.md
+               1 File(s)          4,450 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\balanced-match
+
+2025-10-18  07:46 PM             1,096 LICENSE.md
+2025-10-18  07:46 PM             3,502 README.md
+               2 File(s)          4,598 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\bare-events
+
+2025-10-18  07:46 PM               280 README.md
+               1 File(s)            280 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\bare-fs
+
+2025-10-18  07:46 PM               354 README.md
+               1 File(s)            354 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\bare-os
+
+2025-10-18  07:46 PM               101 README.md
+               1 File(s)            101 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\bare-path
+
+2025-10-18  07:46 PM               225 README.md
+               1 File(s)            225 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\bare-stream
+
+2025-10-18  07:46 PM               150 README.md
+               1 File(s)            150 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\bare-url
+
+2025-10-18  07:46 PM               211 README.md
+               1 File(s)            211 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\base64-js
+
+2025-10-18  07:46 PM             1,143 README.md
+               1 File(s)          1,143 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\basic-ftp
+
+2025-10-18  07:46 PM            12,187 README.md
+               1 File(s)         12,187 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\binary-extensions
+
+2025-10-18  07:46 PM               541 readme.md
+               1 File(s)            541 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\brace-expansion
+
+2025-10-18  07:46 PM             4,252 README.md
+               1 File(s)          4,252 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\braces
+
+2025-10-18  07:46 PM            21,505 README.md
+               1 File(s)         21,505 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\buffer
+
+2025-10-18  07:46 PM             2,788 AUTHORS.md
+2025-10-18  07:46 PM            17,295 README.md
+               2 File(s)         20,083 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\buffer-crc32
+
+2025-10-18  07:46 PM             1,458 README.md
+               1 File(s)          1,458 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\callsites
+
+2025-10-18  07:46 PM             1,887 readme.md
+               1 File(s)          1,887 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\camelcase-css
+
+2025-10-18  07:46 PM               870 README.md
+               1 File(s)            870 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chalk
+
+2025-10-18  07:46 PM            11,696 readme.md
+               1 File(s)         11,696 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chevrotain
+
+2025-10-18  07:46 PM                62 BREAKING_CHANGES.md
+2025-10-18  07:46 PM                55 CHANGELOG.md
+2025-10-18  07:46 PM               264 README.md
+               3 File(s)            381 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chevrotain\diagrams
+
+2025-10-18  07:46 PM                85 README.md
+               1 File(s)             85 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chevrotain-allstar
+
+2025-10-18  07:46 PM               805 README.md
+               1 File(s)            805 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chokidar
+
+2025-10-18  07:46 PM            14,392 README.md
+               1 File(s)         14,392 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chokidar\node_modules\glob-parent
+
+2025-10-18  07:46 PM             4,510 CHANGELOG.md
+2025-10-18  07:46 PM             4,646 README.md
+               2 File(s)          9,156 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\chromium-bidi
+
+2025-10-18  07:46 PM            19,401 README.md
+               1 File(s)         19,401 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\class-variance-authority
+
+2025-10-18  07:46 PM                85 README.md
+               1 File(s)             85 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui
+
+2025-10-18  07:46 PM             4,572 CHANGELOG.md
+2025-10-18  07:46 PM             2,998 README.md
+               2 File(s)          7,570 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui\node_modules\ansi-regex
+
+2025-10-18  07:46 PM             2,565 readme.md
+               1 File(s)          2,565 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui\node_modules\ansi-styles
+
+2025-10-18  07:46 PM             4,327 readme.md
+               1 File(s)          4,327 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui\node_modules\emoji-regex
+
+2025-10-18  07:46 PM             2,691 README.md
+               1 File(s)          2,691 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui\node_modules\string-width
+
+2025-10-18  07:46 PM             1,396 readme.md
+               1 File(s)          1,396 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui\node_modules\strip-ansi
+
+2025-10-18  07:46 PM             1,599 readme.md
+               1 File(s)          1,599 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cliui\node_modules\wrap-ansi
+
+2025-10-18  07:46 PM             2,745 readme.md
+               1 File(s)          2,745 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\clsx
+
+2025-10-18  07:46 PM             4,003 readme.md
+               1 File(s)          4,003 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\color-convert
+
+2025-10-18  07:46 PM             1,417 CHANGELOG.md
+2025-10-18  07:46 PM             2,853 README.md
+               2 File(s)          4,270 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\color-convert\node_modules\color-name
+
+2025-10-18  07:46 PM               384 README.md
+               1 File(s)            384 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\color-name
+
+2025-10-18  07:46 PM               371 README.md
+               1 File(s)            371 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\color-string
+
+2025-10-18  07:46 PM             2,371 README.md
+               1 File(s)          2,371 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\commander
+
+2025-10-18  07:46 PM            42,974 Readme.md
+               1 File(s)         42,974 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\confbox
+
+2025-10-18  07:46 PM             4,810 README.md
+               1 File(s)          4,810 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cose-base
+
+2025-10-18  07:46 PM               689 README.md
+               1 File(s)            689 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cosmiconfig
+
+2025-10-18  07:46 PM            27,625 README.md
+               1 File(s)         27,625 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cross-spawn
+
+2025-10-18  07:46 PM             4,117 README.md
+               1 File(s)          4,117 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cssesc
+
+2025-10-18  07:46 PM             6,585 README.md
+               1 File(s)          6,585 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape
+
+2025-10-18  07:46 PM             5,275 CODE_OF_CONDUCT.md
+2025-10-18  07:46 PM            10,043 README.md
+               2 File(s)         15,318 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape\.github
+
+2025-10-18  07:46 PM             1,589 PULL_REQUEST_TEMPLATE.md
+2025-10-18  07:46 PM               304 SECURITY.md
+               2 File(s)          1,893 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape\.github\ISSUE_TEMPLATE
+
+2025-10-18  07:46 PM             2,047 bug_report.md
+2025-10-18  07:46 PM             1,123 feature_request.md
+               2 File(s)          3,170 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape\.github\workflows\md
+
+2025-10-18  07:46 PM               998 blog-issue-template.md
+2025-10-18  07:46 PM             4,064 Feature_Release.md
+2025-10-18  07:46 PM             3,188 Manual_Release.md
+2025-10-18  07:46 PM             4,723 Patch_Backport_Release.md
+2025-10-18  07:46 PM             1,272 repo-setup.md
+               5 File(s)         14,245 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape-cose-bilkent
+
+2025-10-18  07:46 PM             5,307 README.md
+               1 File(s)          5,307 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape-fcose
+
+2025-10-18  07:46 PM            11,395 README.md
+               1 File(s)         11,395 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape-fcose\node_modules\cose-base
+
+2025-10-18  07:46 PM               689 README.md
+               1 File(s)            689 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\cytoscape-fcose\node_modules\layout-base
+
+2025-10-18  07:46 PM               712 README.md
+               1 File(s)            712 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3
+
+2025-10-18  07:46 PM               754 README.md
+               1 File(s)            754 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-array
+
+2025-10-18  07:46 PM            62,983 README.md
+               1 File(s)         62,983 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-axis
+
+2025-10-18  07:46 PM            14,277 README.md
+               1 File(s)         14,277 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-brush
+
+2025-10-18  07:46 PM            15,614 README.md
+               1 File(s)         15,614 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-chord
+
+2025-10-18  07:46 PM            13,776 README.md
+               1 File(s)         13,776 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-color
+
+2025-10-18  07:46 PM            14,037 README.md
+               1 File(s)         14,037 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-contour
+
+2025-10-18  07:46 PM            15,784 README.md
+               1 File(s)         15,784 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-delaunay
+
+2025-10-18  07:46 PM            16,119 README.md
+               1 File(s)         16,119 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-dispatch
+
+2025-10-18  07:46 PM             5,345 README.md
+               1 File(s)          5,345 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-drag
+
+2025-10-18  07:46 PM            20,222 README.md
+               1 File(s)         20,222 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-dsv
+
+2025-10-18  07:46 PM            26,422 README.md
+               1 File(s)         26,422 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-dsv\node_modules\commander
+
+2025-10-18  07:46 PM            18,812 CHANGELOG.md
+2025-10-18  07:46 PM            32,975 Readme.md
+               2 File(s)         51,787 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-ease
+
+2025-10-18  07:46 PM            16,809 README.md
+               1 File(s)         16,809 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-fetch
+
+2025-10-18  07:46 PM             6,949 README.md
+               1 File(s)          6,949 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-force
+
+2025-10-18  07:46 PM            42,638 README.md
+               1 File(s)         42,638 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-format
+
+2025-10-18  07:46 PM            16,007 README.md
+               1 File(s)         16,007 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-geo
+
+2025-10-18  07:46 PM               705 README.md
+               1 File(s)            705 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-hierarchy
+
+2025-10-18  07:46 PM            43,695 README.md
+               1 File(s)         43,695 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-interpolate
+
+2025-10-18  07:46 PM            26,853 README.md
+               1 File(s)         26,853 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-path
+
+2025-10-18  07:46 PM             6,460 README.md
+               1 File(s)          6,460 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-polygon
+
+2025-10-18  07:46 PM             3,088 README.md
+               1 File(s)          3,088 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-quadtree
+
+2025-10-18  07:46 PM            12,505 README.md
+               1 File(s)         12,505 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-random
+
+2025-10-18  07:46 PM            11,988 README.md
+               1 File(s)         11,988 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-sankey
+
+2025-10-18  07:46 PM            14,316 README.md
+               1 File(s)         14,316 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-sankey\node_modules\d3-array
+
+2025-10-18  07:46 PM            58,230 README.md
+               1 File(s)         58,230 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-sankey\node_modules\d3-path
+
+2025-10-18  07:46 PM             6,104 README.md
+               1 File(s)          6,104 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-sankey\node_modules\d3-shape
+
+2025-10-18  07:46 PM            90,869 README.md
+               1 File(s)         90,869 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-sankey\node_modules\internmap
+
+2025-10-18  07:46 PM             3,672 README.md
+               1 File(s)          3,672 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-scale
+
+2025-10-18  07:46 PM            91,532 README.md
+               1 File(s)         91,532 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-scale-chromatic
+
+2025-10-18  07:46 PM               862 README.md
+               1 File(s)            862 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-selection
+
+2025-10-18  07:46 PM            60,317 README.md
+               1 File(s)         60,317 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-shape
+
+2025-10-18  07:46 PM            94,916 README.md
+               1 File(s)         94,916 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-time
+
+2025-10-18  07:46 PM            27,956 README.md
+               1 File(s)         27,956 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-time-format
+
+2025-10-18  07:46 PM            13,389 README.md
+               1 File(s)         13,389 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-timer
+
+2025-10-18  07:46 PM             5,987 README.md
+               1 File(s)          5,987 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-transition
+
+2025-10-18  07:46 PM            41,879 README.md
+               1 File(s)         41,879 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\d3-zoom
+
+2025-10-18  07:46 PM            38,156 README.md
+               1 File(s)         38,156 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\dagre-d3-es
+
+2025-10-18  07:46 PM             1,328 LICENSE.md
+2025-10-18  07:46 PM             1,470 README.md
+               2 File(s)          2,798 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\data-uri-to-buffer
+
+2025-10-18  07:46 PM             1,782 README.md
+               1 File(s)          1,782 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\dayjs
+
+2025-10-18  07:46 PM            81,509 CHANGELOG.md
+2025-10-18  07:46 PM             8,345 README.md
+               2 File(s)         89,854 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\debug
+
+2025-10-18  07:46 PM            22,115 README.md
+               1 File(s)         22,115 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\degenerator
+
+2025-10-18  07:46 PM             3,486 README.md
+               1 File(s)          3,486 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\delaunator
+
+2025-10-18  07:46 PM             6,539 README.md
+               1 File(s)          6,539 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\devtools-protocol
+
+2025-10-18  07:46 PM             1,326 README.md
+               1 File(s)          1,326 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\didyoumean
+
+2025-10-18  07:46 PM             4,511 README.md
+               1 File(s)          4,511 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\dlv
+
+2025-10-18  07:46 PM             2,020 README.md
+               1 File(s)          2,020 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\dompurify
+
+2025-10-18  07:46 PM            28,864 README.md
+               1 File(s)         28,864 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\eastasianwidth
+
+2025-10-18  07:46 PM             1,183 README.md
+               1 File(s)          1,183 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\emoji-regex
+
+2025-10-18  07:46 PM             4,513 README.md
+               1 File(s)          4,513 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\end-of-stream
+
+2025-10-18  07:46 PM             1,701 README.md
+               1 File(s)          1,701 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\env-paths
+
+2025-10-18  07:46 PM             3,127 readme.md
+               1 File(s)          3,127 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\error-ex
+
+2025-10-18  07:46 PM             4,144 README.md
+               1 File(s)          4,144 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\escalade
+
+2025-10-18  07:46 PM             6,993 readme.md
+               1 File(s)          6,993 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\escodegen
+
+2025-10-18  07:46 PM             3,287 README.md
+               1 File(s)          3,287 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\esprima
+
+2025-10-18  07:46 PM             2,427 README.md
+               1 File(s)          2,427 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\estraverse
+
+2025-10-18  07:46 PM             4,865 README.md
+               1 File(s)          4,865 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\esutils
+
+2025-10-18  07:46 PM             6,828 README.md
+               1 File(s)          6,828 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\event-target-shim
+
+2025-10-18  07:46 PM             8,897 README.md
+               1 File(s)          8,897 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\events
+
+2025-10-18  07:46 PM             3,253 History.md
+2025-10-18  07:46 PM             2,314 Readme.md
+2025-10-18  07:46 PM               294 security.md
+               3 File(s)          5,861 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\events-universal
+
+2025-10-18  07:46 PM               197 README.md
+               1 File(s)            197 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\exsolve
+
+2025-10-18  07:46 PM             6,126 README.md
+               1 File(s)          6,126 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\extract-zip
+
+2025-10-18  07:46 PM             1,635 readme.md
+               1 File(s)          1,635 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fast-fifo
+
+2025-10-18  07:46 PM             1,464 README.md
+               1 File(s)          1,464 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fast-glob
+
+2025-10-18  07:46 PM            26,211 README.md
+               1 File(s)         26,211 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fast-glob\node_modules\glob-parent
+
+2025-10-18  07:46 PM             4,510 CHANGELOG.md
+2025-10-18  07:46 PM             4,646 README.md
+               2 File(s)          9,156 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fast-redact
+
+2025-10-18  07:46 PM            11,335 readme.md
+               1 File(s)         11,335 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fastq
+
+2025-10-18  07:46 PM             8,343 README.md
+2025-10-18  07:46 PM               455 SECURITY.md
+               2 File(s)          8,798 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fd-slicer
+
+2025-10-18  07:46 PM               911 CHANGELOG.md
+2025-10-18  07:46 PM             6,713 README.md
+               2 File(s)          7,624 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\fill-range
+
+2025-10-18  07:46 PM             7,486 README.md
+               1 File(s)          7,486 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\foreground-child
+
+2025-10-18  07:46 PM             4,488 README.md
+               1 File(s)          4,488 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\function-bind
+
+2025-10-18  07:46 PM            13,812 CHANGELOG.md
+2025-10-18  07:46 PM             1,755 README.md
+               2 File(s)         15,567 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\function-bind\.github
+
+2025-10-18  07:46 PM               157 SECURITY.md
+               1 File(s)            157 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\get-caller-file
+
+2025-10-18  07:46 PM               745 LICENSE.md
+2025-10-18  07:46 PM             1,068 README.md
+               2 File(s)          1,813 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\get-stream
+
+2025-10-18  07:46 PM             4,332 readme.md
+               1 File(s)          4,332 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\get-uri
+
+2025-10-18  07:46 PM             3,882 README.md
+               1 File(s)          3,882 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\glob
+
+2025-10-18  07:46 PM            48,383 README.md
+               1 File(s)         48,383 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\glob-parent
+
+2025-10-18  07:46 PM             4,198 README.md
+               1 File(s)          4,198 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\globals
+
+2025-10-18  07:46 PM             1,623 readme.md
+               1 File(s)          1,623 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\hachure-fill
+
+2025-10-18  07:46 PM             1,576 README.md
+               1 File(s)          1,576 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\hasown
+
+2025-10-18  07:46 PM             2,579 CHANGELOG.md
+2025-10-18  07:46 PM             1,613 README.md
+               2 File(s)          4,192 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\highlight.js
+
+2025-10-18  07:46 PM            14,758 README.md
+               1 File(s)         14,758 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\html-to-image
+
+2025-10-18  07:46 PM            12,120 README.md
+               1 File(s)         12,120 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\http-proxy-agent
+
+2025-10-18  07:46 PM             1,365 README.md
+               1 File(s)          1,365 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\https-proxy-agent
+
+2025-10-18  07:46 PM             2,172 README.md
+               1 File(s)          2,172 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\iconv-lite
+
+2025-10-18  07:46 PM             6,581 Changelog.md
+2025-10-18  07:46 PM             6,352 README.md
+               2 File(s)         12,933 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ieee754
+
+2025-10-18  07:46 PM             1,651 README.md
+               1 File(s)          1,651 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\immer
+
+2025-10-18  07:46 PM             1,881 readme.md
+               1 File(s)          1,881 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\import-fresh
+
+2025-10-18  07:46 PM             1,145 readme.md
+               1 File(s)          1,145 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\import-meta-resolve
+
+2025-10-18  07:46 PM             7,682 readme.md
+               1 File(s)          7,682 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\internmap
+
+2025-10-18  07:46 PM             3,672 README.md
+               1 File(s)          3,672 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ip-address
+
+2025-10-18  07:46 PM             4,755 README.md
+               1 File(s)          4,755 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-arrayish
+
+2025-10-18  07:46 PM               704 README.md
+               1 File(s)            704 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-binary-path
+
+2025-10-18  07:46 PM               733 readme.md
+               1 File(s)            733 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-core-module
+
+2025-10-18  07:46 PM            16,007 CHANGELOG.md
+2025-10-18  07:46 PM             1,659 README.md
+               2 File(s)         17,666 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-extglob
+
+2025-10-18  07:46 PM             3,469 README.md
+               1 File(s)          3,469 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-fullwidth-code-point
+
+2025-10-18  07:46 PM               843 readme.md
+               1 File(s)            843 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-glob
+
+2025-10-18  07:46 PM             7,145 README.md
+               1 File(s)          7,145 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\is-number
+
+2025-10-18  07:46 PM             6,514 README.md
+               1 File(s)          6,514 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\isexe
+
+2025-10-18  07:46 PM             1,395 README.md
+               1 File(s)          1,395 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\jackspeak
+
+2025-10-18  07:46 PM             1,550 LICENSE.md
+2025-10-18  07:46 PM            11,398 README.md
+               2 File(s)         12,948 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\jiti
+
+2025-10-18  07:46 PM             3,845 README.md
+               1 File(s)          3,845 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\jotai
+
+2025-10-18  07:46 PM             5,459 README.md
+               1 File(s)          5,459 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\js-tokens
+
+2025-10-18  07:46 PM             4,481 CHANGELOG.md
+2025-10-18  07:46 PM             7,388 README.md
+               2 File(s)         11,869 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\js-yaml
+
+2025-10-18  07:46 PM            19,230 CHANGELOG.md
+2025-10-18  07:46 PM             8,472 README.md
+               2 File(s)         27,702 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\json-parse-even-better-errors
+
+2025-10-18  07:46 PM             1,246 CHANGELOG.md
+2025-10-18  07:46 PM             1,209 LICENSE.md
+2025-10-18  07:46 PM             3,388 README.md
+               3 File(s)          5,843 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex
+
+2025-10-18  07:46 PM             7,268 README.md
+               1 File(s)          7,268 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\contrib\auto-render
+
+2025-10-18  07:46 PM               317 README.md
+               1 File(s)            317 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\contrib\copy-tex
+
+2025-10-18  07:46 PM             1,897 README.md
+               1 File(s)          1,897 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\contrib\mathtex-script-type
+
+2025-10-18  07:46 PM             2,002 README.md
+               1 File(s)          2,002 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\contrib\mhchem
+
+2025-10-18  07:46 PM             1,406 README.md
+               1 File(s)          1,406 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\dist
+
+2025-10-18  07:46 PM             7,268 README.md
+               1 File(s)          7,268 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\node_modules\commander
+
+2025-10-18  07:46 PM            36,404 Readme.md
+               1 File(s)         36,404 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\katex\src\metrics
+
+2025-10-18  07:46 PM               881 README.md
+               1 File(s)            881 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\khroma
+
+2025-10-18  07:46 PM            11,938 readme.md
+               1 File(s)         11,938 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\kolorist
+
+2025-10-18  07:46 PM               939 README.md
+               1 File(s)            939 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\langium
+
+2025-10-18  07:46 PM             2,527 README.md
+               1 File(s)          2,527 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\layout-base
+
+2025-10-18  07:46 PM               712 README.md
+               1 File(s)            712 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\lilconfig
+
+2025-10-18  07:46 PM             2,629 readme.md
+               1 File(s)          2,629 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\lines-and-columns
+
+2025-10-18  07:46 PM               533 README.md
+               1 File(s)            533 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\local-pkg
+
+2025-10-18  07:46 PM             1,121 README.md
+               1 File(s)          1,121 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\lodash
+
+2025-10-18  07:46 PM             1,107 README.md
+2025-10-18  07:46 PM             2,035 release.md
+               2 File(s)          3,142 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\lodash-es
+
+2025-10-18  07:46 PM               356 README.md
+2025-10-18  07:46 PM             2,035 release.md
+               2 File(s)          2,391 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\lru-cache
+
+2025-10-18  07:46 PM            36,667 README.md
+               1 File(s)         36,667 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\marked
+
+2025-10-18  07:46 PM             2,942 LICENSE.md
+2025-10-18  07:46 PM             2,927 README.md
+               2 File(s)          5,869 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\merge2
+
+2025-10-18  07:46 PM             3,744 README.md
+               1 File(s)          3,744 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mermaid
+
+2025-10-18  07:46 PM            24,084 README.md
+2025-10-18  07:46 PM            16,991 README.zh-CN.md
+               2 File(s)         41,075 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mermaid\node_modules\marked
+
+2025-10-18  07:46 PM             2,942 LICENSE.md
+2025-10-18  07:46 PM             2,981 README.md
+               2 File(s)          5,923 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mermaid\node_modules\marked\man
+
+2025-10-18  07:46 PM             1,925 marked.1.md
+               1 File(s)          1,925 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\micromatch
+
+2025-10-18  07:46 PM            38,962 README.md
+               1 File(s)         38,962 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\minimatch
+
+2025-10-18  07:46 PM            16,942 README.md
+               1 File(s)         16,942 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\minipass
+
+2025-10-18  07:46 PM            27,159 README.md
+               1 File(s)         27,159 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mitt
+
+2025-10-18  07:46 PM             6,274 README.md
+               1 File(s)          6,274 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mlly
+
+2025-10-18  07:46 PM            13,452 README.md
+               1 File(s)         13,452 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mlly\node_modules\confbox
+
+2025-10-18  07:46 PM             4,421 README.md
+               1 File(s)          4,421 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mlly\node_modules\pkg-types
+
+2025-10-18  07:46 PM             3,670 README.md
+               1 File(s)          3,670 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ms
+
+2025-10-18  07:46 PM             1,079 license.md
+2025-10-18  07:46 PM             1,886 readme.md
+               2 File(s)          2,965 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\mz
+
+2025-10-18  07:46 PM             1,137 HISTORY.md
+2025-10-18  07:46 PM             2,903 README.md
+               2 File(s)          4,040 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\nanoid
+
+2025-10-18  07:46 PM             1,552 README.md
+               1 File(s)          1,552 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\netmask
+
+2025-10-18  07:46 PM             2,308 CHANGELOG.md
+2025-10-18  07:46 PM             1,396 CREDITS.md
+2025-10-18  07:46 PM             3,935 README.md
+               3 File(s)          7,639 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\normalize-path
+
+2025-10-18  07:46 PM             5,441 README.md
+               1 File(s)          5,441 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\object-assign
+
+2025-10-18  07:46 PM             1,502 readme.md
+               1 File(s)          1,502 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\on-exit-leak-free
+
+2025-10-18  07:46 PM             1,284 README.md
+               1 File(s)          1,284 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\once
+
+2025-10-18  07:46 PM             1,772 README.md
+               1 File(s)          1,772 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pac-proxy-agent
+
+2025-10-18  07:46 PM               821 README.md
+               1 File(s)            821 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pac-resolver
+
+2025-10-18  07:46 PM             1,970 README.md
+               1 File(s)          1,970 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\package-json-from-dist
+
+2025-10-18  07:46 PM             1,764 LICENSE.md
+2025-10-18  07:46 PM             3,122 README.md
+               2 File(s)          4,886 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\package-manager-detector
+
+2025-10-18  07:46 PM             4,385 README.md
+               1 File(s)          4,385 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pako
+
+2025-10-18  07:46 PM             5,183 README.md
+               1 File(s)          5,183 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\parent-module
+
+2025-10-18  07:46 PM             1,460 readme.md
+               1 File(s)          1,460 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\parse-json
+
+2025-10-18  07:46 PM             2,137 readme.md
+               1 File(s)          2,137 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\path-data-parser
+
+2025-10-18  07:46 PM             2,553 README.md
+               1 File(s)          2,553 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\path-key
+
+2025-10-18  07:46 PM             1,347 readme.md
+               1 File(s)          1,347 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\path-parse
+
+2025-10-18  07:46 PM               871 README.md
+               1 File(s)            871 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\path-scurry
+
+2025-10-18  07:46 PM             1,552 LICENSE.md
+2025-10-18  07:46 PM            22,018 README.md
+               2 File(s)         23,570 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\path-scurry\node_modules\lru-cache
+
+2025-10-18  07:46 PM            11,107 README.md
+               1 File(s)         11,107 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pathe
+
+2025-10-18  07:46 PM             3,048 README.md
+               1 File(s)          3,048 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pend
+
+2025-10-18  07:46 PM               973 README.md
+               1 File(s)            973 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\picocolors
+
+2025-10-18  07:46 PM               622 README.md
+               1 File(s)            622 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\picomatch
+
+2025-10-18  07:46 PM             6,203 CHANGELOG.md
+2025-10-18  07:46 PM            27,445 README.md
+               2 File(s)         33,648 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pify
+
+2025-10-18  07:46 PM             2,579 readme.md
+               1 File(s)          2,579 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pino
+
+2025-10-18  07:46 PM             1,193 CONTRIBUTING.md
+2025-10-18  07:46 PM             4,303 README.md
+2025-10-18  07:46 PM             2,517 SECURITY.md
+               3 File(s)          8,013 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pino\docs
+
+2025-10-18  07:46 PM            48,242 api.md
+2025-10-18  07:46 PM             1,491 asynchronous.md
+2025-10-18  07:46 PM             1,136 benchmarks.md
+2025-10-18  07:46 PM             7,111 browser.md
+2025-10-18  07:46 PM             1,806 bundling.md
+2025-10-18  07:46 PM             2,826 child-loggers.md
+2025-10-18  07:46 PM             5,066 ecosystem.md
+2025-10-18  07:46 PM            10,407 help.md
+2025-10-18  07:46 PM             2,859 lts.md
+2025-10-18  07:46 PM               939 pretty.md
+2025-10-18  07:46 PM             4,279 redaction.md
+2025-10-18  07:46 PM            33,844 transports.md
+2025-10-18  07:46 PM             5,075 web.md
+              13 File(s)        125,081 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pino\docsify
+
+2025-10-18  07:46 PM             1,214 sidebar.md
+               1 File(s)          1,214 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pino-abstract-transport
+
+2025-10-18  07:46 PM             4,730 README.md
+               1 File(s)          4,730 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pino-std-serializers
+
+2025-10-18  07:46 PM             6,185 Readme.md
+               1 File(s)          6,185 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pirates
+
+2025-10-18  07:46 PM             3,006 README.md
+               1 File(s)          3,006 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pkg-types
+
+2025-10-18  07:46 PM             5,903 README.md
+               1 File(s)          5,903 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\points-on-curve
+
+2025-10-18  07:46 PM             3,891 README.md
+               1 File(s)          3,891 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\points-on-path
+
+2025-10-18  07:46 PM             2,015 README.md
+               1 File(s)          2,015 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss
+
+2025-10-18  07:46 PM             1,200 README.md
+               1 File(s)          1,200 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss-import
+
+2025-10-18  07:46 PM             6,954 README.md
+               1 File(s)          6,954 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss-js
+
+2025-10-18  07:46 PM               724 README.md
+               1 File(s)            724 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss-load-config
+
+2025-10-18  07:46 PM            10,101 README.md
+               1 File(s)         10,101 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss-nested
+
+2025-10-18  07:46 PM             1,953 README.md
+               1 File(s)          1,953 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss-selector-parser
+
+2025-10-18  07:46 PM            20,998 API.md
+2025-10-18  07:46 PM            19,605 CHANGELOG.md
+2025-10-18  07:46 PM             1,184 README.md
+               3 File(s)         41,787 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\postcss-value-parser
+
+2025-10-18  07:46 PM             7,683 README.md
+               1 File(s)          7,683 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\process
+
+2025-10-18  07:46 PM             1,359 README.md
+               1 File(s)          1,359 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\process-warning
+
+2025-10-18  07:46 PM             4,208 README.md
+               1 File(s)          4,208 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\progress
+
+2025-10-18  07:46 PM             3,388 CHANGELOG.md
+2025-10-18  07:46 PM             3,516 Readme.md
+               2 File(s)          6,904 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\proxy-agent
+
+2025-10-18  07:46 PM             2,645 README.md
+               1 File(s)          2,645 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\proxy-from-env
+
+2025-10-18  07:46 PM             5,270 README.md
+               1 File(s)          5,270 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\pump
+
+2025-10-18  07:46 PM             2,449 README.md
+2025-10-18  07:46 PM               193 SECURITY.md
+               2 File(s)          2,642 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\puppeteer
+
+2025-10-18  07:46 PM             2,030 README.md
+               1 File(s)          2,030 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\puppeteer-core
+
+2025-10-18  07:46 PM             2,030 README.md
+               1 File(s)          2,030 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\puppeteer-core\src\bidi\core
+
+2025-10-18  07:46 PM             2,783 README.md
+               1 File(s)          2,783 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\puppeteer-core\src\injected
+
+2025-10-18  07:46 PM               262 README.md
+               1 File(s)            262 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\puppeteer-core\src\templates
+
+2025-10-18  07:46 PM               100 README.md
+               1 File(s)            100 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\quansync
+
+2025-10-18  07:46 PM             1,143 LICENSE.md
+2025-10-18  07:46 PM             4,506 README.md
+               2 File(s)          5,649 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\queue-microtask
+
+2025-10-18  07:46 PM             5,628 README.md
+               1 File(s)          5,628 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\quick-format-unescaped
+
+2025-10-18  07:46 PM             1,689 readme.md
+               1 File(s)          1,689 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\radash
+
+2025-10-18  07:46 PM             1,062 LICENSE.md
+2025-10-18  07:46 PM             2,199 README.md
+               2 File(s)          3,261 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ramda
+
+2025-10-18  07:46 PM            10,334 README.md
+               1 File(s)         10,334 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\react
+
+2025-10-18  07:46 PM             1,158 README.md
+               1 File(s)          1,158 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\react-dom
+
+2025-10-18  07:46 PM             1,096 README.md
+               1 File(s)          1,096 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\read-cache
+
+2025-10-18  07:46 PM               817 README.md
+               1 File(s)            817 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\readable-stream
+
+2025-10-18  07:46 PM             5,420 README.md
+               1 File(s)          5,420 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\readdirp
+
+2025-10-18  07:46 PM             6,942 README.md
+               1 File(s)          6,942 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\real-require
+
+2025-10-18  07:46 PM             1,114 LICENSE.md
+2025-10-18  07:46 PM             1,735 README.md
+               2 File(s)          2,849 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\resolve
+
+2025-10-18  07:46 PM               157 SECURITY.md
+               1 File(s)            157 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\resolve-from
+
+2025-10-18  07:46 PM             1,838 readme.md
+               1 File(s)          1,838 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\reusify
+
+2025-10-18  07:46 PM             3,242 README.md
+2025-10-18  07:46 PM               455 SECURITY.md
+               2 File(s)          3,697 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\robust-predicates
+
+2025-10-18  07:46 PM             4,595 README.md
+               1 File(s)          4,595 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\roughjs
+
+2025-10-18  07:46 PM             2,268 CHANGELOG.md
+2025-10-18  07:46 PM             6,057 README.md
+               2 File(s)          8,325 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\run-parallel
+
+2025-10-18  07:46 PM             3,157 README.md
+               1 File(s)          3,157 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\rw
+
+2025-10-18  07:46 PM             7,523 README.md
+               1 File(s)          7,523 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\safe-buffer
+
+2025-10-18  07:46 PM            19,555 README.md
+               1 File(s)         19,555 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\safe-stable-stringify
+
+2025-10-18  07:46 PM             6,649 readme.md
+               1 File(s)          6,649 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\safer-buffer
+
+2025-10-18  07:46 PM            12,794 Porting-Buffer.md
+2025-10-18  07:46 PM             8,261 Readme.md
+               2 File(s)         21,055 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\scheduler
+
+2025-10-18  07:46 PM               346 README.md
+               1 File(s)            346 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\semver
+
+2025-10-18  07:46 PM            24,763 README.md
+               1 File(s)         24,763 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\shebang-command
+
+2025-10-18  07:46 PM               495 readme.md
+               1 File(s)            495 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\shebang-regex
+
+2025-10-18  07:46 PM               649 readme.md
+               1 File(s)            649 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\signal-exit
+
+2025-10-18  07:46 PM             2,426 README.md
+               1 File(s)          2,426 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\smart-buffer
+
+2025-10-18  07:46 PM            18,782 README.md
+               1 File(s)         18,782 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\smart-buffer\docs
+
+2025-10-18  07:46 PM             2,298 CHANGELOG.md
+2025-10-18  07:46 PM            12,570 README_v3.md
+2025-10-18  07:46 PM                 0 ROADMAP.md
+               3 File(s)         14,868 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\socks
+
+2025-10-18  07:46 PM            23,342 README.md
+               1 File(s)         23,342 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\socks\docs
+
+2025-10-18  07:46 PM               129 index.md
+2025-10-18  07:46 PM             2,629 migratingFromV1.md
+               2 File(s)          2,758 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\socks\docs\examples
+
+2025-10-18  07:46 PM               354 index.md
+               1 File(s)            354 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\socks\docs\examples\javascript
+
+2025-10-18  07:46 PM             3,274 associateExample.md
+2025-10-18  07:46 PM             2,772 bindExample.md
+2025-10-18  07:46 PM             7,567 connectExample.md
+               3 File(s)         13,613 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\socks\docs\examples\typescript
+
+2025-10-18  07:46 PM             3,337 associateExample.md
+2025-10-18  07:46 PM             2,838 bindExample.md
+2025-10-18  07:46 PM             7,738 connectExample.md
+               3 File(s)         13,913 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\socks-proxy-agent
+
+2025-10-18  07:46 PM             1,260 README.md
+               1 File(s)          1,260 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\sonic-boom
+
+2025-10-18  07:46 PM             5,289 README.md
+               1 File(s)          5,289 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\source-map
+
+2025-10-18  07:46 PM             7,884 CHANGELOG.md
+2025-10-18  07:46 PM            24,072 README.md
+               2 File(s)         31,956 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\source-map-js
+
+2025-10-18  07:46 PM            26,040 README.md
+               1 File(s)         26,040 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\split2
+
+2025-10-18  07:46 PM             3,381 README.md
+               1 File(s)          3,381 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\streamx
+
+2025-10-18  07:46 PM            16,179 README.md
+               1 File(s)         16,179 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\string-width
+
+2025-10-18  07:46 PM             1,733 readme.md
+               1 File(s)          1,733 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\string-width-cjs
+
+2025-10-18  07:46 PM             1,396 readme.md
+               1 File(s)          1,396 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\string-width-cjs\node_modules\ansi-regex
+
+2025-10-18  07:46 PM             2,565 readme.md
+               1 File(s)          2,565 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\string-width-cjs\node_modules\emoji-regex
+
+2025-10-18  07:46 PM             2,691 README.md
+               1 File(s)          2,691 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\string-width-cjs\node_modules\strip-ansi
+
+2025-10-18  07:46 PM             1,599 readme.md
+               1 File(s)          1,599 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\string_decoder
+
+2025-10-18  07:46 PM             1,801 README.md
+               1 File(s)          1,801 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\strip-ansi
+
+2025-10-18  07:46 PM             1,223 readme.md
+               1 File(s)          1,223 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\strip-ansi-cjs
+
+2025-10-18  07:46 PM             1,599 readme.md
+               1 File(s)          1,599 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\strip-ansi-cjs\node_modules\ansi-regex
+
+2025-10-18  07:46 PM             2,565 readme.md
+               1 File(s)          2,565 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\stylis
+
+2025-10-18  07:46 PM             6,138 README.md
+               1 File(s)          6,138 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\sucrase
+
+2025-10-18  07:46 PM            14,789 README.md
+               1 File(s)         14,789 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\sucrase\node_modules\commander
+
+2025-10-18  07:46 PM            15,272 CHANGELOG.md
+2025-10-18  07:46 PM            23,474 Readme.md
+               2 File(s)         38,746 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\supports-preserve-symlinks-flag
+
+2025-10-18  07:46 PM             1,989 CHANGELOG.md
+2025-10-18  07:46 PM             2,287 README.md
+               2 File(s)          4,276 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tabbable
+
+2025-10-18  07:46 PM            11,645 CHANGELOG.md
+2025-10-18  07:46 PM            25,696 README.md
+2025-10-18  07:46 PM             3,636 SECURITY.md
+               3 File(s)         40,977 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tailwind-merge
+
+2025-10-18  07:46 PM             1,070 LICENSE.md
+2025-10-18  07:46 PM             2,023 README.md
+               2 File(s)          3,093 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tailwindcss
+
+2025-10-18  07:46 PM           146,535 CHANGELOG.md
+2025-10-18  07:46 PM             2,008 README.md
+               2 File(s)        148,543 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tailwindcss\lib\postcss-plugins\nesting
+
+2025-10-18  07:46 PM             1,728 README.md
+               1 File(s)          1,728 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tailwindcss\lib\value-parser
+
+2025-10-18  07:46 PM               198 README.md
+               1 File(s)            198 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tailwindcss\src\postcss-plugins\nesting
+
+2025-10-18  07:46 PM             1,728 README.md
+               1 File(s)          1,728 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tailwindcss\src\value-parser
+
+2025-10-18  07:46 PM               198 README.md
+               1 File(s)            198 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tar-fs
+
+2025-10-18  07:46 PM             4,427 README.md
+               1 File(s)          4,427 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tar-stream
+
+2025-10-18  07:46 PM             5,554 README.md
+               1 File(s)          5,554 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\text-decoder
+
+2025-10-18  07:46 PM               715 README.md
+               1 File(s)            715 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\thenify
+
+2025-10-18  07:46 PM               317 History.md
+2025-10-18  07:46 PM             3,784 README.md
+               2 File(s)          4,101 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\thenify-all
+
+2025-10-18  07:46 PM               180 History.md
+2025-10-18  07:46 PM             2,513 README.md
+               2 File(s)          2,693 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\thread-stream
+
+2025-10-18  07:46 PM             3,313 README.md
+               1 File(s)          3,313 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tinyexec
+
+2025-10-18  07:46 PM             5,596 README.md
+               1 File(s)          5,596 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\to-regex-range
+
+2025-10-18  07:46 PM            13,585 README.md
+               1 File(s)         13,585 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ts-dedent
+
+2025-10-18  07:46 PM             1,126 HISTORY.md
+2025-10-18  07:46 PM             2,429 README.md
+               2 File(s)          3,555 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ts-interface-checker
+
+2025-10-18  07:46 PM             5,698 README.md
+               1 File(s)          5,698 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\tslib
+
+2025-10-18  07:46 PM             4,033 README.md
+2025-10-18  07:46 PM             2,757 SECURITY.md
+               2 File(s)          6,790 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\typed-query-selector
+
+2025-10-18  07:46 PM             9,437 README.md
+               1 File(s)          9,437 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ufo
+
+2025-10-18  07:46 PM            10,648 README.md
+               1 File(s)         10,648 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\unbzip2-stream
+
+2025-10-18  07:46 PM             1,553 README.md
+               1 File(s)          1,553 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\unbzip2-stream\node_modules\buffer
+
+2025-10-18  07:46 PM             2,672 AUTHORS.md
+2025-10-18  07:46 PM            17,300 README.md
+               2 File(s)         19,972 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\undici-types
+
+2025-10-18  07:46 PM               455 README.md
+               1 File(s)            455 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\use-sync-external-store
+
+2025-10-18  07:46 PM               261 README.md
+               1 File(s)            261 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\util-deprecate
+
+2025-10-18  07:46 PM               282 History.md
+2025-10-18  07:46 PM             1,666 README.md
+               2 File(s)          1,948 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\uuid
+
+2025-10-18  07:46 PM             1,109 LICENSE.md
+2025-10-18  07:46 PM            17,706 README.md
+               2 File(s)         18,815 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\vscode-jsonrpc
+
+2025-10-18  07:46 PM             2,205 README.md
+               1 File(s)          2,205 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\vscode-languageserver
+
+2025-10-18  07:46 PM               984 README.md
+               1 File(s)            984 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\vscode-languageserver-protocol
+
+2025-10-18  07:46 PM             1,380 README.md
+               1 File(s)          1,380 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\vscode-languageserver-textdocument
+
+2025-10-18  07:46 PM               933 README.md
+               1 File(s)            933 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\vscode-languageserver-types
+
+2025-10-18  07:46 PM             1,023 README.md
+               1 File(s)          1,023 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\vscode-uri
+
+2025-10-18  07:46 PM             1,070 LICENSE.md
+2025-10-18  07:46 PM             2,475 README.md
+2025-10-18  07:46 PM             2,757 SECURITY.md
+               3 File(s)          6,302 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\which
+
+2025-10-18  07:46 PM             2,667 CHANGELOG.md
+2025-10-18  07:46 PM             1,352 README.md
+               2 File(s)          4,019 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi
+
+2025-10-18  07:46 PM             2,466 readme.md
+               1 File(s)          2,466 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi-cjs
+
+2025-10-18  07:46 PM             2,745 readme.md
+               1 File(s)          2,745 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi-cjs\node_modules\ansi-regex
+
+2025-10-18  07:46 PM             2,565 readme.md
+               1 File(s)          2,565 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi-cjs\node_modules\ansi-styles
+
+2025-10-18  07:46 PM             4,327 readme.md
+               1 File(s)          4,327 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi-cjs\node_modules\emoji-regex
+
+2025-10-18  07:46 PM             2,691 README.md
+               1 File(s)          2,691 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi-cjs\node_modules\string-width
+
+2025-10-18  07:46 PM             1,396 readme.md
+               1 File(s)          1,396 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrap-ansi-cjs\node_modules\strip-ansi
+
+2025-10-18  07:46 PM             1,599 readme.md
+               1 File(s)          1,599 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\wrappy
+
+2025-10-18  07:46 PM               685 README.md
+               1 File(s)            685 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\ws
+
+2025-10-18  07:46 PM            15,306 README.md
+               1 File(s)         15,306 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\y18n
+
+2025-10-18  07:46 PM             3,911 CHANGELOG.md
+2025-10-18  07:46 PM             3,215 README.md
+               2 File(s)          7,126 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yargs
+
+2025-10-18  07:46 PM             5,974 README.md
+               1 File(s)          5,974 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yargs\node_modules\ansi-regex
+
+2025-10-18  07:46 PM             2,565 readme.md
+               1 File(s)          2,565 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yargs\node_modules\emoji-regex
+
+2025-10-18  07:46 PM             2,691 README.md
+               1 File(s)          2,691 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yargs\node_modules\string-width
+
+2025-10-18  07:46 PM             1,396 readme.md
+               1 File(s)          1,396 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yargs\node_modules\strip-ansi
+
+2025-10-18  07:46 PM             1,599 readme.md
+               1 File(s)          1,599 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yargs-parser
+
+2025-10-18  07:46 PM            16,462 CHANGELOG.md
+2025-10-18  07:46 PM            11,916 README.md
+               2 File(s)         28,378 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\yauzl
+
+2025-10-18  07:46 PM            31,177 README.md
+               1 File(s)         31,177 bytes
+
+ Directory of C:\MyProjects\agent_monitor\docs\node_modules\zod
+
+2025-10-18  07:46 PM            92,192 README.md
+               1 File(s)         92,192 bytes
+
+     Total Files Listed:
+             616 File(s)      4,266,721 bytes
+               0 Dir(s)  649,727,909,888 bytes free

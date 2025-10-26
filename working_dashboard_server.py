@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 import os
 from datetime import datetime, timezone
 import json
+import random
 
 app = FastAPI(title="Working Agent Monitor API")
 
@@ -132,10 +133,53 @@ async def get_agent_ai_metrics(agent_id: str):
     if agent_id in mock_ai_metrics:
         return {
             "agent_id": agent_id,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now().isoformat(),
             "ai_metrics": mock_ai_metrics[agent_id]
         }
     return {"error": "AI metrics not found for agent"}, 404
+
+@app.get("/api/v1/agents/{agent_id}/trends")
+async def get_agent_trends(agent_id: str):
+    """Get 24-hour trend data for specific agent"""
+    # Generate realistic trend data for the past 24 hours
+    from datetime import timedelta
+    
+    trends = []
+    now = datetime.now()
+    
+    for i in range(24):
+        timestamp = now - timedelta(hours=23-i)
+        
+        if agent_id in mock_ai_metrics:
+            # LLM Agent trends
+            base_tokens = mock_ai_metrics[agent_id]["tokens_processed"]
+            base_accuracy = mock_ai_metrics[agent_id]["model_accuracy"]
+            base_latency = mock_ai_metrics[agent_id]["api_call_latency_ms"]
+            
+            trends.append({
+                "timestamp": timestamp.isoformat(),
+                "tokens_processed": base_tokens + int((random.random() - 0.5) * base_tokens * 0.2),
+                "model_accuracy": base_accuracy + (random.random() - 0.5) * 5,
+                "response_time_ms": base_latency + int((random.random() - 0.5) * base_latency * 0.3),
+                "cost_per_1k_tokens": 0.03 + (random.random() - 0.5) * 0.01,
+                "error_rate": max(0, 2.0 + (random.random() - 0.5) * 3)
+            })
+        else:
+            # Regular agent trends - mock data
+            trends.append({
+                "timestamp": timestamp.isoformat(),
+                "cpu_usage": 45 + (random.random() - 0.5) * 20,
+                "memory_usage": 35 + (random.random() - 0.5) * 15,
+                "response_time_ms": 250 + int((random.random() - 0.5) * 100),
+                "requests_per_minute": 150 + int((random.random() - 0.5) * 50),
+                "error_rate": max(0, 0.5 + (random.random() - 0.5) * 1)
+            })
+    
+    return {
+        "agent_id": agent_id,
+        "timeframe": "24h",
+        "trends": trends
+    }
 
 @app.get("/api/v1/system/ai-metrics")
 async def get_system_ai_metrics():
