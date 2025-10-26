@@ -38,7 +38,15 @@ mock_agents = [
         "environment": "production",
         "health_score": 0.95,
         "version": "1.0.0",
-        "description": "Advanced language model for production workloads"
+        "description": "Advanced language model for production workloads",
+        "deployment": {
+            "host": "prod-llm-01.pulseguard.com",
+            "host_ip": "10.0.1.15",
+            "region": "us-east-1",
+            "container_id": "llm-gpt4-7a9f2b1c",
+            "deployment_type": "kubernetes",
+            "cluster": "prod-cluster-01"
+        }
     },
     {
         "id": "llm-agent-2", 
@@ -49,7 +57,15 @@ mock_agents = [
         "environment": "production",
         "health_score": 0.92,
         "version": "1.0.0",
-        "description": "Anthropic's Claude for research and analysis"
+        "description": "Anthropic's Claude for research and analysis",
+        "deployment": {
+            "host": "prod-llm-02.pulseguard.com",
+            "host_ip": "10.0.1.16",
+            "region": "us-west-2",
+            "container_id": "llm-claude-8b3c4d2e",
+            "deployment_type": "docker",
+            "cluster": "prod-cluster-02"
+        }
     },
     {
         "id": "llm-agent-3",
@@ -60,7 +76,15 @@ mock_agents = [
         "environment": "production",
         "health_score": 0.88,
         "version": "1.0.0",
-        "description": "Local Llama-2 model for private inference"
+        "description": "Local Llama-2 model for private inference",
+        "deployment": {
+            "host": "on-prem-gpu-01.internal",
+            "host_ip": "192.168.1.100",
+            "region": "on-premises",
+            "container_id": "llm-llama2-9d4e5f3a",
+            "deployment_type": "bare-metal",
+            "cluster": "local-gpu-cluster"
+        }
     },
     {
         "id": "api-agent-1",
@@ -71,7 +95,15 @@ mock_agents = [
         "environment": "production",
         "health_score": 0.97,
         "version": "1.0.0",
-        "description": "API routing and load balancing"
+        "description": "API routing and load balancing",
+        "deployment": {
+            "host": "prod-api-01.pulseguard.com",
+            "host_ip": "10.0.2.10",
+            "region": "us-east-1",
+            "container_id": "api-gateway-5c8d7e9f",
+            "deployment_type": "kubernetes",
+            "cluster": "api-cluster-01"
+        }
     },
     {
         "id": "data-agent-1",
@@ -82,7 +114,15 @@ mock_agents = [
         "environment": "production",
         "health_score": 0.90,
         "version": "1.0.0",
-        "description": "ETL and data transformation pipeline"
+        "description": "ETL and data transformation pipeline",
+        "deployment": {
+            "host": "prod-data-01.pulseguard.com",
+            "host_ip": "10.0.3.20",
+            "region": "us-west-2",
+            "container_id": "data-proc-1a2b3c4d",
+            "deployment_type": "docker",
+            "cluster": "data-cluster-01"
+        }
     }
 ]
 
@@ -179,6 +219,38 @@ async def get_agent_trends(agent_id: str):
         "agent_id": agent_id,
         "timeframe": "24h",
         "trends": trends
+    }
+
+@app.get("/api/v1/system/deployment-map")
+async def get_deployment_map():
+    """Get deployment map showing which agents are running on which hosts"""
+    deployment_map = {}
+    
+    for agent in mock_agents:
+        if 'deployment' in agent:
+            host = agent['deployment']['host']
+            if host not in deployment_map:
+                deployment_map[host] = {
+                    "host": host,
+                    "host_ip": agent['deployment']['host_ip'],
+                    "region": agent['deployment']['region'],
+                    "deployment_type": agent['deployment']['deployment_type'],
+                    "cluster": agent['deployment']['cluster'],
+                    "agents": []
+                }
+            
+            deployment_map[host]["agents"].append({
+                "id": agent['id'],
+                "name": agent['name'],
+                "type": agent['type'],
+                "status": agent['status'],
+                "container_id": agent['deployment']['container_id']
+            })
+    
+    return {
+        "total_hosts": len(deployment_map),
+        "total_agents": len(mock_agents),
+        "deployment_map": list(deployment_map.values())
     }
 
 @app.get("/api/v1/system/ai-metrics")
