@@ -30,15 +30,36 @@ class SimpleContainerAgent:
         
     async def register(self):
         """Register with the monitoring system"""
+        import socket
+        import platform
+        
+        # Get container/host information
+        hostname = socket.gethostname()
+        
         registration_data = {
             "name": self.agent_name,
             "type": self.agent_type,
             "version": os.getenv('AGENT_VERSION', '1.0.0'),
             "description": f"Container demo agent - {self.workload_type} workload",
             "deployment_type": os.getenv("DEPLOYMENT_TYPE", "DOCKER"),
-            "host": f"container-{random.randint(1000, 9999)}",
+            "host": hostname,
             "environment": self.environment,
-            "tags": ["container", "demo", self.workload_type, "docker"]
+            "tags": ["container", "demo", self.workload_type, "docker"],
+            "deployment": {
+                "host": hostname,
+                "host_ip": socket.gethostbyname(hostname) if hostname else "127.0.0.1",
+                "region": "docker-local",
+                "container_id": f"{hostname}-{os.getpid()}",
+                "deployment_type": "docker",
+                "cluster": "docker-compose"
+            },
+            "container_info": {
+                "hostname": hostname,
+                "platform": platform.system(),
+                "python_version": platform.python_version(),
+                "container_id": f"{hostname}-{os.getpid()}",
+                "ip_address": socket.gethostbyname(hostname) if hostname else "127.0.0.1"
+            }
         }
         
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -86,10 +107,16 @@ class SimpleContainerAgent:
     async def simulate_workload(self):
         """Simulate different types of workloads"""
         if self.workload_type == "llm":
-            # LLM processing - longer tasks
-            processing_time = random.uniform(2, 8)
+            # LLM processing - variable time based on complexity
+            tokens_processed = random.randint(100, 2000)
+            processing_time = tokens_processed / random.uniform(20, 50)  # Tokens per second
+            
             await asyncio.sleep(processing_time)
-            logger.info(f"🤖 Processed LLM request in {processing_time:.1f}s")
+            
+            # Report AI/ML metrics for LLM agents
+            await self.report_ai_metrics(tokens_processed, processing_time)
+            
+            logger.info(f"� Processed {tokens_processed} tokens in {processing_time:.1f}s")
             
         elif self.workload_type == "api":
             # API processing - fast tasks
@@ -107,6 +134,38 @@ class SimpleContainerAgent:
             # Standard processing
             processing_time = random.uniform(0.5, 3.0)
             await asyncio.sleep(processing_time)
+            logger.info(f"⚙️ Completed task in {processing_time:.1f}s")
+        
+        return processing_time
+    
+    async def report_ai_metrics(self, tokens_processed: int, processing_time: float):
+        """Report AI/ML specific metrics for LLM agents"""
+        if self.agent_type != "LLM_AGENT":
+            return
+            
+        ai_metrics = {
+            "tokens_processed": tokens_processed,
+            "processing_time_ms": processing_time * 1000,
+            "tokens_per_second": tokens_processed / processing_time if processing_time > 0 else 0,
+            "model_accuracy": random.uniform(85, 98),  # Simulated accuracy
+            "inference_time_ms": processing_time * 1000,
+            "context_length": random.randint(1000, 4000),
+            "api_latency_ms": random.randint(50, 200),
+            "cost_per_1k_tokens": random.uniform(0.01, 0.05),
+            "error_rate": random.uniform(0.001, 0.02),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            try:
+                response = await client.post(
+                    f"{self.monitor_url}/api/v1/agents/{self.agent_id}/ai-metrics",
+                    json=ai_metrics
+                )
+                if response.status_code == 200:
+                    logger.debug("AI metrics reported successfully")
+            except Exception as e:
+                logger.warning(f"Failed to report AI metrics: {e}")
             logger.info(f"⚙️ Completed task in {processing_time:.1f}s")
         
         return processing_time
