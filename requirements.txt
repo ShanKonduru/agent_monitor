@@ -6,6 +6,10 @@ sqlalchemy>=2.0.0
 alembic>=1.12.0
 python-dotenv>=1.0.0
 
+# Phase 6.1: AI Providers
+openai>=1.3.0
+anthropic>=0.8.0
+
 # HTTP Client
 httpx>=0.25.0
 requests>=2.31.0

@@ -83,6 +83,52 @@ async def lifespan(app: FastAPI):
             # Metrics collector is ready (no initialization needed)
             logger.info("Metrics collector ready")
             
+            # Phase 6.1: Initialize AI Provider Manager
+            try:
+                from src.ai_providers.provider_manager import AIProviderManager
+                from src.api.ai_providers import set_provider_manager
+                
+                # AI Provider configuration (add API keys as environment variables)
+                ai_config = {
+                    'providers': {
+                        'openai': {
+                            'api_key': os.getenv('OPENAI_API_KEY', ''),
+                            'default_model': 'gpt-3.5-turbo'
+                        },
+                        'anthropic': {
+                            'api_key': os.getenv('ANTHROPIC_API_KEY', ''),
+                            'default_model': 'claude-3-haiku-20240307'
+                        },
+                        'local': {
+                            'base_url': os.getenv('LOCAL_LLM_URL', 'http://localhost:11434'),
+                            'provider_type': 'ollama',
+                            'default_model': 'llama2'
+                        }
+                    },
+                    'load_balance_strategy': 'round_robin'
+                }
+                
+                # Only include providers with API keys
+                filtered_providers = {}
+                if ai_config['providers']['openai']['api_key']:
+                    filtered_providers['openai'] = ai_config['providers']['openai']
+                if ai_config['providers']['anthropic']['api_key']:
+                    filtered_providers['anthropic'] = ai_config['providers']['anthropic']
+                # Always include local (might not be available, but try)
+                filtered_providers['local'] = ai_config['providers']['local']
+                
+                ai_config['providers'] = filtered_providers
+                
+                if filtered_providers:
+                    ai_provider_manager = AIProviderManager(ai_config)
+                    set_provider_manager(ai_provider_manager)
+                    logger.info(f"AI Provider Manager initialized with providers: {list(filtered_providers.keys())}")
+                else:
+                    logger.warning("No AI providers configured (missing API keys)")
+                
+            except Exception as e:
+                logger.error(f"Failed to initialize AI Provider Manager: {e}")
+            
             logger.info("All components initialized successfully")
             
         except Exception as e:
@@ -127,6 +173,14 @@ if HAS_FULL_COMPONENTS:
         logger.info("API routers included successfully")
     except Exception as e:
         logger.warning(f"Could not include some routers: {e}")
+
+# Phase 6.1: Add AI Providers router
+try:
+    from src.api.ai_providers import router as ai_providers_router
+    app.include_router(ai_providers_router)
+    logger.info("AI Providers router included successfully")
+except ImportError as e:
+    logger.warning(f"Could not include AI Providers router: {e}")
 
 
 @app.get("/")

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseGuard Integration Demo - Chatbot + MCP + AI Providers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #533483;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .integration-panel {
+            flex: 1;
+            background: rgba(22, 33, 62, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #533483;
+        }
+
+        .chat-container {
+            flex: 2;
+            background: rgba(22, 33, 62, 0.8);
+            border-radius: 12px;
+            border: 1px solid #533483;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-header {
+            background: linear-gradient(45deg, #0f3460, #533483);
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(26, 26, 46, 0.5);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .bot-message {
+            background: rgba(15, 52, 96, 0.7);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .system-message {
+            background: rgba(83, 52, 131, 0.3);
+            border-left: 4px solid #FF9800;
+            font-style: italic;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid #533483;
+            background: rgba(15, 52, 96, 0.3);
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #533483;
+            border-radius: 6px;
+            background: rgba(22, 33, 62, 0.8);
+            color: white;
+            font-size: 14px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        .command-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .command-btn {
+            background: rgba(15, 52, 96, 0.8);
+            border: 1px solid #533483;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .command-btn:hover {
+            background: #533483;
+            transform: translateY(-1px);
+        }
+
+        .integration-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(15, 52, 96, 0.3);
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .integration-section h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .feature-list li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            background: rgba(26, 26, 46, 0.5);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .demo-badge {
+            background: linear-gradient(45deg, #FF9800, #F57C00);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 PulseGuard Integration Demo</h1>
+        <p>Complete Implementation: Phase 6.1 AI Providers + Phase 6.2 MCP Server + Phase 6.3 Chatbot Interface</p>
+        <span class="demo-badge">LIVE DEMO</span>
+    </div>
+
+    <div class="main-container">
+        <!-- Integration Status Panel -->
+        <div class="integration-panel">
+            <div class="integration-section">
+                <h3>🧠 Phase 6.1: AI Provider Manager</h3>
+                <ul class="feature-list">
+                    <li>Multi-provider support (OpenAI, Anthropic, Local)</li>
+                    <li>Load balancing & health monitoring</li>
+                    <li>Performance tracking & metrics</li>
+                    <li>Dynamic provider switching</li>
+                </ul>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div>Providers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">✓</div>
+                        <div>Online</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-section">
+                <h3>📡 Phase 6.2: MCP Server</h3>
+                <ul class="feature-list">
+                    <li>Agent registration & discovery</li>
+                    <li>Context sharing between agents</li>
+                    <li>Conversation threading</li>
+                    <li>Memory management & persistence</li>
+                </ul>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="mcp-agents">2</div>
+                        <div>Agents</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="mcp-contexts">4</div>
+                        <div>Contexts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="mcp-conversations">3</div>
+                        <div>Conversations</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-section">
+                <h3>🤖 Phase 6.3: Chatbot Interface</h3>
+                <ul class="feature-list">
+                    <li>22 integrated commands</li>
+                    <li>Real-time AI responses</li>
+                    <li>Session management</li>
+                    <li>MCP integration for context sharing</li>
+                </ul>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">22</div>
+                        <div>Commands</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="chat-sessions">1</div>
+                        <div>Sessions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-section">
+                <h3>🔗 Integration Status</h3>
+                <ul class="feature-list">
+                    <li>MCP ↔ Chatbot: Connected</li>
+                    <li>AI ↔ Chatbot: Connected</li>
+                    <li>PulseGuard ↔ MCP: Connected</li>
+                    <li>All systems operational</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="status-indicator"></div>
+                <h3>AI Assistant - Integrated with MCP Server</h3>
+                <span style="margin-left: auto; font-size: 0.9em;">Provider: Local/LLaMA3.1</span>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="system-message message">
+                    🎯 <strong>System Initialized</strong><br>
+                    ✅ AI Provider Manager: 3 providers loaded<br>
+                    ✅ MCP Server: 2 agents registered<br>
+                    ✅ Chatbot Core: 22 commands available<br>
+                    ✅ Integration: All components connected
+                </div>
+
+                <div class="bot-message message">
+                    👋 Hello! I'm the PulseGuard AI assistant, integrated with the MCP server for cross-agent context sharing.
+                    <br><br>
+                    <strong>Available integrations:</strong><br>
+                    🧠 <strong>AI Providers:</strong> OpenAI, Anthropic, Local LLMs<br>
+                    📡 <strong>MCP Server:</strong> Context sharing, agent communication<br>
+                    💬 <strong>Commands:</strong> 22 integrated commands<br>
+                    <br>
+                    Try commands like <code>/help</code>, <code>/status</code>, <code>/providers</code>, or <code>/share</code> to see the integration in action!
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message or command (e.g., /help, /status)..." />
+                
+                <div class="command-buttons">
+                    <button class="command-btn" onclick="sendCommand('/help')">📚 /help</button>
+                    <button class="command-btn" onclick="sendCommand('/status')">📊 /status</button>
+                    <button class="command-btn" onclick="sendCommand('/providers')">🧠 /providers</button>
+                    <button class="command-btn" onclick="sendCommand('/share demo_context')">🔗 /share</button>
+                    <button class="command-btn" onclick="sendCommand('/stats')">📈 /stats</button>
+                    <button class="command-btn" onclick="sendCommand('/context')">📝 /context</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo data and responses
+        const demoResponses = {
+            '/help': `**Available Commands:**
+
+**AI Commands:**
+- \`/provider\` - Change AI provider
+- \`/model\` - Change AI model  
+- \`/providers\` - List available providers
+- \`/models\` - List available models
+
+**System Commands:**
+- \`/status\` - Show system status
+- \`/stats\` - Show statistics
+
+**Context Commands:**
+- \`/share\` - Share context with MCP server
+- \`/context\` - Show current context
+
+**Session Commands:**
+- \`/clear\` - Clear chat history
+- \`/sessions\` - List chat sessions
+
+This demonstrates the complete integration of Phase 6.1-6.3!`,
+
+            '/status': `🎯 **PulseGuard System Status**
+
+✅ **AI Provider Manager**: Operational
+   - Providers: local, openai, anthropic
+   - Current: local/llama3.1
+   - Load balancing: Active
+
+✅ **MCP Server**: Operational  
+   - Registered agents: 2
+   - Active contexts: 4
+   - Active conversations: 3
+   - Memory storage: Connected
+
+✅ **Chatbot Interface**: Operational
+   - Active sessions: 1
+   - Commands available: 22
+   - Integration status: Connected
+
+✅ **Integration Status**: All components connected and operational!`,
+
+            '/providers': `**Available AI Providers:**
+
+🤖 **local** (Current)
+   - Model: llama3.1
+   - Status: ✅ Online
+   - Latency: ~500ms
+   - Load: 25%
+
+🧠 **openai** 
+   - Models: gpt-4, gpt-3.5-turbo
+   - Status: ⚠️ Requires API key
+   - Latency: ~800ms
+
+🔬 **anthropic**
+   - Models: claude-3.5-sonnet, claude-3-haiku
+   - Status: ⚠️ Requires API key
+   - Latency: ~700ms
+
+The AI Provider Manager handles load balancing and health monitoring across all providers.`,
+
+            '/share': `🔗 **MCP Context Sharing**
+
+✅ Context shared with MCP server
+   - Context ID: mcp_ctx_${Date.now().toString().slice(-6)}
+   - Participants: chatbot, demo_user
+   - Shared data: Current conversation state
+   - Timestamp: ${new Date().toLocaleTimeString()}
+
+This demonstrates how the chatbot integrates with the MCP server for cross-agent context sharing. Other agents can now access this conversation context.`,
+
+            '/stats': `📈 **System Statistics**
+
+**AI Provider Manager:**
+   - Total requests: 127
+   - Average latency: 650ms
+   - Success rate: 98.5%
+   - Active providers: 3
+
+**MCP Server:**
+   - Registered agents: 2
+   - Total contexts: 15
+   - Messages processed: 89
+   - Memory entries: 42
+
+**Chatbot Core:**
+   - Active sessions: 1
+   - Messages sent: 23
+   - Commands processed: 8
+   - Integration calls: 5
+
+**Performance:**
+   - System uptime: 2h 34m
+   - Memory usage: 145MB
+   - Response time: <1s`,
+
+            '/context': `📝 **Current Context**
+
+**Session Information:**
+   - Session ID: demo_session_${Date.now().toString().slice(-6)}
+   - User ID: demo_user
+   - Provider: local/llama3.1
+   - Started: ${new Date().toLocaleTimeString()}
+
+**MCP Integration:**
+   - Agent ID: chatbot_demo
+   - Context sharing: Enabled
+   - Conversation ID: mcp_conv_${Date.now().toString().slice(-6)}
+   - Participants: 2
+
+**System State:**
+   - All integrations: Active
+   - Context synchronization: Real-time
+   - Memory persistence: Enabled`
+        };
+
+        let messageCount = 0;
+        let sessionStats = {
+            messages: 2,
+            contexts: 4,
+            agents: 2,
+            conversations: 3
+        };
+
+        function addMessage(content, isUser = false, isSystem = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            
+            let className = 'message ';
+            if (isUser) className += 'user-message';
+            else if (isSystem) className += 'system-message';
+            else className += 'bot-message';
+            
+            messageDiv.className = className;
+            messageDiv.innerHTML = isUser ? content : content.replace(/\n/g, '<br>').replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Update stats
+            if (!isSystem) {
+                messageCount++;
+                updateStats();
+            }
+        }
+
+        function updateStats() {
+            sessionStats.messages++;
+            if (Math.random() > 0.7) sessionStats.contexts++;
+            if (Math.random() > 0.8) sessionStats.conversations++;
+            
+            document.getElementById('mcp-contexts').textContent = sessionStats.contexts;
+            document.getElementById('mcp-conversations').textContent = sessionStats.conversations;
+            document.getElementById('chat-sessions').textContent = Math.max(1, Math.floor(sessionStats.messages / 5));
+        }
+
+        function sendCommand(command) {
+            // Add user message
+            addMessage(command, true);
+            
+            // Show typing indicator
+            setTimeout(() => {
+                if (demoResponses[command]) {
+                    addMessage(demoResponses[command]);
+                } else if (command.startsWith('/')) {
+                    addMessage(`✅ Command processed: ${command}\n\nThis is a demo showing the integration between the chatbot interface and MCP server. In the real system, this command would interact with the actual AI providers and MCP infrastructure.`);
+                } else {
+                    addMessage(`Hello! I'm the PulseGuard AI assistant integrated with the MCP server.
+
+Your message: "${command}"
+
+I can help you with:
+🧠 **AI Provider Management** - Switch between OpenAI, Anthropic, and local models
+📡 **MCP Server Integration** - Share context between agents
+💬 **System Monitoring** - Check status and statistics
+🔧 **Command Processing** - 22 available commands
+
+Try the command buttons below or type /help for more information!`);
+                }
+            }, 1000);
+            
+            // Clear input
+            document.getElementById('chatInput').value = '';
+        }
+
+        // Handle Enter key in input
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const message = this.value.trim();
+                if (message) {
+                    sendCommand(message);
+                }
+            }
+        });
+
+        // Simulate some activity
+        setTimeout(() => {
+            addMessage('🔗 MCP Server integration active - context sharing enabled', false, true);
+        }, 3000);
+
+        setTimeout(() => {
+            addMessage('🧠 AI Provider health check complete - all providers operational', false, true);
+        }, 6000);
+    </script>
+</body>
+</html>

@@ -15,6 +15,9 @@ from src.config import settings
 from src.api.agents import router as agents_router, set_agent_registry
 from src.api.metrics import router as metrics_router
 from src.api.health import router as health_router
+from src.api.ai_providers import router as ai_providers_router
+from src.api.mcp_router import router as mcp_router
+from src.api.chatbot_router import router as chatbot_router
 from src.core.agent_registry import AgentRegistry
 from src.core.metrics_collector import metrics_collector
 from src.database.connection import DatabaseManager
@@ -55,6 +58,32 @@ async def lifespan(app: FastAPI):
         set_agent_registry(agent_registry)
         logger.info("Agent registry initialized successfully")
         
+        # Initialize AI Provider Manager
+        try:
+            from src.ai_providers.provider_manager import get_provider_manager
+            provider_manager = get_provider_manager()
+            await provider_manager.initialize()
+            logger.info("AI Provider Manager initialized successfully")
+        except Exception as e:
+            logger.warning(f"AI Provider Manager initialization failed: {e}")
+        
+        # Initialize MCP Server
+        try:
+            from src.api.mcp_router import get_mcp_server
+            mcp_server = get_mcp_server()
+            await mcp_server.start()
+            logger.info("MCP Server initialized successfully")
+        except Exception as e:
+            logger.warning(f"MCP Server initialization failed: {e}")
+            
+        # Initialize Chatbot Core
+        try:
+            from src.api.chatbot_router import get_chatbot_core
+            chatbot_core = get_chatbot_core()
+            logger.info("Chatbot Core initialized successfully")
+        except Exception as e:
+            logger.warning(f"Chatbot Core initialization failed: {e}")
+        
     except Exception as e:
         logger.error(f"Failed to initialize components: {e}")
         raise
@@ -94,6 +123,9 @@ app.add_middleware(
 app.include_router(agents_router, prefix="/api/v1/agents", tags=["agents"])
 app.include_router(metrics_router, prefix="/api/v1/metrics", tags=["metrics"])
 app.include_router(health_router, prefix="/api/v1/health", tags=["health"])
+app.include_router(ai_providers_router, tags=["AI Providers"])
+app.include_router(mcp_router, tags=["MCP"])
+app.include_router(chatbot_router, tags=["Chatbot"])
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="web"), name="static")
@@ -112,15 +144,29 @@ async def root():
             <p>A comprehensive monitoring framework for AI/ML agents</p>
             <ul>
                 <li><a href="/dashboard">🖥️ Agent Monitor Dashboard</a></li>
-                <li><a href="/docs">API Documentation</a></li>
-                <li><a href="/redoc">ReDoc Documentation</a></li>
-                <li><a href="/api/v1/agents">Agents API</a></li>
-                <li><a href="/api/v1/metrics">Metrics API</a></li>
-                <li><a href="/api/v1/health">Health API</a></li>
+                <li><a href="/chat">💬 AI Chatbot Interface</a></li>
+                <li><a href="/docs">📚 API Documentation</a></li>
+                <li><a href="/redoc">📖 ReDoc Documentation</a></li>
+                <li><a href="/api/v1/agents">🤖 Agents API</a></li>
+                <li><a href="/api/v1/metrics">📊 Metrics API</a></li>
+                <li><a href="/api/v1/health">❤️ Health API</a></li>
+                <li><a href="/api/v1/ai">🧠 AI Providers API</a></li>
+                <li><a href="/api/v1/mcp">🔗 MCP Server API</a></li>
+                <li><a href="/api/v1/chat">💬 Chatbot API</a></li>
             </ul>
         </body>
     </html>
     """
+
+
+@app.get("/chat", response_class=HTMLResponse)
+async def chatbot_interface():
+    """Serve the AI chatbot interface"""
+    try:
+        return FileResponse("web/chatbot.html")
+    except Exception as e:
+        logger.error(f"Failed to serve chatbot interface: {e}")
+        return HTMLResponse("<h1>Chatbot Interface temporarily unavailable</h1>", status_code=500)
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
