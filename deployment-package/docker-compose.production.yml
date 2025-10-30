@@ -1,0 +1,157 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=agent_monitor
+      - POSTGRES_USER=agent_monitor
+      - POSTGRES_PASSWORD=agent_monitor_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - agent-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent_monitor -d agent_monitor"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  monitor-dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: agent_monitor-monitor:latest
+    command: python main_production_server.py
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - MONITOR_URL=http://192.168.1.220:8000
+      - DATABASE_URL=postgresql+asyncpg://agent_monitor:agent_monitor_password@postgres:5432/agent_monitor
+    volumes:
+      - agent_data:/app/data
+    networks:
+      - agent-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/agents/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  container-agent-1:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: agent_monitor-test-agent:latest
+    command: python agent_production_deployment.py
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=🐳 Container LLM Agent 1
+      - AGENT_TYPE=LLM_AGENT
+      - WORKLOAD_TYPE=llm
+      - AGENT_ENVIRONMENT=DOCKER
+      - MONITOR_URL=http://monitor-dashboard:8000
+      - PYTHONPATH=/app
+    networks:
+      - agent-network
+    depends_on:
+      monitor-dashboard:
+        condition: service_healthy
+
+  container-agent-2:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: agent_monitor-test-agent:latest
+    command: python agent_production_deployment.py
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=🐳 Container API Agent
+      - AGENT_TYPE=API_AGENT
+      - WORKLOAD_TYPE=api
+      - AGENT_ENVIRONMENT=DOCKER
+      - MONITOR_URL=http://monitor-dashboard:8000
+      - PYTHONPATH=/app
+    networks:
+      - agent-network
+    depends_on:
+      monitor-dashboard:
+        condition: service_healthy
+
+  container-agent-3:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: agent_monitor-test-agent:latest
+    command: python agent_production_deployment.py
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=🐳 Container Data Agent
+      - AGENT_TYPE=DATA_AGENT
+      - WORKLOAD_TYPE=data
+      - AGENT_ENVIRONMENT=DOCKER
+      - MONITOR_URL=http://monitor-dashboard:8000
+      - PYTHONPATH=/app
+    networks:
+      - agent-network
+    depends_on:
+      monitor-dashboard:
+        condition: service_healthy
+
+  container-agent-4:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: agent_monitor-test-agent:latest
+    command: python agent_production_deployment.py
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=🐳 Container Monitor Agent
+      - AGENT_TYPE=MONITOR_AGENT
+      - WORKLOAD_TYPE=standard
+      - AGENT_ENVIRONMENT=DOCKER
+      - MONITOR_URL=http://monitor-dashboard:8000
+      - PYTHONPATH=/app
+    networks:
+      - agent-network
+    depends_on:
+      monitor-dashboard:
+        condition: service_healthy
+
+  container-agent-5:
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: agent_monitor-test-agent:latest
+    command: python agent_production_deployment.py
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=🐳 Container ML Agent
+      - AGENT_TYPE=CUSTOM
+      - WORKLOAD_TYPE=ml
+      - AGENT_ENVIRONMENT=DOCKER
+      - MONITOR_URL=http://monitor-dashboard:8000
+      - PYTHONPATH=/app
+    networks:
+      - agent-network
+    depends_on:
+      monitor-dashboard:
+        condition: service_healthy
+
+networks:
+  agent-network:
+    driver: bridge
+
+volumes:
+  agent_data:
+    driver: local
+  postgres_data:
+    driver: local
